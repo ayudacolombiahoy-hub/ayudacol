@@ -1,0 +1,125 @@
+<h2>Sección 1: Arquitectura general</h2>
+<p class="subtitle">Cómo fluye la información desde quien necesita ayuda hasta quien la envía</p>
+
+<div class="mockup">
+  <div class="mockup-header">Diagrama de arquitectura — Plataforma de Ayuda Humanitaria</div>
+  <div class="mockup-body" style="overflow-x:auto">
+    <svg viewBox="0 0 940 620" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:system-ui,sans-serif">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+        </marker>
+      </defs>
+
+      <!-- ═══ Fila de usuarios ═══ -->
+      <g>
+        <rect x="20" y="20" width="210" height="90" rx="10" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+        <text x="125" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#92400e">Afectados / Ciudadanos</text>
+        <text x="125" y="70" text-anchor="middle" font-size="12" fill="#78350f">Reportan necesidades:</text>
+        <text x="125" y="88" text-anchor="middle" font-size="12" fill="#78350f">alimento, albergue, escombros…</text>
+      </g>
+
+      <g>
+        <rect x="365" y="20" width="210" height="90" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+        <text x="470" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#14532d">Donantes 🇨🇴 🇺🇸</text>
+        <text x="470" y="70" text-anchor="middle" font-size="12" fill="#166534">Consultan en ES / EN</text>
+        <text x="470" y="88" text-anchor="middle" font-size="12" fill="#166534">dónde ayudar y qué se necesita</text>
+      </g>
+
+      <g>
+        <rect x="710" y="20" width="210" height="90" rx="10" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+        <text x="815" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#312e81">Voluntarios / Organizaciones</text>
+        <text x="815" y="70" text-anchor="middle" font-size="12" fill="#3730a3">Verifican reportes, publican</text>
+        <text x="815" y="88" text-anchor="middle" font-size="12" fill="#3730a3">acopios, actualizan estados</text>
+      </g>
+
+      <!-- WhatsApp lateral -->
+      <g>
+        <rect x="20" y="150" width="210" height="70" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2" stroke-dasharray="6 3"/>
+        <text x="125" y="178" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">📱 Línea WhatsApp</text>
+        <text x="125" y="198" text-anchor="middle" font-size="11" fill="#166534">voluntarios transcriben reportes</text>
+      </g>
+      <path d="M 230 185 C 400 185 680 140 750 120" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+
+      <!-- Flechas usuarios → app -->
+      <path d="M 125 110 L 125 150" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" opacity="0"/>
+      <path d="M 125 220 L 200 268" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M 470 110 L 470 260" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M 815 110 L 740 268" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+      <path d="M 160 110 L 300 265" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- ═══ Aplicación Next.js ═══ -->
+      <g>
+        <rect x="90" y="270" width="760" height="150" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+        <text x="470" y="298" text-anchor="middle" font-size="16" font-weight="800" fill="#1e40af">Aplicación Web — Next.js (hosting gratis en Vercel)</text>
+
+        <rect x="110" y="315" width="170" height="85" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="195" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e3a8a">Portal público ES/EN</text>
+        <text x="195" y="360" text-anchor="middle" font-size="11" fill="#334155">Mapa + filtros por ciudad</text>
+        <text x="195" y="377" text-anchor="middle" font-size="11" fill="#334155">necesidades y acopios</text>
+
+        <rect x="295" y="315" width="170" height="85" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="380" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e3a8a">Formularios</text>
+        <text x="380" y="360" text-anchor="middle" font-size="11" fill="#334155">reportar necesidad,</text>
+        <text x="380" y="377" text-anchor="middle" font-size="11" fill="#334155">ofrecer ayuda / servicios</text>
+
+        <rect x="480" y="315" width="170" height="85" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="565" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e3a8a">Panel de moderación</text>
+        <text x="565" y="360" text-anchor="middle" font-size="11" fill="#334155">verificar reportes, aprobar</text>
+        <text x="565" y="377" text-anchor="middle" font-size="11" fill="#334155">organizaciones (con login)</text>
+
+        <rect x="665" y="315" width="170" height="85" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="750" y="340" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e3a8a">Dashboard estadísticas</text>
+        <text x="750" y="360" text-anchor="middle" font-size="11" fill="#334155">necesidades por ciudad,</text>
+        <text x="750" y="377" text-anchor="middle" font-size="11" fill="#334155">atendido vs. pendiente</text>
+      </g>
+
+      <!-- Flecha app → supabase (bidireccional) -->
+      <path d="M 470 420 L 470 465" fill="none" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+      <text x="490" y="448" font-size="11" fill="#475569">tiempo real ⚡</text>
+
+      <!-- ═══ Supabase ═══ -->
+      <g>
+        <rect x="90" y="470" width="560" height="120" rx="12" fill="#ecfdf5" stroke="#059669" stroke-width="2.5"/>
+        <text x="370" y="498" text-anchor="middle" font-size="16" font-weight="800" fill="#065f46">Supabase (capa gratuita)</text>
+
+        <rect x="110" y="512" width="120" height="60" rx="8" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+        <text x="170" y="537" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">Postgres</text>
+        <text x="170" y="555" text-anchor="middle" font-size="10.5" fill="#334155">todos los datos</text>
+
+        <rect x="245" y="512" width="120" height="60" rx="8" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+        <text x="305" y="537" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">Auth</text>
+        <text x="305" y="555" text-anchor="middle" font-size="10.5" fill="#334155">login y roles</text>
+
+        <rect x="380" y="512" width="120" height="60" rx="8" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+        <text x="440" y="537" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">Realtime</text>
+        <text x="440" y="555" text-anchor="middle" font-size="10.5" fill="#334155">cambios en vivo</text>
+
+        <rect x="515" y="512" width="120" height="60" rx="8" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+        <text x="575" y="537" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">Storage</text>
+        <text x="575" y="555" text-anchor="middle" font-size="10.5" fill="#334155">fotos de reportes</text>
+      </g>
+
+      <!-- OpenStreetMap -->
+      <g>
+        <rect x="690" y="470" width="230 " height="120" rx="12" fill="#fdf4ff" stroke="#a855f7" stroke-width="2"/>
+        <text x="805" y="510" text-anchor="middle" font-size="14" font-weight="800" fill="#6b21a8">🗺️ OpenStreetMap</text>
+        <text x="805" y="535" text-anchor="middle" font-size="11.5" fill="#581c87">mapas gratis, sin API key</text>
+        <text x="805" y="553" text-anchor="middle" font-size="11.5" fill="#581c87">(MapLibre / Leaflet)</text>
+      </g>
+      <path d="M 805 470 L 780 420" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" opacity="0"/>
+      <path d="M 750 420 L 790 468" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="5 4"/>
+    </svg>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Puntos clave</h3>
+  <ul>
+    <li><strong>Una sola aplicación web</strong> sirve a los tres públicos: quien pide ayuda, quien dona y quien coordina. Sin apps móviles nativas — la web es móvil-primero y funciona en cualquier celular.</li>
+    <li><strong>Costo: $0/mes.</strong> Vercel (hosting), Supabase (datos/login/tiempo real) y OpenStreetMap (mapas) tienen capas gratuitas suficientes para esta escala.</li>
+    <li><strong>Tiempo real de verdad:</strong> cuando un moderador verifica un reporte o un acopio dice "ya no necesitamos ropa", el cambio aparece al instante en el mapa y las listas de todos, sin recargar la página.</li>
+    <li><strong>La línea de WhatsApp</strong> no es un bot: es un número difundido públicamente que los voluntarios atienden y transcriben al panel — así entran las zonas rurales con conectividad limitada.</li>
+    <li><strong>Bilingüe ES/EN</strong> en todo el portal público, con selector de idioma; el panel de moderación puede ser solo en español.</li>
+  </ul>
+</div>

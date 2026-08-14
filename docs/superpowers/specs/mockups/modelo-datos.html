@@ -1,0 +1,103 @@
+<h2>Sección 2: Modelo de datos</h2>
+<p class="subtitle">Las tablas principales en Supabase (Postgres) y cómo se relacionan</p>
+
+<div class="mockup">
+  <div class="mockup-header">Diagrama de entidades — agrupadas por función</div>
+  <div class="mockup-body" style="overflow-x:auto">
+    <svg viewBox="0 0 960 700" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;font-family:system-ui,sans-serif">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+
+      <!-- ═══ Grupo: NECESIDADES ═══ -->
+      <rect x="20" y="20" width="440" height="290" rx="12" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+      <text x="40" y="48" font-size="15" font-weight="800" fill="#92400e">🆘 NECESIDADES</text>
+
+      <rect x="40" y="65" width="400" height="225" rx="8" fill="#ffffff" stroke="#fbbf24" stroke-width="1.5"/>
+      <text x="60" y="92" font-size="13.5" font-weight="700" fill="#78350f">solicitudes_ayuda</text>
+      <line x1="40" y1="102" x2="440" y2="102" stroke="#fde68a" stroke-width="1.5"/>
+      <text x="60" y="124" font-size="12" fill="#334155">• categoría: alimentos, agua, albergue, materiales</text>
+      <text x="72" y="142" font-size="12" fill="#334155">de construcción, remoción escombros, salud, rescate</text>
+      <text x="60" y="164" font-size="12" fill="#334155">• descripción, nº personas afectadas, urgencia (alta/media/baja)</text>
+      <text x="60" y="186" font-size="12" fill="#334155">• municipio + detalle + coordenadas para el mapa</text>
+      <text x="60" y="208" font-size="12" fill="#334155">• estado: <tspan font-weight="700">pendiente → verificada → en atención → resuelta</tspan></text>
+      <text x="60" y="230" font-size="12" fill="#334155">• fotos (opcional) · origen: web o WhatsApp</text>
+      <text x="60" y="252" font-size="12" fill="#b91c1c">• 🔒 nombre y teléfono de contacto: SOLO visibles</text>
+      <text x="72" y="270" font-size="12" fill="#b91c1c">para moderadores, nunca públicos</text>
+
+      <!-- ═══ Grupo: RECURSOS DISPONIBLES ═══ -->
+      <rect x="500" y="20" width="440" height="420" rx="12" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+      <text x="520" y="48" font-size="15" font-weight="800" fill="#14532d">🤝 RECURSOS DISPONIBLES</text>
+
+      <rect x="520" y="65" width="400" height="120" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+      <text x="540" y="90" font-size="13.5" font-weight="700" fill="#14532d">centros_acopio</text>
+      <line x1="520" y1="100" x2="920" y2="100" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="540" y="122" font-size="12" fill="#334155">• dirección, municipio, coordenadas, horarios, contacto</text>
+      <text x="540" y="144" font-size="12" fill="#334155">• qué SÍ reciben / qué YA NO necesitan (clave anti-desperdicio)</text>
+      <text x="540" y="166" font-size="12" fill="#334155">• estado: activo / lleno / cerrado · "actualizado hace X horas"</text>
+
+      <rect x="520" y="200" width="400" height="105" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+      <text x="540" y="225" font-size="13.5" font-weight="700" fill="#14532d">voluntarios</text>
+      <line x1="520" y1="235" x2="920" y2="235" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="540" y="257" font-size="12" fill="#334155">• habilidades: médico, psicólogo, remoción escombros,</text>
+      <text x="552" y="275" font-size="12" fill="#334155">logística, transporte, construcción · disponibilidad · ciudad</text>
+      <text x="540" y="297" font-size="12" fill="#b91c1c">• 🔒 contacto privado — las orgs lo piden vía moderadores</text>
+
+      <rect x="520" y="320" width="400" height="105" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.5"/>
+      <text x="540" y="345" font-size="13.5" font-weight="700" fill="#14532d">ofertas_servicios</text>
+      <line x1="520" y1="355" x2="920" y2="355" stroke="#bbf7d0" stroke-width="1.5"/>
+      <text x="540" y="377" font-size="12" fill="#334155">• tipo: alojamiento temporal, transporte, maquinaria,</text>
+      <text x="552" y="395" font-size="12" fill="#334155">bodega, otro · capacidad · municipio · estado</text>
+      <text x="540" y="417" font-size="12" fill="#b91c1c">• 🔒 contacto privado hasta ser conectado por moderadores</text>
+
+      <!-- ═══ Grupo: PERSONAS Y ORGANIZACIONES ═══ -->
+      <rect x="20" y="340" width="440" height="220" rx="12" fill="#eef2ff" stroke="#4f46e5" stroke-width="2"/>
+      <text x="40" y="368" font-size="15" font-weight="800" fill="#312e81">🏛️ ORGANIZACIONES Y ROLES</text>
+
+      <rect x="40" y="385" width="195" height="155" rx="8" fill="#ffffff" stroke="#a5b4fc" stroke-width="1.5"/>
+      <text x="60" y="410" font-size="13.5" font-weight="700" fill="#312e81">organizaciones</text>
+      <line x1="40" y1="420" x2="235" y2="420" stroke="#c7d2fe" stroke-width="1.5"/>
+      <text x="60" y="442" font-size="11.5" fill="#334155">• ONG, alcaldía, bomberos,</text>
+      <text x="60" y="460" font-size="11.5" fill="#334155">iglesia, empresa, comunidad</text>
+      <text x="60" y="482" font-size="11.5" fill="#334155">• estado: pendiente / aprobada</text>
+      <text x="60" y="504" font-size="11.5" fill="#334155">• publican acopios y</text>
+      <text x="60" y="522" font-size="11.5" fill="#334155">solicitudes de personal</text>
+
+      <rect x="245" y="385" width="195" height="155" rx="8" fill="#ffffff" stroke="#a5b4fc" stroke-width="1.5"/>
+      <text x="265" y="410" font-size="13.5" font-weight="700" fill="#312e81">usuarios (con login)</text>
+      <line x1="245" y1="420" x2="440" y2="420" stroke="#c7d2fe" stroke-width="1.5"/>
+      <text x="265" y="442" font-size="11.5" fill="#334155">• rol: admin / moderador /</text>
+      <text x="265" y="460" font-size="11.5" fill="#334155">miembro de organización</text>
+      <text x="265" y="482" font-size="11.5" fill="#334155">• solo el equipo necesita</text>
+      <text x="265" y="500" font-size="11.5" fill="#334155">cuenta — el público reporta</text>
+      <text x="265" y="518" font-size="11.5" fill="#334155">y consulta SIN registrarse</text>
+
+      <!-- ═══ Grupo: TRANSVERSAL ═══ -->
+      <rect x="20" y="590" width="920" height="90" rx="12" fill="#faf5ff" stroke="#a855f7" stroke-width="2"/>
+      <text x="40" y="618" font-size="15" font-weight="800" fill="#6b21a8">📊 TRANSVERSAL</text>
+      <text x="200" y="618" font-size="12.5" fill="#334155"><tspan font-weight="700">municipios</tspan>: catálogo fijo (Manizales, Pereira, Armenia, Cali, Quibdó… + veredas) para filtros consistentes</text>
+      <text x="200" y="641" font-size="12.5" fill="#334155"><tspan font-weight="700">campañas_dinero</tspan>: enlaces verificados a GoFundMe/cuentas ONG, título y descripción en ES y EN</text>
+      <text x="200" y="664" font-size="12.5" fill="#334155"><tspan font-weight="700">historial_cambios</tspan>: cada cambio de estado queda registrado → alimenta estadísticas y "actualizado hace X"</text>
+
+      <!-- Relaciones -->
+      <path d="M 235 462 C 480 462 490 260 518 255" fill="none" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+      <path d="M 235 440 C 470 440 480 130 518 125" fill="none" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+      <text x="452" y="418" font-size="11" fill="#64748b">publica</text>
+      <path d="M 342 385 C 342 340 300 320 260 312" fill="none" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+      <text x="330" y="332" font-size="11" fill="#64748b">verifica</text>
+    </svg>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Decisiones clave de este modelo</h3>
+  <ul>
+    <li><strong>El público no se registra.</strong> Reportar una necesidad u ofrecer ayuda es un formulario abierto (con protección anti-spam). Solo moderadores y organizaciones tienen cuenta. Esto elimina la mayor barrera de uso en una emergencia.</li>
+    <li><strong>Los datos de contacto nunca son públicos.</strong> Teléfonos de afectados y voluntarios solo los ven moderadores (con reglas de seguridad a nivel de fila en Postgres). Evita estafas y protección de datos personales.</li>
+    <li><strong>"Qué YA NO necesitamos"</strong> en los acopios es tan importante como "qué necesitamos" — evita montañas de ropa donde falta agua.</li>
+    <li><strong>Todo cambio de estado queda en el historial</strong> → las estadísticas (resueltas por día, tiempo de respuesta por ciudad) salen gratis de ahí.</li>
+    <li><strong>Las categorías son códigos, no texto libre</strong> → se traducen automáticamente en la interfaz ES/EN y los filtros nunca se rompen.</li>
+  </ul>
+</div>

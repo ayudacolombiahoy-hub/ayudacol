@@ -1,0 +1,187 @@
+<style>
+  .viz-wrap { background:#020617; border-radius:10px; padding:0; display:flex; flex-wrap:wrap; overflow:hidden; border:1px solid #1e293b; }
+  .viz-map { flex:1.2; min-width:320px; position:relative; padding:10px 0; }
+  .viz-panel { flex:1; min-width:280px; background:#0b1220; border-left:1px solid #1e293b; padding:26px 28px; color:#e2e8f0; font-family:system-ui,sans-serif; }
+  .viz-header { position:absolute; top:14px; left:18px; z-index:2; color:#f8fafc; font-family:system-ui,sans-serif; }
+  .viz-header .brand { font-size:15px; font-weight:800; letter-spacing:.5px; }
+  .viz-header .live { font-size:10px; color:#4ade80; }
+  .focus { cursor:pointer; }
+  .focus circle.core { transition: r .2s; }
+  .focus:hover circle.core { r:9; }
+  @keyframes ringPulse { 0% { r:6; opacity:.85; } 100% { r:26; opacity:0; } }
+  .ring { animation: ringPulse 2s ease-out infinite; }
+  .ring2 { animation: ringPulse 2s ease-out infinite; animation-delay:1s; }
+  .big-number { font-size:52px; font-weight:800; line-height:1; color:#f8fafc; font-variant-numeric:tabular-nums; }
+  .region-name { font-size:18px; font-weight:700; color:#7dd3fc; margin-bottom:14px; }
+  .stat-row { display:flex; justify-content:space-between; font-size:13px; padding:7px 0; border-bottom:1px solid #1e293b; }
+  .stat-row b { font-variant-numeric:tabular-nums; }
+  .cat-bar { height:7px; border-radius:4px; background:#1e293b; margin:3px 0 9px; overflow:hidden; }
+  .cat-bar > div { height:100%; border-radius:4px; background:linear-gradient(90deg,#38bdf8,#818cf8); }
+  .cat-label { font-size:10.5px; color:#94a3b8; display:flex; justify-content:space-between; }
+  .viz-foot { color:#64748b; font-size:10px; padding:10px 18px; font-family:system-ui,sans-serif; }
+</style>
+
+<h2>Sección 3b: Visualizador de focos — estilo covidvisualizer, pero de Colombia</h2>
+<p class="subtitle">Maqueta interactiva: haz clic en los focos que pulsan (Chocó, Eje Cafetero, Cali). Los números son de ejemplo.</p>
+
+<div class="viz-wrap">
+  <div class="viz-map">
+    <div class="viz-header">
+      <div class="brand">🇨🇴 AyudaCol</div>
+      <div class="live">● DATOS EN VIVO · actualizado hace 2 min</div>
+    </div>
+    <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">
+      <defs>
+        <radialGradient id="landGlow" cx="45%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#0c2f4f"/>
+          <stop offset="100%" stop-color="#06121f"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Silueta simplificada de Colombia -->
+      <path d="M 305 42
+               L 332 28 L 336 44 L 318 62
+               C 300 70 280 62 262 66
+               C 244 70 230 74 216 86
+               C 204 96 196 104 188 112
+               C 178 116 170 112 164 118
+               C 156 132 152 144 150 158
+               C 146 176 144 192 143 208
+               C 142 226 146 242 152 258
+               C 158 272 164 282 170 292
+               C 178 306 188 318 198 332
+               C 206 344 212 358 218 372
+               C 226 392 234 412 242 432
+               C 246 446 250 458 252 468
+               L 262 452 L 274 428 L 284 400
+               C 292 380 300 360 308 340
+               C 316 322 326 306 334 288
+               C 344 268 354 248 358 226
+               C 360 210 356 196 350 182
+               C 344 166 338 152 334 138
+               C 330 124 326 110 320 96
+               C 314 80 308 60 305 42 Z"
+            fill="url(#landGlow)" stroke="#155e88" stroke-width="1.5" opacity="0.95"/>
+
+      <!-- Etiqueta de mares -->
+      <text x="200" y="34" font-size="9" fill="#334155" font-family="system-ui">MAR CARIBE</text>
+      <text x="96" y="200" font-size="9" fill="#334155" font-family="system-ui" transform="rotate(-72 96 200)">OCÉANO PACÍFICO</text>
+
+      <!-- Bogotá: referencia tenue -->
+      <circle cx="240" cy="210" r="3" fill="#475569"/>
+      <text x="248" y="213" font-size="9" fill="#64748b" font-family="system-ui">Bogotá</text>
+
+      <!-- FOCOS (de norte a sur) -->
+      <g class="focus" onclick="showRegion('choco')" id="f-choco">
+        <circle class="ring" cx="168" cy="165" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+        <circle class="ring2" cx="168" cy="165" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+        <circle class="core" cx="168" cy="165" r="7" fill="#ef4444"/>
+        <text x="120" y="152" font-size="10" fill="#fca5a5" font-family="system-ui" font-weight="700">Chocó</text>
+      </g>
+
+      <g class="focus" onclick="showRegion('manizales')" id="f-manizales">
+        <circle class="ring" cx="207" cy="196" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+        <circle class="ring2" cx="207" cy="196" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+        <circle class="core" cx="207" cy="196" r="8" fill="#ef4444"/>
+        <text x="218" y="192" font-size="10" fill="#fca5a5" font-family="system-ui" font-weight="700">Manizales</text>
+      </g>
+
+      <g class="focus" onclick="showRegion('pereira')" id="f-pereira">
+        <circle class="ring" cx="199" cy="211" r="5" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <circle class="core" cx="199" cy="211" r="6.5" fill="#f59e0b"/>
+        <text x="152" y="215" font-size="10" fill="#fcd34d" font-family="system-ui" font-weight="700">Pereira</text>
+      </g>
+
+      <g class="focus" onclick="showRegion('quindio')" id="f-quindio">
+        <circle class="ring" cx="204" cy="226" r="5" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <circle class="core" cx="204" cy="226" r="6" fill="#f59e0b"/>
+        <text x="214" y="232" font-size="10" fill="#fcd34d" font-family="system-ui" font-weight="700">Quindío</text>
+      </g>
+
+      <g class="focus" onclick="showRegion('cali')" id="f-cali">
+        <circle class="ring" cx="186" cy="252" r="5" fill="none" stroke="#f59e0b" stroke-width="2"/>
+        <circle class="core" cx="186" cy="252" r="6.5" fill="#f59e0b"/>
+        <text x="140" y="258" font-size="10" fill="#fcd34d" font-family="system-ui" font-weight="700">Cali</text>
+      </g>
+    </svg>
+    <div class="viz-foot">🔴 crítico &nbsp; 🟡 alto &nbsp; · el tamaño y color del foco = necesidades urgentes sin resolver · zonas rurales se agrupan por municipio</div>
+  </div>
+
+  <div class="viz-panel">
+    <div class="region-name" id="p-name">—</div>
+    <div class="big-number" id="p-big">0</div>
+    <div style="font-size:12px;color:#94a3b8;margin-bottom:18px;">necesidades activas verificadas</div>
+    <div class="stat-row"><span>🔴 Urgentes</span> <b id="p-urgentes" style="color:#f87171">0</b></div>
+    <div class="stat-row"><span>📦 Centros de acopio abiertos</span> <b id="p-acopios" style="color:#4ade80">0</b></div>
+    <div class="stat-row"><span>🤝 Voluntarios disponibles</span> <b id="p-vols" style="color:#7dd3fc">0</b></div>
+    <div class="stat-row" style="margin-bottom:16px"><span>✅ Resueltas esta semana</span> <b id="p-resueltas" style="color:#a3e635">0</b></div>
+    <div style="font-size:11px;color:#94a3b8;margin-bottom:6px;font-weight:700;">QUÉ MÁS SE NECESITA AQUÍ</div>
+    <div id="p-cats"></div>
+    <div style="margin-top:16px"><span style="background:#1d4ed8;color:#dbeafe;border-radius:6px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;">Ver detalle y cómo ayudar →</span></div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px">
+  <h3>¿El visualizador de focos como pieza central — en cuál marco?</h3>
+  <div class="options">
+    <div class="option" data-choice="marco-oscuro" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>Todo el portal oscuro (centro de comando)</h3>
+        <p>El visualizador ES la página de inicio, a pantalla completa. Listas, formularios y estadísticas también en tema oscuro.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="marco-claro" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>Portal claro con el visualizador oscuro incrustado (híbrido)</h3>
+        <p>El visualizador domina la parte superior de la página de inicio; formularios, listas y contenido informativo en tema claro, más legible para el público general y alcaldías.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var REGIONES = {
+    choco:     { name:"Chocó — Quibdó y municipios", activas:96,  urgentes:41, acopios:6,  vols:118, resueltas:22,
+                 cats:[["Agua potable",90],["Alimentos",75],["Albergue",60],["Salud",45]] },
+    manizales: { name:"Manizales — Caldas", activas:124, urgentes:38, acopios:18, vols:412, resueltas:67,
+                 cats:[["Remoción de escombros",85],["Materiales de construcción",70],["Albergue",55],["Alimentos",40]] },
+    pereira:   { name:"Pereira — Risaralda", activas:87,  urgentes:21, acopios:14, vols:298, resueltas:54,
+                 cats:[["Albergue",80],["Materiales de construcción",65],["Alimentos",50],["Remoción de escombros",45]] },
+    quindio:   { name:"Quindío — Armenia y municipios", activas:63,  urgentes:15, acopios:11, vols:187, resueltas:41,
+                 cats:[["Materiales de construcción",75],["Albergue",60],["Alimentos",45],["Salud",30]] },
+    cali:      { name:"Cali — Valle del Cauca", activas:71,  urgentes:18, acopios:16, vols:390, resueltas:48,
+                 cats:[["Alimentos",70],["Albergue",55],["Agua potable",40],["Salud",35]] }
+  };
+  function animateNumber(el, target) {
+    var start = 0, dur = 600, t0 = performance.now();
+    function tick(t) {
+      var p = Math.min((t - t0) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  window.showRegion = function(key) {
+    var r = REGIONES[key];
+    if (!r) return;
+    document.getElementById('p-name').textContent = r.name;
+    animateNumber(document.getElementById('p-big'), r.activas);
+    animateNumber(document.getElementById('p-urgentes'), r.urgentes);
+    animateNumber(document.getElementById('p-acopios'), r.acopios);
+    animateNumber(document.getElementById('p-vols'), r.vols);
+    animateNumber(document.getElementById('p-resueltas'), r.resueltas);
+    var cats = document.getElementById('p-cats');
+    cats.innerHTML = '';
+    r.cats.forEach(function(c) {
+      var lbl = document.createElement('div'); lbl.className = 'cat-label';
+      lbl.innerHTML = '<span>' + c[0] + '</span><span>' + c[1] + '%</span>';
+      var bar = document.createElement('div'); bar.className = 'cat-bar';
+      var fill = document.createElement('div'); fill.style.width = '0%';
+      bar.appendChild(fill); cats.appendChild(lbl); cats.appendChild(bar);
+      setTimeout(function(){ fill.style.transition = 'width .7s ease'; fill.style.width = c[1] + '%'; }, 60);
+    });
+  };
+  showRegion('manizales');
+</script>

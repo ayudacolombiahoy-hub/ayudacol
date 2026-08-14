@@ -1,0 +1,127 @@
+<style>
+  .mini { height: 230px; overflow: hidden; border-radius: 6px; position: relative; font-family: system-ui, sans-serif; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,68,68,.6);} 70% { box-shadow: 0 0 0 8px rgba(239,68,68,0);} 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0);} }
+  @keyframes pulseAmber { 0% { box-shadow: 0 0 0 0 rgba(245,158,11,.6);} 70% { box-shadow: 0 0 0 7px rgba(245,158,11,0);} 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0);} }
+  .dot { position:absolute; width:10px; height:10px; border-radius:50%; animation: pulse 2s infinite; }
+  .dotA { animation: pulseAmber 2.2s infinite; }
+  .kpi-dark { background:#0f172a; border:1px solid #1e40af; border-radius:5px; padding:4px 7px; color:#e2e8f0; font-size:9px; }
+  .kpi-dark b { display:block; color:#38bdf8; font-size:13px; }
+  .kpi-light { background:#fff; border:1px solid #e2e8f0; border-radius:5px; padding:4px 7px; color:#334155; font-size:9px; box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .kpi-light b { display:block; color:#1d4ed8; font-size:13px; }
+</style>
+
+<h2>Sección 3a: Dirección de diseño del portal</h2>
+<p class="subtitle">Tres formas de verse "tecnológica, comunicativa y creíble". Haz clic en la que prefieras.</p>
+
+<div class="cards">
+
+  <!-- ═══ OPCIÓN A: Centro de comando ═══ -->
+  <div class="card" data-choice="comando" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mini" style="background:#020617;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#0f172a;border-bottom:1px solid #1e293b;">
+          <span style="color:#f8fafc;font-size:10px;font-weight:700;">🇨🇴 AyudaCol <span style="color:#38bdf8">| Sala de Crisis</span></span>
+          <span style="color:#4ade80;font-size:8px;">● EN VIVO &nbsp; ES/EN</span>
+        </div>
+        <div style="position:relative;height:130px;background:radial-gradient(circle at 40% 50%, #082f49 0%, #020617 75%);">
+          <div style="position:absolute;top:8px;left:10px;color:#64748b;font-size:8px;">MAPA NACIONAL · zoom a Eje Cafetero</div>
+          <div class="dot" style="top:45px;left:38%;background:#ef4444;"></div>
+          <div class="dot" style="top:70px;left:42%;background:#ef4444;animation-delay:.5s"></div>
+          <div class="dot dotA" style="top:58px;left:35%;background:#f59e0b;"></div>
+          <div class="dot dotA" style="top:90px;left:30%;background:#f59e0b;animation-delay:.8s"></div>
+          <div style="position:absolute;top:40px;left:52%;width:9px;height:9px;border-radius:50%;background:#22c55e;"></div>
+          <div style="position:absolute;top:82px;left:48%;width:9px;height:9px;border-radius:50%;background:#22c55e;"></div>
+          <div style="position:absolute;bottom:8px;right:10px;background:rgba(15,23,42,.9);border:1px solid #334155;border-radius:4px;padding:4px 6px;color:#cbd5e1;font-size:8px;">🔴 urgente &nbsp;🟡 pendiente &nbsp;🟢 acopio</div>
+        </div>
+        <div style="display:flex;gap:6px;padding:7px 10px;">
+          <div class="kpi-dark"><b>342</b> necesidades activas</div>
+          <div class="kpi-dark"><b>57</b> acopios abiertos</div>
+          <div class="kpi-dark"><b>1.208</b> voluntarios</div>
+          <div class="kpi-dark" style="border-color:#166534"><b style="color:#4ade80">189</b> resueltas</div>
+        </div>
+        <div style="position:absolute;bottom:0;width:100%;background:#1e3a8a;color:#bfdbfe;font-size:8px;padding:3px 10px;white-space:nowrap;">⚡ Hace 2 min: acopio en Manizales ya no recibe ropa · Hace 5 min: solicitud verificada en Quibdó…</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Centro de comando (oscuro)</h3>
+      <p>Mapa a pantalla completa como protagonista, tema oscuro tipo sala de crisis, KPIs en vivo, ticker de actividad reciente. Máximo impacto "tecnológico" — estilo FlightRadar o dashboard de la Johns Hopkins en pandemia.</p>
+    </div>
+  </div>
+
+  <!-- ═══ OPCIÓN B: Institucional claro ═══ -->
+  <div class="card" data-choice="institucional" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mini" style="background:#f8fafc;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#fff;border-bottom:2px solid #1d4ed8;">
+          <span style="color:#0f172a;font-size:10px;font-weight:700;">🇨🇴 AyudaCol</span>
+          <span style="color:#475569;font-size:8px;">Necesidades · Acopios · Voluntarios · <b>Donar</b> · ES/EN</span>
+        </div>
+        <div style="padding:10px;text-align:center;background:linear-gradient(180deg,#eff6ff, #f8fafc);">
+          <div style="color:#0f172a;font-size:12px;font-weight:800;">Ayuda verificada para el Eje Cafetero y el Pacífico</div>
+          <div style="color:#475569;font-size:8px;margin-top:2px;">Información oficial y en tiempo real · Terremoto del 10 de agosto</div>
+          <div style="display:flex;gap:6px;justify-content:center;margin-top:7px;">
+            <div class="kpi-light"><b>342</b> necesidades</div>
+            <div class="kpi-light"><b>57</b> acopios</div>
+            <div class="kpi-light"><b>189</b> resueltas ✓</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;padding:8px 10px;">
+          <div style="flex:1.3;height:60px;background:#dbeafe;border-radius:5px;position:relative;">
+            <div style="position:absolute;top:4px;left:6px;color:#1e40af;font-size:8px;font-weight:700;">🗺️ Mapa interactivo</div>
+            <div style="position:absolute;top:28px;left:30%;width:8px;height:8px;border-radius:50%;background:#dc2626;"></div>
+            <div style="position:absolute;top:38px;left:45%;width:8px;height:8px;border-radius:50%;background:#16a34a;"></div>
+          </div>
+          <div style="flex:1;background:#fff;border:1px solid #e2e8f0;border-radius:5px;padding:5px;color:#334155;font-size:8px;">📋 Últimas verificadas<br>· Agua — Quibdó 🔴<br>· Albergue — Pereira 🟡</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Institucional claro</h3>
+      <p>Tema claro, tipografía sobria, jerarquía de portal oficial (estilo ONU/OCHA). Genera confianza inmediata en alcaldías y donantes mayores, pero se siente menos "en vivo" que el centro de comando.</p>
+    </div>
+  </div>
+
+  <!-- ═══ OPCIÓN C: Híbrido ═══ -->
+  <div class="card" data-choice="hibrido" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mini" style="background:#f8fafc;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#fff;border-bottom:1px solid #e2e8f0;">
+          <span style="color:#0f172a;font-size:10px;font-weight:700;">🇨🇴 AyudaCol</span>
+          <span style="color:#475569;font-size:8px;">Cómo ayudar · Estadísticas · <b style="color:#1d4ed8">Reportar</b> · ES/EN</span>
+        </div>
+        <div style="padding:7px 10px 4px;">
+          <div style="color:#0f172a;font-size:11px;font-weight:800;">Dona donde más se necesita <span style="color:#16a34a;font-size:8px;">● datos en vivo</span></div>
+        </div>
+        <div style="margin:4px 10px;height:105px;background:radial-gradient(circle at 45% 45%, #0c4a6e 0%, #020617 80%);border-radius:6px;position:relative;border:1px solid #cbd5e1;">
+          <div class="dot" style="top:35px;left:40%;background:#ef4444;"></div>
+          <div class="dot dotA" style="top:55px;left:33%;background:#f59e0b;"></div>
+          <div style="position:absolute;top:50px;left:50%;width:8px;height:8px;border-radius:50%;background:#22c55e;"></div>
+          <div style="position:absolute;top:6px;right:6px;background:rgba(255,255,255,.92);border-radius:4px;padding:3px 6px;font-size:8px;color:#0f172a;">Filtro: <b>Todas las ciudades ▾</b></div>
+          <div style="position:absolute;bottom:6px;left:6px;display:flex;gap:4px;">
+            <div style="background:rgba(15,23,42,.85);color:#7dd3fc;border-radius:3px;padding:2px 5px;font-size:8px;"><b>342</b> activas</div>
+            <div style="background:rgba(15,23,42,.85);color:#86efac;border-radius:3px;padding:2px 5px;font-size:8px;"><b>57</b> acopios</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;padding:5px 10px;">
+          <div style="flex:1;background:#fee2e2;border-radius:4px;padding:4px;color:#991b1b;font-size:8px;font-weight:700;text-align:center;">🆘 Pedir ayuda</div>
+          <div style="flex:1;background:#dcfce7;border-radius:4px;padding:4px;color:#14532d;font-size:8px;font-weight:700;text-align:center;">🤝 Quiero ayudar</div>
+          <div style="flex:1;background:#dbeafe;border-radius:4px;padding:4px;color:#1e3a8a;font-size:8px;font-weight:700;text-align:center;">💵 Donar (US)</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Híbrido: claro + mapa oscuro en vivo</h3>
+      <p>Portal claro y accesible para el público general, con el mapa oscuro "en vivo" incrustado como pieza central de alta tecnología, y dos acciones gigantes: pedir ayuda / quiero ayudar. Lo mejor de ambos mundos.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>En cualquiera de las tres, el nivel "cutting edge" incluye:</h3>
+  <ul>
+    <li><strong>Mapa vectorial MapLibre GL</strong> con clustering animado, zoom fluido y pines que pulsan según urgencia — no un Google Maps genérico.</li>
+    <li><strong>Números que cuentan hacia arriba</strong> al cargar, indicador "● EN VIVO" y actualizaciones que entran con animación sutil sin recargar.</li>
+    <li><strong>Sello de verificación visible</strong> en cada dato (✓ verificada hace 2 h) — la credibilidad como elemento de diseño.</li>
+    <li><strong>Móvil-primero</strong>: todo funciona igual de bien en el celular de un voluntario en Quibdó que en el computador de una alcaldía.</li>
+  </ul>
+</div>

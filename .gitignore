@@ -1,0 +1,14 @@
+# Companion de brainstorming (sesiones locales)
+.superpowers/
+
+# Dependencias y builds (para cuando exista la app)
+node_modules/
+.next/
+out/
+
+# Variables de entorno y secretos
+.env
+.env.*
+
+# Sistema
+.DS_Store
