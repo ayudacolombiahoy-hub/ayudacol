@@ -227,5 +227,14 @@
     "tituloEn": "Title (English)",
     "contenidoEs": "Content (Spanish)",
     "contenidoEn": "Content (English)"
+  },
+  "alertas": {
+    "titulo": "Get email alerts",
+    "intro": "We'll email you when there are important updates in your municipality.",
+    "email": "Email",
+    "municipioOpcional": "Municipality (optional)",
+    "suscribir": "Subscribe",
+    "gracias": "Done! We'll notify you by email.",
+    "todosMunicipios": "All municipalities"
   }
 }

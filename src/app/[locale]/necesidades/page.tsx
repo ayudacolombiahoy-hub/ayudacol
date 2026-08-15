@@ -6,6 +6,7 @@ import { Link } from '@/i18n/navegacion'
 import TarjetaNecesidad from '@/componentes/listas/TarjetaNecesidad'
 import BarraFiltros from '@/componentes/listas/BarraFiltros'
 import Vacio from '@/componentes/listas/Vacio'
+import SuscripcionAlertas from '@/componentes/SuscripcionAlertas'
 
 export default async function Pagina({
   params, searchParams,
@@ -45,6 +46,7 @@ export default async function Pagina({
           {necesidades.map((n) => <TarjetaNecesidad key={n.id} n={n} municipio={mapaMuni.get(n.municipio_id)} />)}
         </div>
       )}
+      <SuscripcionAlertas municipios={opcMuni} />
     </main>
   )
 }

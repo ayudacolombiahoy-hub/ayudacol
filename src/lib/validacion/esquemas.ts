@@ -106,3 +106,10 @@ export const esquemaNovedad = z.object({
 })
 
 export type DatosNovedad = z.infer<typeof esquemaNovedad>
+
+export const esquemaSuscripcion = z.object({
+  email: z.string().trim().email().max(200),
+  municipio_id: z.string().trim().max(20).optional().or(z.literal('')),
+})
+
+export type DatosSuscripcion = z.infer<typeof esquemaSuscripcion>

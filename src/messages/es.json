@@ -227,5 +227,14 @@
     "tituloEn": "Título (inglés)",
     "contenidoEs": "Contenido (español)",
     "contenidoEn": "Contenido (inglés)"
+  },
+  "alertas": {
+    "titulo": "Recibe alertas por correo",
+    "intro": "Te avisamos por correo cuando haya novedades importantes en tu municipio.",
+    "email": "Correo electrónico",
+    "municipioOpcional": "Municipio (opcional)",
+    "suscribir": "Suscribirme",
+    "gracias": "¡Listo! Te avisaremos por correo.",
+    "todosMunicipios": "Todos los municipios"
   }
 }
