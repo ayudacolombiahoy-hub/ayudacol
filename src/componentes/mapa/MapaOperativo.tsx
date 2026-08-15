@@ -34,7 +34,7 @@ export default function MapaOperativo({
   const cont = useRef<HTMLDivElement>(null)
   const mapa = useRef<maplibregl.Map | null>(null)
   const etiq = useRef(etiquetas)
-  etiq.current = etiquetas
+  useEffect(() => { etiq.current = etiquetas }, [etiquetas])
 
   useEffect(() => {
     if (!cont.current || mapa.current) return
