@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest'
-import { tiempoRelativo } from '../../src/lib/formato'
+import { describe, test, expect } from 'vitest'
+import { tiempoRelativo, esUuid } from '../../src/lib/formato'
 
 const ahora = new Date('2026-08-14T12:00:00Z')
 
@@ -13,4 +13,15 @@ test('horas en inglés', () => {
 })
 test('acepta fecha en texto ISO', () => {
   expect(tiempoRelativo('2026-08-14T11:00:00Z', 'es', ahora)).toMatch(/1 h|1 hora/)
+})
+
+describe('esUuid', () => {
+  test('acepta un UUID v4 válido', () => {
+    expect(esUuid('3f4b2c1a-1111-4222-8333-444455556666')).toBe(true)
+  })
+  test('rechaza cadenas que no son UUID', () => {
+    expect(esUuid('123')).toBe(false)
+    expect(esUuid('')).toBe(false)
+    expect(esUuid('drop table')).toBe(false)
+  })
 })

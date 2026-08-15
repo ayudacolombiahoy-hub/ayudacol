@@ -14,6 +14,14 @@ export async function listarMunicipios() {
   return data ?? []
 }
 
+// Nombre "Municipio — Departamento" para un código DANE (o undefined). Reusa listarMunicipios.
+export async function nombreMunicipio(id: string | null): Promise<string | undefined> {
+  if (!id) return undefined
+  const municipios = await listarMunicipios()
+  const m = municipios.find((x) => x.codigo_dane === id)
+  return m ? `${m.nombre} — ${m.departamento}` : undefined
+}
+
 export async function listarNecesidades(f: FiltrosNecesidades = {}) {
   const sb = crearClienteAnonimo()
   let q = sb.from('solicitudes_publicas').select('*').order('creada_en', { ascending: false }).limit(200)
