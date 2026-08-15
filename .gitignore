@@ -13,12 +13,8 @@
 # testing
 /coverage
 
-# next.js — versionamos .next (build precompilado para desplegar en Hostinger),
-# pero NO el caché ni artefactos de dev (pesados, no necesarios en runtime).
-/.next/cache/
-/.next/dev/
-/.next/trace
-/.next/types/
+# next.js
+/.next/
 /out/
 
 # production
