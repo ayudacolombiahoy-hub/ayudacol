@@ -6,6 +6,7 @@
     "cambiarIdioma": "Español"
   },
   "nav": {
+    "emergencia": "Emergency",
     "mapa": "Map",
     "necesidades": "Needs",
     "acopios": "Donation centers",
@@ -192,5 +193,15 @@
   "whatsapp": {
     "ayuda": "WhatsApp help",
     "mensaje": "Hi, I need help / I want to help with the emergency"
+  },
+  "emergencia": {
+    "titulo": "Emergency directory",
+    "aviso": "If you're in immediate danger, call 123 now.",
+    "llamar": "Call",
+    "linea123": "Single emergency line",
+    "cruzRoja": "Colombian Red Cross",
+    "defensaCivil": "Civil Defense",
+    "bomberos": "Firefighters",
+    "policia": "National Police"
   }
 }

@@ -6,6 +6,7 @@
     "cambiarIdioma": "English"
   },
   "nav": {
+    "emergencia": "Emergencia",
     "mapa": "Mapa",
     "necesidades": "Necesidades",
     "acopios": "Centros de acopio",
@@ -192,5 +193,15 @@
   "whatsapp": {
     "ayuda": "Ayuda por WhatsApp",
     "mensaje": "Hola, necesito ayuda / quiero ayudar con la emergencia"
+  },
+  "emergencia": {
+    "titulo": "Directorio de emergencia",
+    "aviso": "Si estás en peligro inmediato, llama ya al 123.",
+    "llamar": "Llamar",
+    "linea123": "Línea única de emergencias",
+    "cruzRoja": "Cruz Roja Colombiana",
+    "defensaCivil": "Defensa Civil",
+    "bomberos": "Bomberos",
+    "policia": "Policía Nacional"
   }
 }

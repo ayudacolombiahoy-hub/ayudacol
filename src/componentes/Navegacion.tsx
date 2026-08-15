@@ -9,6 +9,7 @@ export default async function Navegacion() {
   const tRoot = await getTranslations()
   const perfil = await obtenerPerfil()
   const enlaces: [string, string][] = [
+    ['/emergencia', t('emergencia')],
     ['/mapa', t('mapa')],
     ['/necesidades', t('necesidades')],
     ['/acopios', t('acopios')],
@@ -22,7 +23,17 @@ export default async function Navegacion() {
         <Link href="/" className="text-lg font-extrabold text-gray-900">🇨🇴 AyudaCol</Link>
         <div className="flex flex-wrap items-center gap-4 text-sm">
           {enlaces.map(([href, txt]) => (
-            <Link key={href} href={href} className="font-medium text-gray-800 hover:text-blue-700">{txt}</Link>
+            <Link
+              key={href}
+              href={href}
+              className={
+                href === '/emergencia'
+                  ? 'font-bold text-red-600 hover:text-red-700'
+                  : 'font-medium text-gray-800 hover:text-blue-700'
+              }
+            >
+              {href === '/emergencia' ? `🚨 ${txt}` : txt}
+            </Link>
           ))}
           {!perfil && <Link href="/entrar" className="font-medium text-gray-800 hover:text-blue-700">{tAuth('entrar')}</Link>}
           {perfil && (perfil.rol === 'moderador' || perfil.rol === 'admin') && (
