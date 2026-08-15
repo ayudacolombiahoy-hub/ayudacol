@@ -44,3 +44,7 @@ next-env.d.ts
 
 # Companion de brainstorming
 .superpowers/
+
+# Import de solicitudes: artefactos con datos personales (no versionar)
+scripts/importar-solicitudes/*.json
+scripts/importar-solicitudes/*.csv
