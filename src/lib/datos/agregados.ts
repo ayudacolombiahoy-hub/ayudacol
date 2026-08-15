@@ -9,7 +9,9 @@ export type ResumenDepto = {
   acopios: number
 }
 
-const ACTIVAS = new Set(['sin_verificar', 'verificada', 'en_atencion', 'por_reconfirmar'])
+// Exportado para que otras capas de datos (p. ej. estadisticas.ts) reutilicen
+// la misma definición de "solicitud activa" sin duplicarla.
+export const ACTIVAS = new Set(['sin_verificar', 'verificada', 'en_atencion', 'por_reconfirmar'])
 
 export function agregarPorDepartamento(
   solicitudes: { municipio_id: string; estado: string; urgencia: string }[],
