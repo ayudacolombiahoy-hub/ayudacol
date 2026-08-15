@@ -173,3 +173,17 @@ export const esquemaRefugio = z.object({
 })
 
 export type DatosRefugio = z.infer<typeof esquemaRefugio>
+
+// Propuesta pública de acopio: mismos campos que esquemaAcopio pero el contacto es
+// obligatorio (el equipo verifica y el público llama). Reutiliza el helper listaTexto.
+export const esquemaAcopioPublico = z.object({
+  nombre: z.string().trim().min(2).max(160),
+  direccion: z.string().trim().min(3).max(300),
+  municipio_id: z.string().trim().min(1),
+  horarios: opcionalTexto(200),
+  contacto_publico: z.string().trim().min(5).max(160),
+  recibe: listaTexto,
+  no_necesita: listaTexto,
+})
+
+export type DatosAcopioPublico = z.infer<typeof esquemaAcopioPublico>
