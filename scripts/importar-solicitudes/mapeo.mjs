@@ -107,3 +107,73 @@ export function dentroDeVentana(fechaISO, dias, ahoraISO) {
   if (Number.isNaN(f) || Number.isNaN(ahora)) return false
   return f <= ahora + 60_000 && f >= ahora - dias * 86_400_000
 }
+
+export const COLUMNAS_CSV = [
+  'revisar', 'categoria', 'urgencia', 'municipio_id', 'municipio_nombre',
+  'descripcion', 'detalle_ubicacion', 'personas_afectadas',
+  'contacto_nombre', 'contacto_telefono', 'direccion_exacta_privada',
+  'fecha_fuente', 'descripcion_original',
+]
+
+// Columnas que sí se insertan en solicitudes_ayuda.
+export const CAMPOS_CARGA = [
+  'categoria', 'urgencia', 'municipio_id', 'descripcion', 'detalle_ubicacion',
+  'personas_afectadas', 'contacto_nombre', 'contacto_telefono',
+]
+
+const CATEGORIAS = ['alimentos', 'agua', 'albergue', 'materiales_construccion', 'remocion_escombros', 'salud', 'rescate', 'otro']
+const URGENCIAS = ['alta', 'media', 'baja']
+
+export function filaParaRevisar(item, { dias = 14, ahoraISO }) {
+  if (!esNecesidad(item)) return { incluir: false, motivo: 'no_es_necesidad' }
+  const fechaISO = parsearFechaEs(item.fecha_texto)
+  if (!dentroDeVentana(fechaISO, dias, ahoraISO)) return { incluir: false, motivo: 'fuera_de_ventana' }
+
+  const desc = String(item.descripcion ?? '').trim()
+  const descLimpia = limpiarTelefonos(desc)
+  const { categoria, confianza } = mapearCategoria(desc)
+  const muni = mapearMunicipio(item.ubicacion)
+  const sector = sectorDe(item.ubicacion) || (muni ? muni.nombre : '')
+  const telefono = String(item.telefono ?? '').replace(/\D/g, '')
+
+  const banderas = []
+  if (confianza === 'baja') banderas.push('categoria_incierta')
+  if (!muni) banderas.push('municipio_sin_mapear')
+  if (descLimpia.length < 10) banderas.push('descripcion_corta')
+  if (!telefono) banderas.push('sin_telefono')
+  if (/\b(calle|carrera|cra|apto|piso)\b/i.test(sector) || /\d{1,4}\s*[-#]/.test(sector)) banderas.push('posible_direccion')
+
+  return {
+    incluir: true,
+    fila: {
+      revisar: banderas.join(' '),
+      categoria,
+      urgencia: inferirUrgencia(desc),
+      municipio_id: muni ? muni.municipio_id : '',
+      municipio_nombre: muni ? muni.nombre : '',
+      descripcion: descLimpia,
+      detalle_ubicacion: sector,
+      personas_afectadas: '',
+      contacto_nombre: String(item.nombre ?? '').trim(),
+      contacto_telefono: telefono,
+      direccion_exacta_privada: String(item.ubicacion ?? '').trim(),
+      fecha_fuente: fechaISO,
+      descripcion_original: desc,
+    },
+  }
+}
+
+// Réplica de esquemaNecesidad + checks de la tabla, sin importar TS.
+export function validarFilaCarga(fila) {
+  const e = []
+  if (!CATEGORIAS.includes(fila.categoria)) e.push('categoria')
+  if (!URGENCIAS.includes(fila.urgencia)) e.push('urgencia')
+  const d = String(fila.descripcion ?? '').trim()
+  if (d.length < 10 || d.length > 2000) e.push('descripcion')
+  if (!String(fila.municipio_id ?? '').trim()) e.push('municipio_id')
+  if (!String(fila.contacto_nombre ?? '').trim()) e.push('contacto_nombre')
+  if (!String(fila.contacto_telefono ?? '').trim()) e.push('contacto_telefono')
+  const pa = String(fila.personas_afectadas ?? '').trim()
+  if (pa && !(Number.isInteger(Number(pa)) && Number(pa) > 0)) e.push('personas_afectadas')
+  return e.length ? { ok: false, errores: e } : { ok: true }
+}

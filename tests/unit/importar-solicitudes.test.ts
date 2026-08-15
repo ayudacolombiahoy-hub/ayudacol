@@ -87,3 +87,61 @@ describe('mapeo — ubicación y fecha', () => {
     expect(dentroDeVentana(null, 14, ahora)).toBe(false)
   })
 })
+
+import {
+  filaParaRevisar, validarFilaCarga, COLUMNAS_CSV, CAMPOS_CARGA,
+} from '../../scripts/importar-solicitudes/mapeo.mjs'
+
+describe('mapeo — filas', () => {
+  const ahoraISO = '2026-08-15T18:00:00.000Z'
+
+  it('filaParaRevisar excluye ofertas y fuera de ventana', () => {
+    expect(filaParaRevisar({ tipo: 'ofrece', fecha_texto: '15 de agosto de 2026' }, { ahoraISO }).incluir).toBe(false)
+    expect(filaParaRevisar({ tipo: 'necesita', fecha_texto: '1 de enero de 2020' }, { ahoraISO }).incluir).toBe(false)
+  })
+
+  it('filaParaRevisar arma la fila, limpia PII y marca banderas', () => {
+    const { incluir, fila } = filaParaRevisar({
+      tipo: 'necesita',
+      nombre: 'Elizabeth Cárdenas',
+      descripcion: 'Necesito cemento y ladrillos. 📞 3001234567',
+      ubicacion: 'Villa María, Calle 9A # 7-16 apto 401',
+      fecha_texto: '14 de agosto de 2026 a las 8:14 p. m.',
+      telefono: '57 300 123 4567',
+    }, { ahoraISO })
+    expect(incluir).toBe(true)
+    expect(fila.categoria).toBe('materiales_construccion')
+    expect(fila.municipio_id).toBe('17873')
+    expect(fila.detalle_ubicacion).toBe('Villa María')
+    expect(fila.descripcion).not.toMatch(/3001234567/)
+    expect(fila.contacto_telefono).toBe('573001234567')
+    expect(fila.direccion_exacta_privada).toContain('apto 401')
+    expect(fila.revisar).toBe('')
+  })
+
+  it('filaParaRevisar marca municipio_sin_mapear y descripcion_corta', () => {
+    const { fila } = filaParaRevisar({
+      tipo: 'necesita', nombre: 'X', descripcion: '.', ubicacion: 'Bogotá',
+      fecha_texto: '15 de agosto de 2026', telefono: '',
+    }, { ahoraISO })
+    expect(fila.revisar).toContain('municipio_sin_mapear')
+    expect(fila.revisar).toContain('descripcion_corta')
+    expect(fila.revisar).toContain('sin_telefono')
+  })
+
+  it('validarFilaCarga acepta válidas y rechaza inválidas', () => {
+    const buena = {
+      categoria: 'salud', urgencia: 'alta', municipio_id: '17001',
+      descripcion: 'Pañales para adulto mayor talla M', detalle_ubicacion: 'Fátima',
+      personas_afectadas: '', contacto_nombre: 'Ana', contacto_telefono: '573001112233',
+    }
+    expect(validarFilaCarga(buena)).toEqual({ ok: true })
+    expect(validarFilaCarga({ ...buena, descripcion: 'corta' }).ok).toBe(false)
+    expect(validarFilaCarga({ ...buena, municipio_id: '' }).ok).toBe(false)
+    expect(validarFilaCarga({ ...buena, categoria: 'inexistente' }).ok).toBe(false)
+  })
+
+  it('CAMPOS_CARGA son un subconjunto de COLUMNAS_CSV', () => {
+    expect(CAMPOS_CARGA.every((c) => COLUMNAS_CSV.includes(c))).toBe(true)
+  })
+})
