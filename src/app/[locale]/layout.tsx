@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import Navegacion from '@/componentes/Navegacion'
+import BotonWhatsApp from '@/componentes/BotonWhatsApp'
 import '../globals.css'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
@@ -58,6 +59,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider>
           <Navegacion />
           {children}
+          <BotonWhatsApp />
         </NextIntlClientProvider>
       </body>
     </html>

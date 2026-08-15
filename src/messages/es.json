@@ -188,5 +188,9 @@
     "titulo": "Mapa de necesidades y acopios",
     "leyenda": "🔴 urgente · 🟠 media · 🟢 acopio",
     "sinCoords": "Algunos reportes sin ubicación exacta se ubican en el centro de su municipio."
+  },
+  "whatsapp": {
+    "ayuda": "Ayuda por WhatsApp",
+    "mensaje": "Hola, necesito ayuda / quiero ayudar con la emergencia"
   }
 }

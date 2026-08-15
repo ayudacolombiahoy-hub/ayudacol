@@ -188,5 +188,9 @@
     "titulo": "Map of needs and donation centers",
     "leyenda": "🔴 urgent · 🟠 medium · 🟢 center",
     "sinCoords": "Some reports without exact location are placed at their municipality center."
+  },
+  "whatsapp": {
+    "ayuda": "WhatsApp help",
+    "mensaje": "Hi, I need help / I want to help with the emergency"
   }
 }
