@@ -4,8 +4,10 @@ import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { redirect } from '@/i18n/navegacion'
 import { obtenerPerfil, ROLES_PANEL } from '@/lib/auth/sesion'
 import { listarCola } from '@/lib/datos/moderacion'
+import { listarMunicipios } from '@/lib/datos/consultas'
 import BotonSalir from '@/componentes/BotonSalir'
 import FilaSolicitud from './FilaSolicitud'
+import FormularioTranscripcion from './FormularioTranscripcion'
 
 export default async function Panel({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -19,6 +21,7 @@ export default async function Panel({ params }: { params: Promise<{ locale: stri
   }
 
   const cola = await listarCola()
+  const municipios = (await listarMunicipios()).map((m) => ({ valor: m.codigo_dane, texto: `${m.nombre} — ${m.departamento}` }))
 
   return (
     <main className="mx-auto max-w-3xl p-6">
@@ -26,6 +29,7 @@ export default async function Panel({ params }: { params: Promise<{ locale: stri
         <h1 className="text-2xl font-extrabold">{t('panel.titulo')}</h1>
         <BotonSalir />
       </div>
+      <FormularioTranscripcion municipios={municipios} />
       {cola.length === 0 ? (
         <p className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">{t('panel.sinPendientes')}</p>
       ) : (
