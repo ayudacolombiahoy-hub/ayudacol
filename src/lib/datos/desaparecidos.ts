@@ -19,7 +19,8 @@ export async function listarDesaparecidos(f: FiltrosDesaparecidos = {}) {
 // cruda y se guarda aparte en la columna `foto_url`.
 function fotoUrlDe(entrada: unknown): string | undefined {
   const v = (entrada as { foto_url?: unknown } | null)?.foto_url
-  return typeof v === 'string' && v.trim() ? v.trim() : undefined
+  const s = typeof v === 'string' ? v.trim() : ''
+  return /^https?:\/\//.test(s) ? s : undefined
 }
 
 // Reporte público: cualquiera puede insertar; la RLS exige estado='buscando'.

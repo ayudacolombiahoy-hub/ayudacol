@@ -12,7 +12,8 @@ export type Resultado =
 // entrada cruda y se guarda aparte en la columna `fotos` (arreglo).
 function fotoDe(entrada: unknown): string | undefined {
   const v = (entrada as { foto?: unknown } | null)?.foto
-  return typeof v === 'string' && v.trim() ? v.trim() : undefined
+  const s = typeof v === 'string' ? v.trim() : ''
+  return /^https?:\/\//.test(s) ? s : undefined
 }
 
 export async function crearNecesidad(entrada: unknown): Promise<Resultado> {
