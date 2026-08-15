@@ -4,6 +4,7 @@ import { listarAcopios, listarMunicipios } from '@/lib/datos/consultas'
 import { Link } from '@/i18n/navegacion'
 import BarraFiltros from '@/componentes/listas/BarraFiltros'
 import Vacio from '@/componentes/listas/Vacio'
+import BotonesMaps from '@/componentes/BotonesMaps'
 
 export default async function Pagina({
   params, searchParams,
@@ -13,6 +14,7 @@ export default async function Pagina({
   const f = await searchParams
   const t = await getTranslations('listas')
   const tRoot = await getTranslations()
+  const tMaps = await getTranslations('maps')
   const [acopios, municipios] = await Promise.all([listarAcopios(f), listarMunicipios()])
   const mapaMuni = new Map(municipios.map((m) => [m.codigo_dane, `${m.nombre} — ${m.departamento}`]))
   const opcMuni = municipios.map((m) => ({ valor: m.codigo_dane, texto: `${m.nombre} — ${m.departamento}` }))
@@ -42,6 +44,14 @@ export default async function Pagina({
               {a.horarios && <p className="text-sm text-gray-600">🕓 {a.horarios}</p>}
               {a.recibe?.length > 0 && <p className="mt-2 text-sm"><b>{t('recibe')}:</b> {a.recibe.join(', ')}</p>}
               {a.no_necesita?.length > 0 && <p className="text-sm text-red-700"><b>{t('noNecesita')}:</b> {a.no_necesita.join(', ')}</p>}
+              <BotonesMaps
+                direccion={a.direccion}
+                municipioTexto={mapaMuni.get(a.municipio_id)}
+                lat={a.lat}
+                lng={a.lng}
+                textoVer={tMaps('verUbicacion')}
+                textoComoLlegar={tMaps('comoLlegar')}
+              />
             </article>
           ))}
         </div>
