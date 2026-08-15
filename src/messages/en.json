@@ -298,5 +298,9 @@
     "exportar": "Download CSV",
     "actualizado": "Updates every 30 seconds",
     "enVivo": "Live data"
+  },
+  "maps": {
+    "verUbicacion": "View location",
+    "comoLlegar": "Get directions"
   }
 }
