@@ -132,3 +132,38 @@ describe('esquemaAlbergue', () => {
     expect(ESTADOS_ALBERGUE).toEqual(['abierto', 'lleno', 'cerrado'])
   })
 })
+
+import { esquemaDesaparecido, ESTADOS_PERSONA } from '../../src/lib/validacion/esquemas'
+
+describe('esquemaDesaparecido', () => {
+  const base = {
+    nombre: 'Carlos Ramírez',
+    descripcion: 'Visto por última vez cerca del mercado central el jueves',
+    contacto_nombre: 'Ana Ramírez',
+    contacto_telefono: '3001234567',
+  }
+  test('acepta un reporte válido sin edad ni municipio', () => {
+    expect(esquemaDesaparecido.safeParse(base).success).toBe(true)
+  })
+  test('convierte edad de texto a número', () => {
+    const r = esquemaDesaparecido.safeParse({ ...base, edad: '34' })
+    expect(r.success).toBe(true)
+    if (r.success) expect(r.data.edad).toBe(34)
+  })
+  test('rechaza edad fuera de rango', () => {
+    expect(esquemaDesaparecido.safeParse({ ...base, edad: 130 }).success).toBe(false)
+  })
+  test('rechaza descripción demasiado corta', () => {
+    expect(esquemaDesaparecido.safeParse({ ...base, descripcion: 'x' }).success).toBe(false)
+  })
+  test('rechaza nombre demasiado corto', () => {
+    expect(esquemaDesaparecido.safeParse({ ...base, nombre: 'A' }).success).toBe(false)
+  })
+  test('acepta municipio_id vacío (opcional)', () => {
+    const r = esquemaDesaparecido.safeParse({ ...base, municipio_id: '' })
+    expect(r.success).toBe(true)
+  })
+  test('ESTADOS_PERSONA contiene los tres estados esperados', () => {
+    expect(ESTADOS_PERSONA).toEqual(['buscando', 'encontrada', 'cerrado'])
+  })
+})

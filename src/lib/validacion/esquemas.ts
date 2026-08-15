@@ -127,3 +127,17 @@ export const esquemaAlbergue = z.object({
 })
 
 export type DatosAlbergue = z.infer<typeof esquemaAlbergue>
+
+export const ESTADOS_PERSONA = ['buscando', 'encontrada', 'cerrado'] as const
+
+export const esquemaDesaparecido = z.object({
+  nombre: z.string().trim().min(2).max(160),
+  edad: z.coerce.number().int().min(0).max(129).optional(),
+  descripcion: z.string().trim().min(5).max(2000),
+  municipio_id: z.string().trim().max(20).optional().or(z.literal('')),
+  ultima_ubicacion: opcionalTexto(500),
+  contacto_nombre: nombre,
+  contacto_telefono: telefono,
+})
+
+export type DatosDesaparecido = z.infer<typeof esquemaDesaparecido>
