@@ -11,6 +11,7 @@
     "novedades": "Updates",
     "necesidades": "Needs",
     "acopios": "Donation centers",
+    "albergues": "Shelters",
     "voluntariado": "Volunteering",
     "servicios": "Services",
     "donar": "Donate",
@@ -68,6 +69,8 @@
     "disponibilidad": "Availability",
     "tipoServicio": "Service type",
     "capacidad": "Capacity",
+    "direccion": "Address",
+    "contactoPublico": "Public contact",
     "obligatorio": "required",
     "opcional": "optional"
   },
@@ -236,5 +239,21 @@
     "suscribir": "Subscribe",
     "gracias": "Done! We'll notify you by email.",
     "todosMunicipios": "All municipalities"
+  },
+  "albergues": {
+    "titulo": "Available shelters",
+    "intro": "Location, status, and open spots at the shelters set up during the emergency.",
+    "cupos": "Spots: {libres} of {total}",
+    "estado": "Status",
+    "abierto": "Open",
+    "lleno": "Full",
+    "cerrado": "Closed",
+    "sinAlbergues": "No shelters registered yet.",
+    "gestionar": "Manage shelters",
+    "nuevoAlbergue": "Register shelter",
+    "guardar": "Save shelter",
+    "capacidad": "Capacity",
+    "ocupacion": "Occupancy",
+    "actualizar": "Update"
   }
 }
