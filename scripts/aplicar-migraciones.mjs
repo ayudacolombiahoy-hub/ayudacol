@@ -22,6 +22,7 @@ const TODAS = [
   'supabase/migrations/0001_esquema.sql',
   'supabase/migrations/0002_seguridad.sql',
   'supabase/migrations/0003_municipios.sql',
+  'supabase/migrations/0004_organizaciones.sql',
 ]
 
 // Permite pasar sufijos (p. ej. "0002") para reintentar migraciones puntuales.
