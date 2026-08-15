@@ -66,3 +66,29 @@ describe('erroresPorCampo', () => {
     }
   })
 })
+
+import { esquemaAcopio, esquemaOrganizacion } from '../../src/lib/validacion/esquemas'
+
+describe('esquemaAcopio', () => {
+  test('acepta un acopio válido', () => {
+    const r = esquemaAcopio.safeParse({
+      nombre: 'Acopio Central',
+      direccion: 'Calle 10 # 5-20',
+      municipio_id: '17001',
+      horarios: '8am-6pm',
+      recibe: ['agua', 'alimentos'],
+      no_necesita: ['ropa'],
+    })
+    expect(r.success).toBe(true)
+  })
+  test('rechaza acopio sin dirección', () => {
+    expect(esquemaAcopio.safeParse({ nombre: 'X', municipio_id: '17001' }).success).toBe(false)
+  })
+})
+
+describe('esquemaOrganizacion', () => {
+  test('acepta una organización válida', () => {
+    const r = esquemaOrganizacion.safeParse({ nombre: 'Cruz Roja Caldas', tipo: 'ong' })
+    expect(r.success).toBe(true)
+  })
+})

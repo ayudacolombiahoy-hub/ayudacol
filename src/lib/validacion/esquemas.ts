@@ -56,3 +56,33 @@ export function erroresPorCampo(error: z.ZodError): Record<string, string[]> {
   }
   return out
 }
+
+export const TIPOS_ORGANIZACION = ['ong', 'alcaldia', 'bomberos', 'iglesia', 'empresa', 'comunitaria'] as const
+export const ESTADOS_ACOPIO = ['activo', 'lleno', 'cerrado'] as const
+
+// Convierte "agua, alimentos" o un arreglo en string[] limpio.
+const listaTexto = z.preprocess((v) => {
+  if (Array.isArray(v)) return v.map(String).map((s) => s.trim()).filter(Boolean)
+  if (typeof v === 'string') return v.split(',').map((s) => s.trim()).filter(Boolean)
+  return []
+}, z.array(z.string()).max(30))
+
+export const esquemaAcopio = z.object({
+  nombre: z.string().trim().min(2).max(160),
+  direccion: z.string().trim().min(3).max(300),
+  municipio_id: z.string().trim().min(1),
+  horarios: opcionalTexto(200),
+  contacto_publico: opcionalTexto(160),
+  recibe: listaTexto,
+  no_necesita: listaTexto,
+})
+
+export const esquemaOrganizacion = z.object({
+  nombre: z.string().trim().min(2).max(200),
+  tipo: z.enum(TIPOS_ORGANIZACION),
+  descripcion: opcionalTexto(1000),
+  contacto_publico: opcionalTexto(160),
+})
+
+export type DatosAcopio = z.infer<typeof esquemaAcopio>
+export type DatosOrganizacion = z.infer<typeof esquemaOrganizacion>
