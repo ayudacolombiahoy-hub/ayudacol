@@ -62,22 +62,22 @@ describe('mapeo — texto', () => {
 
 describe('mapeo — ubicación y fecha', () => {
   it('mapearMunicipio resuelve municipios, alias y villa maría', () => {
-    expect(mapearMunicipio('Manizales y alrededores').municipio_id).toBe('17001')
-    expect(mapearMunicipio('Pueblo Rico, Neira').municipio_id).toBe('17486')
-    expect(mapearMunicipio('Fátima').municipio_id).toBe('17001')
-    expect(mapearMunicipio('Villa María, Calle 9A').municipio_id).toBe('17873')
+    expect(mapearMunicipio('Manizales y alrededores')!.municipio_id).toBe('17001')
+    expect(mapearMunicipio('Pueblo Rico, Neira')!.municipio_id).toBe('17486')
+    expect(mapearMunicipio('Fátima')!.municipio_id).toBe('17001')
+    expect(mapearMunicipio('Villa María, Calle 9A')!.municipio_id).toBe('17873')
     expect(mapearMunicipio('Bogotá')).toBeNull()
   })
 
   it('mapearMunicipio resuelve barrios de Manizales por alias', () => {
-    expect(mapearMunicipio('Barrio 20 de julio carrera 29').municipio_id).toBe('17001')
-    expect(mapearMunicipio('Chipre').municipio_id).toBe('17001')
-    expect(mapearMunicipio('Bellas artes').municipio_id).toBe('17001')
+    expect(mapearMunicipio('Barrio 20 de julio carrera 29')!.municipio_id).toBe('17001')
+    expect(mapearMunicipio('Chipre')!.municipio_id).toBe('17001')
+    expect(mapearMunicipio('Bellas artes')!.municipio_id).toBe('17001')
   })
 
   it('mapearMunicipio devuelve el nombre para mostrar con tildes', () => {
-    expect(mapearMunicipio('Villa María, Calle 9A').nombre).toBe('Villa María')
-    expect(mapearMunicipio('Chinchiná centro').nombre).toBe('Chinchiná')
+    expect(mapearMunicipio('Villa María, Calle 9A')!.nombre).toBe('Villa María')
+    expect(mapearMunicipio('Chinchiná centro')!.nombre).toBe('Chinchiná')
   })
 
   it('sectorDe elimina dirección exacta y cae al inicio del texto', () => {
@@ -120,13 +120,13 @@ describe('mapeo — filas', () => {
       telefono: '57 300 123 4567',
     }, { ahoraISO })
     expect(incluir).toBe(true)
-    expect(fila.categoria).toBe('materiales_construccion')
-    expect(fila.municipio_id).toBe('17873')
-    expect(fila.detalle_ubicacion).toBe('Villa María')
-    expect(fila.descripcion).not.toMatch(/3001234567/)
-    expect(fila.contacto_telefono).toBe('573001234567')
-    expect(fila.direccion_exacta_privada).toContain('apto 401')
-    expect(fila.revisar).toBe('')
+    expect(fila!.categoria).toBe('materiales_construccion')
+    expect(fila!.municipio_id).toBe('17873')
+    expect(fila!.detalle_ubicacion).toBe('Villa María')
+    expect(fila!.descripcion).not.toMatch(/3001234567/)
+    expect(fila!.contacto_telefono).toBe('573001234567')
+    expect(fila!.direccion_exacta_privada).toContain('apto 401')
+    expect(fila!.revisar).toBe('')
   })
 
   it('filaParaRevisar marca municipio_sin_mapear y descripcion_corta', () => {
@@ -134,9 +134,9 @@ describe('mapeo — filas', () => {
       tipo: 'necesita', nombre: 'X', descripcion: '.', ubicacion: 'Bogotá',
       fecha_texto: '15 de agosto de 2026', telefono: '',
     }, { ahoraISO })
-    expect(fila.revisar).toContain('municipio_sin_mapear')
-    expect(fila.revisar).toContain('descripcion_corta')
-    expect(fila.revisar).toContain('sin_telefono')
+    expect(fila!.revisar).toContain('municipio_sin_mapear')
+    expect(fila!.revisar).toContain('descripcion_corta')
+    expect(fila!.revisar).toContain('sin_telefono')
   })
 
   it('validarFilaCarga acepta válidas y rechaza inválidas', () => {
