@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { tiempoRelativo } from '@/lib/formato'
+import { Link } from '@/i18n/navegacion'
 
 type Desaparecido = {
   id: string; nombre: string; edad: number | null; descripcion: string
@@ -18,7 +19,8 @@ export default function TarjetaDesaparecido({ d, municipio }: { d: Desaparecido;
   const ubicacion = [municipio, d.ultima_ubicacion].filter(Boolean).join(' · ')
 
   return (
-    <article className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <article className="relative rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+      <Link href={`/desaparecidos/${d.id}`} aria-label={d.nombre} className="absolute inset-0 z-[1] rounded-lg" />
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className="font-bold">
           {d.nombre}
