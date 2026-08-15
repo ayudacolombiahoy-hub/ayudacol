@@ -22,6 +22,7 @@ export default async function Navegacion() {
     ['/servicios', t('servicios')],
     ['/donar', t('donar')],
     ['/estadisticas', t('estadisticas')],
+    ['/casos-aliados', t('casosAliados')],
   ]
   return (
     <header className="border-b border-gray-200 bg-white shadow-sm">

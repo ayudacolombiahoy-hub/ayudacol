@@ -18,7 +18,37 @@
     "voluntariado": "Voluntariado",
     "servicios": "Servicios",
     "donar": "Donar",
-    "estadisticas": "Estadísticas"
+    "estadisticas": "Estadísticas",
+    "casosAliados": "Casos aliados"
+  },
+  "casosAliados": {
+    "titulo": "Casos aliados",
+    "intro": "Casos de personas y familias que necesitan apoyo, publicados por nuestro aliado. Al abrir un caso verás sus datos de contacto en el sitio de origen.",
+    "atribucion": "Casos de nuestro aliado",
+    "verCaso": "Ver caso en MiManizales",
+    "sinCasos": "No hay casos aliados por ahora.",
+    "prioridad": { "ALTA": "Alta", "MEDIA": "Media", "BAJA": "Baja" },
+    "grupos": {
+      "BEBES": "Bebés",
+      "NINOS_ADOLESCENTES": "Niños y adolescentes",
+      "ADULTOS": "Adultos",
+      "ADULTOS_MAYORES": "Adultos mayores",
+      "DISCAPACIDAD_DEPENDENCIA": "Discapacidad o dependencia",
+      "MASCOTAS_ANIMALES": "Mascotas y animales",
+      "FUNDACIONES_ENTIDADES": "Fundaciones / Entidades"
+    },
+    "tipos": {
+      "ALIMENTACION": "Alimentación",
+      "CONSTRUCCION_REPARACIONES": "Construcción / reparaciones",
+      "EDUCACION_UTILES": "Educación / útiles",
+      "ENSERES_HOGAR": "Enseres del hogar",
+      "HIGIENE_CUIDADO": "Higiene y cuidado",
+      "MOVILIDAD_AYUDAS_TECNICAS": "Movilidad / ayudas técnicas",
+      "ROPA_CALZADO": "Ropa y calzado",
+      "SALUD_MEDICAMENTOS": "Salud / medicamentos",
+      "SERVICIOS_BASICOS": "Servicios básicos",
+      "VIVIENDA": "Vivienda"
+    }
   },
   "inicio": {
     "titulo": "Ayuda verificada para las zonas afectadas por el terremoto",

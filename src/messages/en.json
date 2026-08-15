@@ -18,7 +18,37 @@
     "voluntariado": "Volunteering",
     "servicios": "Services",
     "donar": "Donate",
-    "estadisticas": "Statistics"
+    "estadisticas": "Statistics",
+    "casosAliados": "Allied cases"
+  },
+  "casosAliados": {
+    "titulo": "Allied cases",
+    "intro": "People and families needing support, posted by our ally. Open a case to see its contact details on the source site.",
+    "atribucion": "Cases from our ally",
+    "verCaso": "View case on MiManizales",
+    "sinCasos": "No allied cases right now.",
+    "prioridad": { "ALTA": "High", "MEDIA": "Medium", "BAJA": "Low" },
+    "grupos": {
+      "BEBES": "Babies",
+      "NINOS_ADOLESCENTES": "Children & teens",
+      "ADULTOS": "Adults",
+      "ADULTOS_MAYORES": "Older adults",
+      "DISCAPACIDAD_DEPENDENCIA": "Disability or dependency",
+      "MASCOTAS_ANIMALES": "Pets & animals",
+      "FUNDACIONES_ENTIDADES": "Foundations / Entities"
+    },
+    "tipos": {
+      "ALIMENTACION": "Food",
+      "CONSTRUCCION_REPARACIONES": "Construction / repairs",
+      "EDUCACION_UTILES": "Education / supplies",
+      "ENSERES_HOGAR": "Household goods",
+      "HIGIENE_CUIDADO": "Hygiene & care",
+      "MOVILIDAD_AYUDAS_TECNICAS": "Mobility / assistive devices",
+      "ROPA_CALZADO": "Clothing & footwear",
+      "SALUD_MEDICAMENTOS": "Health / medicine",
+      "SERVICIOS_BASICOS": "Basic utilities",
+      "VIVIENDA": "Housing"
+    }
   },
   "inicio": {
     "titulo": "Verified help for the areas affected by the earthquake",
