@@ -22,7 +22,7 @@ export default async function Inicio({ params }: { params: Promise<{ locale: str
       <div className="mt-6 flex flex-wrap gap-3">
         <Link href="/reportar/necesidad" className="rounded-lg bg-red-100 px-4 py-2 font-bold text-red-900">🆘 {t('pedirAyuda')}</Link>
         <Link href="/reportar/voluntario" className="rounded-lg bg-green-100 px-4 py-2 font-bold text-green-900">🤝 {t('quieroAyudar')}</Link>
-        <Link href="/necesidades" className="rounded-lg bg-blue-100 px-4 py-2 font-bold text-blue-900">🗺️ {t('donarDesdeEEUU')}</Link>
+        <Link href="/donar" className="rounded-lg bg-blue-100 px-4 py-2 font-bold text-blue-900">🗺️ {t('donarDesdeEEUU')}</Link>
       </div>
       <div className="mt-8">
         <h2 className="mb-3 text-sm font-bold uppercase text-gray-500">{tv('titulo')}</h2>
