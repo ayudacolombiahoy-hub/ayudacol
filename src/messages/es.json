@@ -1,0 +1,42 @@
+{
+  "comun": {
+    "nombrePlataforma": "AyudaCol",
+    "enVivo": "Datos en vivo",
+    "actualizadoHace": "actualizado hace {tiempo}",
+    "cambiarIdioma": "English"
+  },
+  "nav": {
+    "necesidades": "Necesidades",
+    "acopios": "Centros de acopio",
+    "voluntariado": "Voluntariado",
+    "servicios": "Servicios",
+    "donar": "Donar",
+    "estadisticas": "Estadísticas"
+  },
+  "inicio": {
+    "titulo": "Ayuda verificada para las zonas afectadas por el terremoto",
+    "subtitulo": "Información en tiempo real de Manizales, Pereira, Quindío, Cali y Chocó",
+    "pedirAyuda": "Pedir ayuda",
+    "quieroAyudar": "Quiero ayudar",
+    "donarDesdeEEUU": "Donar desde EE. UU."
+  },
+  "categorias": {
+    "alimentos": "Alimentos",
+    "agua": "Agua potable",
+    "albergue": "Albergue",
+    "materiales_construccion": "Materiales de construcción",
+    "remocion_escombros": "Remoción de escombros",
+    "salud": "Salud",
+    "rescate": "Rescate",
+    "otro": "Otro"
+  },
+  "estados": {
+    "sin_verificar": "Sin verificar",
+    "verificada": "Verificada",
+    "en_atencion": "En atención",
+    "resuelta": "Resuelta",
+    "rechazada": "Rechazada",
+    "duplicada": "Duplicada",
+    "por_reconfirmar": "Por reconfirmar"
+  }
+}

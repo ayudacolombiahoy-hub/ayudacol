@@ -1,0 +1,42 @@
+{
+  "comun": {
+    "nombrePlataforma": "AyudaCol",
+    "enVivo": "Live data",
+    "actualizadoHace": "updated {tiempo} ago",
+    "cambiarIdioma": "Español"
+  },
+  "nav": {
+    "necesidades": "Needs",
+    "acopios": "Donation centers",
+    "voluntariado": "Volunteering",
+    "servicios": "Services",
+    "donar": "Donate",
+    "estadisticas": "Statistics"
+  },
+  "inicio": {
+    "titulo": "Verified help for the areas affected by the earthquake",
+    "subtitulo": "Real-time information from Manizales, Pereira, Quindío, Cali and Chocó",
+    "pedirAyuda": "Request help",
+    "quieroAyudar": "I want to help",
+    "donarDesdeEEUU": "Donate from the U.S."
+  },
+  "categorias": {
+    "alimentos": "Food",
+    "agua": "Drinking water",
+    "albergue": "Shelter",
+    "materiales_construccion": "Building materials",
+    "remocion_escombros": "Debris removal",
+    "salud": "Health",
+    "rescate": "Rescue",
+    "otro": "Other"
+  },
+  "estados": {
+    "sin_verificar": "Unverified",
+    "verificada": "Verified",
+    "en_atencion": "Being handled",
+    "resuelta": "Resolved",
+    "rechazada": "Rejected",
+    "duplicada": "Duplicate",
+    "por_reconfirmar": "Pending reconfirmation"
+  }
+}
