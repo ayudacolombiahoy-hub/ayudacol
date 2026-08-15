@@ -282,5 +282,21 @@
     "nombrePersona": "Nombre de la persona desaparecida",
     "gestionar": "Gestionar personas desaparecidas",
     "sinCola": "No hay casos pendientes en la cola."
+  },
+  "stats": {
+    "titulo": "Estadísticas",
+    "intro": "Panorama en tiempo real de la respuesta humanitaria: solicitudes, centros de acopio, voluntarios y albergues.",
+    "activas": "Activas",
+    "urgentes": "Urgentes",
+    "resueltas": "Resueltas",
+    "acopios": "Centros de acopio",
+    "voluntarios": "Voluntarios",
+    "albergues": "Albergues",
+    "porCategoria": "Solicitudes activas por categoría",
+    "porEstado": "Solicitudes por estado",
+    "porDepartamento": "Solicitudes activas por departamento",
+    "exportar": "Descargar CSV",
+    "actualizado": "Se actualiza cada 30 segundos",
+    "enVivo": "Datos en vivo"
   }
 }

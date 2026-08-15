@@ -282,5 +282,21 @@
     "nombrePersona": "Missing person's name",
     "gestionar": "Manage missing persons",
     "sinCola": "No pending cases in the queue."
+  },
+  "stats": {
+    "titulo": "Statistics",
+    "intro": "Real-time overview of the humanitarian response: requests, donation centers, volunteers, and shelters.",
+    "activas": "Active",
+    "urgentes": "Urgent",
+    "resueltas": "Resolved",
+    "acopios": "Donation centers",
+    "voluntarios": "Volunteers",
+    "albergues": "Shelters",
+    "porCategoria": "Active requests by category",
+    "porEstado": "Requests by status",
+    "porDepartamento": "Active requests by department",
+    "exportar": "Download CSV",
+    "actualizado": "Updates every 30 seconds",
+    "enVivo": "Live data"
   }
 }
