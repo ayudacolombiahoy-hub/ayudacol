@@ -4,6 +4,7 @@ import { listarServicios, listarMunicipios } from '@/lib/datos/consultas'
 import { Link } from '@/i18n/navegacion'
 import BarraFiltros from '@/componentes/listas/BarraFiltros'
 import Vacio from '@/componentes/listas/Vacio'
+import TarjetaServicio from '@/componentes/listas/TarjetaServicio'
 
 export default async function Pagina({
   params, searchParams,
@@ -34,11 +35,7 @@ export default async function Pagina({
       ) : (
         <div className="grid gap-3">
           {servicios.map((s) => (
-            <article key={s.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-              <p className="font-semibold">{t(`tiposServicio.${s.tipo}`)}</p>
-              <p className="text-sm text-gray-700">{s.descripcion}</p>
-              <p className="mt-1 text-xs text-gray-500">📍 {mapaMuni.get(s.municipio_id) ?? s.municipio_id}{s.capacidad ? ` · ${s.capacidad}` : ''}</p>
-            </article>
+            <TarjetaServicio key={s.id} s={s} tipoTexto={t(`tiposServicio.${s.tipo}`)} municipioTexto={mapaMuni.get(s.municipio_id)} />
           ))}
         </div>
       )}

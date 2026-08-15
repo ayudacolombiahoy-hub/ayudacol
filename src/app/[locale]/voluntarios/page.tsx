@@ -4,6 +4,7 @@ import { listarVoluntarios, listarMunicipios } from '@/lib/datos/consultas'
 import { Link } from '@/i18n/navegacion'
 import BarraFiltros from '@/componentes/listas/BarraFiltros'
 import Vacio from '@/componentes/listas/Vacio'
+import TarjetaVoluntario from '@/componentes/listas/TarjetaVoluntario'
 
 export default async function Pagina({
   params, searchParams,
@@ -34,10 +35,12 @@ export default async function Pagina({
       ) : (
         <div className="grid gap-3">
           {voluntarios.map((v) => (
-            <article key={v.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-              <p className="text-sm">🛠️ {(v.habilidades ?? []).map((h: string) => t(`habilidades.${h}`)).join(', ')}</p>
-              <p className="mt-1 text-xs text-gray-500">📍 {mapaMuni.get(v.municipio_id) ?? v.municipio_id}{v.disponibilidad ? ` · ${v.disponibilidad}` : ''}</p>
-            </article>
+            <TarjetaVoluntario
+              key={v.id}
+              v={v}
+              habilidadesTexto={(v.habilidades ?? []).map((h: string) => t(`habilidades.${h}`)).join(', ')}
+              municipioTexto={mapaMuni.get(v.municipio_id)}
+            />
           ))}
         </div>
       )}
