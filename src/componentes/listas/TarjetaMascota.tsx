@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl'
 import { tiempoRelativo } from '@/lib/formato'
+import { Link } from '@/i18n/navegacion'
 
 type Mascota = {
   id: string; tipo_reporte: string; especie: string; nombre: string | null
@@ -21,7 +22,8 @@ export default function TarjetaMascota({ m, municipio }: { m: Mascota; municipio
   const titulo = [t(`especie_${m.especie}`), m.nombre].filter(Boolean).join(' · ')
 
   return (
-    <article className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+    <article className="relative rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
+      <Link href={`/mascotas/${m.id}`} aria-label={titulo} className="absolute inset-0 z-[1] rounded-lg" />
       <div className="mb-2 flex items-center justify-between gap-2">
         <span className="font-bold">🐾 {titulo}</span>
         <div className="flex flex-shrink-0 gap-1">
@@ -44,7 +46,7 @@ export default function TarjetaMascota({ m, municipio }: { m: Mascota; municipio
         {ubicacion && <span>📍 {ubicacion}</span>}
         <span>🕓 {tiempoRelativo(m.creada_en, locale)}</span>
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3 text-sm">
+      <div className="relative z-10 mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3 text-sm">
         <span className="text-gray-700">{t('contacto')}: <b>{m.contacto_nombre}</b></span>
         <a
           href={`https://wa.me/${soloDigitos}`}
