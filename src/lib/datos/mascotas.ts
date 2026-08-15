@@ -1,6 +1,7 @@
 import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaMascota, erroresPorCampo, ESTADOS_MASCOTA } from '@/lib/validacion/esquemas'
+import { esUuid } from '@/lib/formato'
 
 export type FiltrosMascotas = { municipio?: string; tipo?: string; especie?: string }
 
@@ -14,6 +15,16 @@ export async function listarMascotas(f: FiltrosMascotas = {}) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   return data ?? []
+}
+
+// Lectura pública de UNA mascota por id, desde la misma vista que el listado
+// (incluye contacto). Devuelve null si el id no es UUID o no existe/no es público.
+export async function obtenerMascota(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('mascotas_publicas').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
 }
 
 // La foto es opcional y no forma parte de esquemaMascota: se lee cruda y se guarda aparte.

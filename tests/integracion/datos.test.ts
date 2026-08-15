@@ -2,6 +2,7 @@ import { describe, test, expect, afterAll } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 import { listarMunicipios, listarNecesidades } from '../../src/lib/datos/consultas'
 import { crearNecesidad, crearVoluntario } from '../../src/lib/datos/reportar'
+import { listarMascotas, obtenerMascota } from '../../src/lib/datos/mascotas'
 
 const MARCA = 'PRUEBA INTEGRACION —'
 
@@ -21,6 +22,17 @@ describe('lecturas públicas', () => {
   test('filtra necesidades por municipio sin error', async () => {
     const n = await listarNecesidades({ municipio: '17001' })
     expect(Array.isArray(n)).toBe(true)
+  })
+  test('obtenerMascota devuelve la fila por id (o null)', async () => {
+    const lista = await listarMascotas()
+    if (lista.length === 0) return
+    const uno = await obtenerMascota(lista[0].id)
+    expect(uno).not.toBeNull()
+    expect(uno!.id).toBe(lista[0].id)
+  })
+  test('obtenerMascota con id inexistente devuelve null', async () => {
+    const r = await obtenerMascota('00000000-0000-4000-8000-000000000000')
+    expect(r).toBeNull()
   })
 })
 
