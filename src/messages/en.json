@@ -156,6 +156,23 @@
     "guardarAcopio": "Save center",
     "estadoAcopio": "Status"
   },
+  "donar": {
+    "titulo": "Donate where it's needed most",
+    "intro": "Verified campaigns to support affected families. Contributions go directly to each organization.",
+    "boton": "Donate",
+    "sin": "No campaigns published yet. Check back soon.",
+    "verificada": "Verified",
+    "gestionar": "Manage campaigns",
+    "adminTitulo": "Fundraising campaigns",
+    "campoUrl": "Campaign link (URL)",
+    "campoOrg": "Responsible organization",
+    "tituloEs": "Title (Spanish)",
+    "tituloEn": "Title (English)",
+    "descEs": "Description (Spanish)",
+    "descEn": "Description (English)",
+    "guardar": "Publish campaign",
+    "eliminar": "Delete"
+  },
   "viz": {
     "enVivo": "Live data",
     "titulo": "Where help is needed",

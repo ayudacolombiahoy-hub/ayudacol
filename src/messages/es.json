@@ -156,6 +156,23 @@
     "guardarAcopio": "Guardar acopio",
     "estadoAcopio": "Estado"
   },
+  "donar": {
+    "titulo": "Dona donde más se necesita",
+    "intro": "Campañas verificadas para apoyar a las familias afectadas. Los aportes van directamente a cada organización.",
+    "boton": "Donar",
+    "sin": "Aún no hay campañas publicadas. Vuelve pronto.",
+    "verificada": "Verificada",
+    "gestionar": "Gestionar campañas",
+    "adminTitulo": "Campañas de dinero",
+    "campoUrl": "Enlace de la campaña (URL)",
+    "campoOrg": "Organización responsable",
+    "tituloEs": "Título (español)",
+    "tituloEn": "Título (inglés)",
+    "descEs": "Descripción (español)",
+    "descEn": "Descripción (inglés)",
+    "guardar": "Publicar campaña",
+    "eliminar": "Eliminar"
+  },
   "viz": {
     "enVivo": "Datos en vivo",
     "titulo": "Dónde se necesita ayuda",
