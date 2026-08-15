@@ -115,6 +115,13 @@
     "error": "No se pudo enviar. Revisa los campos e intenta de nuevo.",
     "elige": "Elige una opción"
   },
+  "foto": {
+    "subir": "Agregar foto (opcional)",
+    "subiendo": "Subiendo…",
+    "error": "No se pudo subir la foto. Puedes continuar sin ella.",
+    "demasiadoGrande": "La foto es demasiado grande (máximo 5MB).",
+    "quitar": "Quitar foto"
+  },
   "auth": {
     "entrar": "Entrar",
     "salir": "Salir",

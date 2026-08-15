@@ -115,6 +115,13 @@
     "error": "Could not submit. Please check the fields and try again.",
     "elige": "Choose an option"
   },
+  "foto": {
+    "subir": "Add photo (optional)",
+    "subiendo": "Uploading…",
+    "error": "Could not upload the photo. You can continue without it.",
+    "demasiadoGrande": "The photo is too large (maximum 5MB).",
+    "quitar": "Remove photo"
+  },
   "auth": {
     "entrar": "Sign in",
     "salir": "Sign out",
