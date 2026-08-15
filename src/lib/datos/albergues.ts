@@ -2,6 +2,7 @@ import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { obtenerPerfil, ROLES_PANEL } from '@/lib/auth/sesion'
 import { esquemaAlbergue, erroresPorCampo } from '@/lib/validacion/esquemas'
+import { esUuid } from '@/lib/formato'
 
 export type FiltrosAlbergues = { municipio?: string }
 
@@ -13,6 +14,15 @@ export async function listarAlbergues(f: FiltrosAlbergues = {}) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   return data ?? []
+}
+
+// Lectura pública de UN albergue por id (tabla pública; RLS permite leer todos).
+export async function obtenerAlbergue(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('albergues').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
 }
 
 // Alta de un albergue: solo equipo (moderador/admin). estado/ocupación quedan
