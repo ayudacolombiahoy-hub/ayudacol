@@ -97,3 +97,12 @@ export const esquemaCampana = z.object({
 })
 
 export type DatosCampana = z.infer<typeof esquemaCampana>
+
+export const esquemaNovedad = z.object({
+  titulo_es: z.string().trim().min(3).max(200),
+  titulo_en: z.string().trim().min(3).max(200),
+  contenido_es: z.string().trim().min(10).max(5000),
+  contenido_en: z.string().trim().min(10).max(5000),
+})
+
+export type DatosNovedad = z.infer<typeof esquemaNovedad>

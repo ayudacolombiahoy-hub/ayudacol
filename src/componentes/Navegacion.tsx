@@ -11,6 +11,7 @@ export default async function Navegacion() {
   const enlaces: [string, string][] = [
     ['/emergencia', t('emergencia')],
     ['/mapa', t('mapa')],
+    ['/novedades', t('novedades')],
     ['/necesidades', t('necesidades')],
     ['/acopios', t('acopios')],
     ['/voluntarios', t('voluntariado')],

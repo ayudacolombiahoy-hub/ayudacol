@@ -8,6 +8,7 @@
   "nav": {
     "emergencia": "Emergency",
     "mapa": "Map",
+    "novedades": "Updates",
     "necesidades": "Needs",
     "acopios": "Donation centers",
     "voluntariado": "Volunteering",
@@ -214,5 +215,17 @@
     "punto4": "Keep the receipt for your donation in case you need it later.",
     "notaFiscal": "Note: for questions about tax deductions or other tax benefits in your country, consult a qualified accountant or tax advisor. We cannot provide specific tax advice.",
     "verCampanas": "View verified campaigns"
+  },
+  "novedades": {
+    "titulo": "Updates",
+    "intro": "Latest news and updates about the emergency.",
+    "sin": "No updates published yet. Check back soon.",
+    "adminTitulo": "Manage updates",
+    "guardar": "Publish update",
+    "eliminar": "Delete",
+    "tituloEs": "Title (Spanish)",
+    "tituloEn": "Title (English)",
+    "contenidoEs": "Content (Spanish)",
+    "contenidoEn": "Content (English)"
   }
 }

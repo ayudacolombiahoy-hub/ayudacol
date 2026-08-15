@@ -8,6 +8,7 @@
   "nav": {
     "emergencia": "Emergencia",
     "mapa": "Mapa",
+    "novedades": "Novedades",
     "necesidades": "Necesidades",
     "acopios": "Centros de acopio",
     "voluntariado": "Voluntariado",
@@ -214,5 +215,17 @@
     "punto4": "Guarda el comprobante de tu donación por si lo necesitas más adelante.",
     "notaFiscal": "Nota: para preguntas sobre deducción de impuestos u otros beneficios fiscales en tu país, consulta con un contador o asesor fiscal calificado. No podemos ofrecer asesoría fiscal específica.",
     "verCampanas": "Ver campañas verificadas"
+  },
+  "novedades": {
+    "titulo": "Novedades",
+    "intro": "Últimos avisos y actualizaciones sobre la emergencia.",
+    "sin": "Aún no hay novedades publicadas. Vuelve pronto.",
+    "adminTitulo": "Gestionar novedades",
+    "guardar": "Publicar novedad",
+    "eliminar": "Eliminar",
+    "tituloEs": "Título (español)",
+    "tituloEn": "Título (inglés)",
+    "contenidoEs": "Contenido (español)",
+    "contenidoEn": "Contenido (inglés)"
   }
 }
