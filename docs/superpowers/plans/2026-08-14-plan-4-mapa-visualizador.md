@@ -383,7 +383,7 @@ export function coordenada(municipioId: string): [number, number] | null {
 ```tsx
 'use client'
 import { useEffect, useRef } from 'react'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl' // v6 es ESM puro sin export default
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 export type Punto = {
