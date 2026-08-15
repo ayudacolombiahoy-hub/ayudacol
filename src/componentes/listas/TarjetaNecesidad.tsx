@@ -5,7 +5,7 @@ import Sello from './Sello'
 type Necesidad = {
   id: string; categoria: string; descripcion: string; urgencia: string
   estado: string; municipio_id: string; personas_afectadas: number | null
-  creada_en: string
+  creada_en: string; fotos?: string[] | null
 }
 
 export default function TarjetaNecesidad({ n, municipio }: { n: Necesidad; municipio?: string }) {
@@ -18,6 +18,10 @@ export default function TarjetaNecesidad({ n, municipio }: { n: Necesidad; munic
         <span className="font-bold">{t(`categorias.${n.categoria}`)}</span>
         <Sello estado={n.estado} />
       </div>
+      {n.fotos?.length ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={n.fotos[0]} alt="" className="mb-2 max-h-40 w-full rounded-lg object-cover" />
+      ) : null}
       <p className="text-sm text-gray-700">{n.descripcion}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
         <span>📍 {municipio ?? n.municipio_id}</span>
