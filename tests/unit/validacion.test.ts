@@ -92,3 +92,43 @@ describe('esquemaOrganizacion', () => {
     expect(r.success).toBe(true)
   })
 })
+
+import { esquemaAlbergue, ESTADOS_ALBERGUE } from '../../src/lib/validacion/esquemas'
+
+describe('esquemaAlbergue', () => {
+  test('acepta un albergue válido y convierte capacidad a número', () => {
+    const r = esquemaAlbergue.safeParse({
+      nombre: 'Coliseo Municipal',
+      direccion: 'Cra 5 # 10-20',
+      municipio_id: '17001',
+      capacidad: '100',
+      contacto_publico: '3001234567',
+    })
+    expect(r.success).toBe(true)
+    if (r.success) expect(r.data.capacidad).toBe(100)
+  })
+  test('acepta un albergue sin capacidad ni ocupación (opcionales)', () => {
+    const r = esquemaAlbergue.safeParse({
+      nombre: 'Coliseo Municipal', direccion: 'Cra 5 # 10-20', municipio_id: '17001',
+    })
+    expect(r.success).toBe(true)
+  })
+  test('rechaza albergue sin dirección', () => {
+    expect(esquemaAlbergue.safeParse({ nombre: 'X', municipio_id: '17001' }).success).toBe(false)
+  })
+  test('rechaza capacidad negativa', () => {
+    const r = esquemaAlbergue.safeParse({
+      nombre: 'Coliseo', direccion: 'Cra 5', municipio_id: '17001', capacidad: -1,
+    })
+    expect(r.success).toBe(false)
+  })
+  test('rechaza un estado fuera del enum', () => {
+    const r = esquemaAlbergue.safeParse({
+      nombre: 'Coliseo', direccion: 'Cra 5', municipio_id: '17001', estado: 'a_reventar',
+    })
+    expect(r.success).toBe(false)
+  })
+  test('ESTADOS_ALBERGUE contiene los tres estados esperados', () => {
+    expect(ESTADOS_ALBERGUE).toEqual(['abierto', 'lleno', 'cerrado'])
+  })
+})

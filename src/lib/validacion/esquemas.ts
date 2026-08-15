@@ -113,3 +113,17 @@ export const esquemaSuscripcion = z.object({
 })
 
 export type DatosSuscripcion = z.infer<typeof esquemaSuscripcion>
+
+export const ESTADOS_ALBERGUE = ['abierto', 'lleno', 'cerrado'] as const
+
+export const esquemaAlbergue = z.object({
+  nombre: z.string().trim().min(2).max(160),
+  direccion: z.string().trim().min(3).max(300),
+  municipio_id: z.string().trim().min(1),
+  capacidad: z.coerce.number().int().min(0).optional(),
+  ocupacion: z.coerce.number().int().min(0).optional(),
+  contacto_publico: opcionalTexto(160),
+  estado: z.enum(ESTADOS_ALBERGUE).optional(),
+})
+
+export type DatosAlbergue = z.infer<typeof esquemaAlbergue>
