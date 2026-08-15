@@ -4,6 +4,7 @@ import SelectorIdioma from '@/componentes/selector-idioma'
 
 export default async function Navegacion() {
   const t = await getTranslations('nav')
+  const tAuth = await getTranslations('auth')
   const enlaces: [string, string][] = [
     ['/necesidades', t('necesidades')],
     ['/acopios', t('acopios')],
@@ -18,6 +19,7 @@ export default async function Navegacion() {
           {enlaces.map(([href, txt]) => (
             <Link key={href} href={href} className="text-gray-700 hover:text-blue-700">{txt}</Link>
           ))}
+          <Link href="/entrar" className="text-gray-700 hover:text-blue-700">{tAuth('entrar')}</Link>
           <SelectorIdioma />
         </div>
       </nav>
