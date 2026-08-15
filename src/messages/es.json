@@ -172,7 +172,8 @@
     "descEs": "Descripción (español)",
     "descEn": "Descripción (inglés)",
     "guardar": "Publicar campaña",
-    "eliminar": "Eliminar"
+    "eliminar": "Eliminar",
+    "verExterior": "¿Donas desde el exterior? →"
   },
   "viz": {
     "enVivo": "Datos en vivo",
@@ -203,5 +204,15 @@
     "defensaCivil": "Defensa Civil",
     "bomberos": "Bomberos",
     "policia": "Policía Nacional"
+  },
+  "exterior": {
+    "titulo": "Donar desde el exterior",
+    "intro": "Si vives fuera de Colombia y quieres aportar a la emergencia, aquí tienes algunas guías para hacerlo de forma segura.",
+    "punto1": "Usa solo las campañas verificadas que publicamos en la página Donar; verifica siempre la organización antes de aportar.",
+    "punto2": "Muchas campañas aceptan GoFundMe, transferencia bancaria internacional o PayPal; revisa las opciones disponibles en cada campaña.",
+    "punto3": "Convierte tu moneda con anticipación y confirma comisiones de tu banco o plataforma de pago antes de enviar el aporte.",
+    "punto4": "Guarda el comprobante de tu donación por si lo necesitas más adelante.",
+    "notaFiscal": "Nota: para preguntas sobre deducción de impuestos u otros beneficios fiscales en tu país, consulta con un contador o asesor fiscal calificado. No podemos ofrecer asesoría fiscal específica.",
+    "verCampanas": "Ver campañas verificadas"
   }
 }

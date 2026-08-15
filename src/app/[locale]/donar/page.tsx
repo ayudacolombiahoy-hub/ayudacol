@@ -17,7 +17,12 @@ export default async function Donar({ params }: { params: Promise<{ locale: stri
         <h1 className="text-2xl font-extrabold">{t('titulo')}</h1>
         {perfil?.rol === 'admin' && <Link href="/admin/campanas" className="text-sm font-semibold text-blue-700">{t('gestionar')} →</Link>}
       </div>
-      <p className="mb-6 text-gray-600">{t('intro')}</p>
+      <p className="mb-2 text-gray-600">{t('intro')}</p>
+      <p className="mb-6">
+        <Link href="/donar/exterior" className="text-sm font-semibold text-blue-700 hover:underline">
+          {t('verExterior')}
+        </Link>
+      </p>
       {campanas.length === 0 ? (
         <p className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">{t('sin')}</p>
       ) : (

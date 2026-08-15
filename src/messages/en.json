@@ -172,7 +172,8 @@
     "descEs": "Description (Spanish)",
     "descEn": "Description (English)",
     "guardar": "Publish campaign",
-    "eliminar": "Delete"
+    "eliminar": "Delete",
+    "verExterior": "Donating from abroad? →"
   },
   "viz": {
     "enVivo": "Live data",
@@ -203,5 +204,15 @@
     "defensaCivil": "Civil Defense",
     "bomberos": "Firefighters",
     "policia": "National Police"
+  },
+  "exterior": {
+    "titulo": "Donate from abroad",
+    "intro": "If you live outside Colombia and want to contribute to the emergency, here are some guidelines for doing it safely.",
+    "punto1": "Only use the verified campaigns published on the Donate page; always check the organization before contributing.",
+    "punto2": "Many campaigns accept GoFundMe, international bank transfer, or PayPal; check the options listed on each campaign.",
+    "punto3": "Convert your currency ahead of time and confirm your bank's or payment platform's fees before sending your contribution.",
+    "punto4": "Keep the receipt for your donation in case you need it later.",
+    "notaFiscal": "Note: for questions about tax deductions or other tax benefits in your country, consult a qualified accountant or tax advisor. We cannot provide specific tax advice.",
+    "verCampanas": "View verified campaigns"
   }
 }
