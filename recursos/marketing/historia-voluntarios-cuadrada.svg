@@ -1,0 +1,62 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1428"/>
+      <stop offset="0.55" stop-color="#020617"/>
+      <stop offset="1" stop-color="#0a0f1f"/>
+    </linearGradient>
+    <radialGradient id="glowR" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ef4444" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#ef4444" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#ef4444" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#f59e0b" stop-opacity="0.85"/>
+      <stop offset="0.4" stop-color="#f59e0b" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cta" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+
+  <!-- focos decorativos -->
+  <circle cx="120" cy="360" r="110" fill="url(#glowR)"/>
+  <circle cx="960" cy="470" r="110" fill="url(#glowA)"/>
+  <circle cx="120" cy="360" r="8" fill="#ef4444"/>
+  <circle cx="960" cy="470" r="8" fill="#f59e0b"/>
+
+  <!-- marca -->
+  <text x="540" y="120" text-anchor="middle" font-size="42" font-weight="800" fill="#f8fafc">🇨🇴 AyudaCol</text>
+  <circle cx="452" cy="162" r="8" fill="#4ade80"/>
+  <text x="468" y="170" text-anchor="start" font-size="26" font-weight="600" fill="#4ade80">datos en vivo</text>
+
+  <!-- titular -->
+  <text x="540" y="285" text-anchor="middle" font-size="78" font-weight="800" fill="#ffffff">Buscamos</text>
+  <text x="540" y="365" text-anchor="middle" font-size="78" font-weight="800" fill="#7dd3fc">voluntarios/as 🙏</text>
+
+  <!-- subtítulo -->
+  <text x="540" y="450" text-anchor="middle" font-size="30" fill="#cbd5e1">Ya tengo lista una plataforma que centraliza en</text>
+  <text x="540" y="490" text-anchor="middle" font-size="30" fill="#cbd5e1"><tspan font-weight="700" fill="#f8fafc">tiempo real</tspan> las necesidades, acopios y servicios</text>
+  <text x="540" y="530" text-anchor="middle" font-size="30" fill="#cbd5e1">de las zonas afectadas por el terremoto.</text>
+
+  <text x="540" y="615" text-anchor="middle" font-size="33" font-weight="700" fill="#f8fafc">Necesito personas que cada día:</text>
+
+  <!-- bullets -->
+  <g font-size="31" fill="#e2e8f0">
+    <text x="160" y="685">✅  Recolecten y confirmen solicitudes</text>
+    <text x="160" y="740">📞  Verifiquen acopios, necesidades y servicios</text>
+    <text x="160" y="795">🗺️  Mantengan los datos vivos, al día</text>
+  </g>
+
+  <!-- info -->
+  <text x="540" y="880" text-anchor="middle" font-size="32" font-weight="700" fill="#fcd34d">📍 Todos los departamentos afectados</text>
+  <text x="540" y="918" text-anchor="middle" font-size="26" fill="#94a3b8">Manizales · Pereira · Quindío · Cali · Chocó</text>
+
+  <!-- CTA -->
+  <rect x="230" y="960" width="620" height="96" rx="48" fill="url(#cta)"/>
+  <text x="540" y="1022" text-anchor="middle" font-size="42" font-weight="800" fill="#ffffff">¿Te sumas? Escríbeme 💬</text>
+</svg>
