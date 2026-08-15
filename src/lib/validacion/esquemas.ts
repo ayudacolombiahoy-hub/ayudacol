@@ -86,3 +86,14 @@ export const esquemaOrganizacion = z.object({
 
 export type DatosAcopio = z.infer<typeof esquemaAcopio>
 export type DatosOrganizacion = z.infer<typeof esquemaOrganizacion>
+
+export const esquemaCampana = z.object({
+  titulo_es: z.string().trim().min(3).max(200),
+  titulo_en: z.string().trim().min(3).max(200),
+  descripcion_es: z.string().trim().min(10).max(1000),
+  descripcion_en: z.string().trim().min(10).max(1000),
+  organizacion: z.string().trim().min(2).max(200),
+  url: z.string().trim().url().max(500),
+})
+
+export type DatosCampana = z.infer<typeof esquemaCampana>
