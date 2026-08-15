@@ -12,6 +12,7 @@
     "necesidades": "Necesidades",
     "desaparecidos": "Desaparecidos",
     "mascotas": "Mascotas",
+    "refugiosAnimales": "Refugios animales",
     "acopios": "Centros de acopio",
     "albergues": "Albergues",
     "voluntariado": "Voluntariado",
@@ -34,6 +35,7 @@
     "remocion_escombros": "Remoción de escombros",
     "salud": "Salud",
     "rescate": "Rescate",
+    "animales": "Animales",
     "otro": "Otro"
   },
   "estados": {
@@ -262,6 +264,24 @@
     "nuevoAlbergue": "Registrar albergue",
     "guardar": "Guardar albergue",
     "capacidad": "Capacidad",
+    "ocupacion": "Ocupación",
+    "actualizar": "Actualizar"
+  },
+  "refugios": {
+    "titulo": "Refugios y rescate animal",
+    "intro": "Puntos de rescate y refugios de animales durante la emergencia, con su estado y cupos disponibles.",
+    "cupos": "Cupos: {libres} de {total}",
+    "especies": "Recibe",
+    "estado": "Estado",
+    "abierto": "Abierto",
+    "lleno": "Lleno",
+    "cerrado": "Cerrado",
+    "sinRefugios": "No hay refugios registrados por ahora.",
+    "gestionar": "Gestionar refugios",
+    "nuevoRefugio": "Registrar refugio",
+    "guardar": "Guardar refugio",
+    "capacidad": "Capacidad",
+    "campoEspecies": "Qué animales recibe",
     "ocupacion": "Ocupación",
     "actualizar": "Actualizar"
   },

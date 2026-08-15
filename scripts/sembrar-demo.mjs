@@ -15,7 +15,7 @@ const pick = (a) => a[Math.floor(Math.random() * a.length)]
 const nOf = (a, n) => [...a].sort(() => Math.random() - 0.5).slice(0, n)
 const tel = () => `+57 3${Math.floor(10 + Math.random() * 89)} ${Math.floor(1000000 + Math.random() * 8999999)}`
 
-const CATS = ['alimentos', 'agua', 'albergue', 'materiales_construccion', 'remocion_escombros', 'salud', 'rescate', 'otro']
+const CATS = ['alimentos', 'agua', 'albergue', 'materiales_construccion', 'remocion_escombros', 'salud', 'rescate', 'animales', 'otro']
 const URG = ['alta', 'alta', 'media', 'media', 'media', 'baja']
 const ACTIVOS = ['sin_verificar', 'verificada', 'verificada', 'verificada', 'en_atencion', 'por_reconfirmar']
 const HAB = ['medico', 'psicologo', 'remocion_escombros', 'logistica', 'transporte', 'construccion', 'otro']
@@ -27,6 +27,7 @@ const DESC = {
   remocion_escombros: ['Vivienda colapsada, se requiere maquinaria y personal', 'Escombros bloquean la vía, se necesita remoción', 'Deslizamiento cubrió casas, apoyo urgente'],
   salud: ['Puesto de salud saturado, faltan medicamentos', 'Se requiere brigada médica en zona rural', 'Personas heridas necesitan atención'],
   rescate: ['Reporte de personas atrapadas, se solicita rescate', 'Familia incomunicada por derrumbe', 'Búsqueda de personas desaparecidas'],
+  animales: ['Mascotas sin comida tras la evacuación, se necesita alimento', 'Animales heridos requieren atención veterinaria', 'Semovientes en zona rural sin agua ni forraje'],
   otro: ['Necesidad reportada por la comunidad afectada', 'Requerimiento general de apoyo humanitario', 'Situación de emergencia en el sector'],
 }
 

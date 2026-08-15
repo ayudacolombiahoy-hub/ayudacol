@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const CATEGORIAS = [
   'alimentos', 'agua', 'albergue', 'materiales_construccion',
-  'remocion_escombros', 'salud', 'rescate', 'otro',
+  'remocion_escombros', 'salud', 'rescate', 'animales', 'otro',
 ] as const
 export const URGENCIAS = ['alta', 'media', 'baja'] as const
 export const HABILIDADES = [
@@ -158,3 +158,18 @@ export const esquemaMascota = z.object({
 })
 
 export type DatosMascota = z.infer<typeof esquemaMascota>
+
+export const ESTADOS_REFUGIO = ['abierto', 'lleno', 'cerrado'] as const
+
+export const esquemaRefugio = z.object({
+  nombre: z.string().trim().min(2).max(160),
+  direccion: z.string().trim().min(3).max(300),
+  municipio_id: z.string().trim().min(1),
+  capacidad: z.coerce.number().int().min(0).optional(),
+  ocupacion: z.coerce.number().int().min(0).optional(),
+  especies: opcionalTexto(200),
+  contacto_publico: opcionalTexto(160),
+  estado: z.enum(ESTADOS_REFUGIO).optional(),
+})
+
+export type DatosRefugio = z.infer<typeof esquemaRefugio>

@@ -12,6 +12,7 @@
     "necesidades": "Needs",
     "desaparecidos": "Missing persons",
     "mascotas": "Pets",
+    "refugiosAnimales": "Animal shelters",
     "acopios": "Donation centers",
     "albergues": "Shelters",
     "voluntariado": "Volunteering",
@@ -34,6 +35,7 @@
     "remocion_escombros": "Debris removal",
     "salud": "Health",
     "rescate": "Rescue",
+    "animales": "Animals",
     "otro": "Other"
   },
   "estados": {
@@ -262,6 +264,24 @@
     "nuevoAlbergue": "Register shelter",
     "guardar": "Save shelter",
     "capacidad": "Capacity",
+    "ocupacion": "Occupancy",
+    "actualizar": "Update"
+  },
+  "refugios": {
+    "titulo": "Animal shelters & rescue",
+    "intro": "Animal rescue points and shelters during the emergency, with their status and open spots.",
+    "cupos": "Spots: {libres} of {total}",
+    "especies": "Accepts",
+    "estado": "Status",
+    "abierto": "Open",
+    "lleno": "Full",
+    "cerrado": "Closed",
+    "sinRefugios": "No animal shelters registered yet.",
+    "gestionar": "Manage animal shelters",
+    "nuevoRefugio": "Register shelter",
+    "guardar": "Save shelter",
+    "capacidad": "Capacity",
+    "campoEspecies": "Which animals it accepts",
     "ocupacion": "Occupancy",
     "actualizar": "Update"
   },
