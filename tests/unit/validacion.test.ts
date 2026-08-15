@@ -1,0 +1,68 @@
+import { describe, test, expect } from 'vitest'
+import {
+  esquemaNecesidad,
+  esquemaVoluntario,
+  esquemaServicio,
+  erroresPorCampo,
+} from '../../src/lib/validacion/esquemas'
+
+describe('esquemaNecesidad', () => {
+  const base = {
+    categoria: 'agua',
+    descripcion: 'Familia sin agua potable en la vereda hace tres días',
+    urgencia: 'alta',
+    municipio_id: '27001',
+    contacto_nombre: 'María',
+    contacto_telefono: '+57 300 1234567',
+  }
+  test('acepta un reporte válido', () => {
+    expect(esquemaNecesidad.safeParse(base).success).toBe(true)
+  })
+  test('rechaza descripción demasiado corta', () => {
+    const r = esquemaNecesidad.safeParse({ ...base, descripcion: 'corto' })
+    expect(r.success).toBe(false)
+  })
+  test('rechaza categoría inválida', () => {
+    const r = esquemaNecesidad.safeParse({ ...base, categoria: 'zzz' })
+    expect(r.success).toBe(false)
+  })
+  test('convierte personas_afectadas de texto a número', () => {
+    const r = esquemaNecesidad.safeParse({ ...base, personas_afectadas: '4' })
+    expect(r.success).toBe(true)
+    if (r.success) expect(r.data.personas_afectadas).toBe(4)
+  })
+})
+
+describe('esquemaVoluntario', () => {
+  test('exige al menos una habilidad', () => {
+    const r = esquemaVoluntario.safeParse({
+      nombre: 'Juan', habilidades: [], municipio_id: '17001', contacto_telefono: '3001234567',
+    })
+    expect(r.success).toBe(false)
+  })
+})
+
+describe('esquemaServicio', () => {
+  test('acepta un servicio válido', () => {
+    const r = esquemaServicio.safeParse({
+      tipo: 'alojamiento',
+      descripcion: 'Tengo dos habitaciones disponibles para familias',
+      municipio_id: '66001',
+      contacto_nombre: 'Ana',
+      contacto_telefono: '3009876543',
+    })
+    expect(r.success).toBe(true)
+  })
+})
+
+describe('erroresPorCampo', () => {
+  test('agrupa los mensajes por nombre de campo', () => {
+    const r = esquemaNecesidad.safeParse({ categoria: 'agua', descripcion: 'x' })
+    expect(r.success).toBe(false)
+    if (!r.success) {
+      const errs = erroresPorCampo(r.error)
+      expect(Object.keys(errs)).toContain('descripcion')
+      expect(Object.keys(errs)).toContain('municipio_id')
+    }
+  })
+})
