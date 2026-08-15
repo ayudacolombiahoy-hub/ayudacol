@@ -53,6 +53,15 @@ export async function listarAcopios(f: FiltrosSimple = {}) {
   return data ?? []
 }
 
+// Lectura pública de UN centro de acopio por id (tabla pública; RLS restringe a verificado=true para anon).
+export async function obtenerAcopio(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('centros_acopio').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data // RLS ya restringe a verificado=true para anon
+}
+
 export async function listarVoluntarios(f: FiltrosSimple = {}) {
   const sb = crearClienteAnonimo()
   let q = sb.from('voluntarios_publicos').select('*').order('creada_en', { ascending: false }).limit(200)
