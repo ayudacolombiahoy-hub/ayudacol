@@ -8,6 +8,7 @@ type Necesidad = {
   estado: string; municipio_id: string; personas_afectadas: number | null
   detalle_ubicacion: string | null; lat: number | null; lng: number | null
   creada_en: string; fotos?: string[] | null
+  contacto_nombre?: string | null; contacto_telefono?: string | null
 }
 
 const BORDE: Record<string, string> = {
@@ -39,6 +40,13 @@ export default function DetalleNecesidad({ item, municipio }: { item: Necesidad;
       </div>
       {direccion && (
         <BotonesMaps direccion={direccion} municipioTexto={municipio} lat={item.lat} lng={item.lng} textoVer={tMaps('verUbicacion')} textoComoLlegar={tMaps('comoLlegar')} />
+      )}
+      {item.contacto_telefono && (
+        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-4">
+          {item.contacto_nombre && <span className="text-gray-700">{td('contacto')}: <b>{item.contacto_nombre}</b></span>}
+          <a href={`https://wa.me/${item.contacto_telefono.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-sm font-bold text-white hover:brightness-95">💬 {td('whatsapp')}</a>
+          <a href={`tel:${item.contacto_telefono}`} className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-semibold text-gray-700 hover:bg-gray-50">📞 {td('llamar')}</a>
+        </div>
       )}
     </div>
   )

@@ -31,6 +31,7 @@ const TODAS = [
   'supabase/migrations/0010_refugios_animales.sql',
   'supabase/migrations/0011_acopios_publicos.sql',
   'supabase/migrations/0012_casos_aliados.sql',
+  'supabase/migrations/0013_necesidades_contacto.sql',
 ]
 
 // Permite pasar sufijos (p. ej. "0002") para reintentar migraciones puntuales.

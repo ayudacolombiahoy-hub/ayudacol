@@ -405,6 +405,9 @@
     "fotoAnterior": "Previous photo",
     "fotoSiguiente": "Next photo",
     "cupos": "Spots: {libres} free of {total}",
-    "personasAfectadas": "{n} people affected"
+    "personasAfectadas": "{n} people affected",
+    "contacto": "Contact",
+    "whatsapp": "WhatsApp",
+    "llamar": "Call"
   }
 }

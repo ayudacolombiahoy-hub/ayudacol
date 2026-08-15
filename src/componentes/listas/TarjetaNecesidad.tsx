@@ -7,6 +7,7 @@ type Necesidad = {
   id: string; categoria: string; descripcion: string; urgencia: string
   estado: string; municipio_id: string; personas_afectadas: number | null
   creada_en: string; fotos?: string[] | null
+  contacto_nombre?: string | null; contacto_telefono?: string | null
 }
 
 export default function TarjetaNecesidad({ n, municipio }: { n: Necesidad; municipio?: string }) {
@@ -30,6 +31,12 @@ export default function TarjetaNecesidad({ n, municipio }: { n: Necesidad; munic
         {n.personas_afectadas != null && <span>👥 {t('listas.personas', { n: n.personas_afectadas })}</span>}
         <span>🕓 {tiempoRelativo(n.creada_en, locale)}</span>
       </div>
+      {n.contacto_telefono && (
+        <div className="relative z-10 mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3">
+          <a href={`https://wa.me/${n.contacto_telefono.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-xs font-bold text-white hover:brightness-95">💬 {t('detalle.whatsapp')}</a>
+          <a href={`tel:${n.contacto_telefono}`} className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50">📞 {t('detalle.llamar')}</a>
+        </div>
+      )}
     </article>
   )
 }

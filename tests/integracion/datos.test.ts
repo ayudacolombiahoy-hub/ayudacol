@@ -18,11 +18,13 @@ describe('lecturas públicas', () => {
     expect(m.length).toBeGreaterThanOrEqual(25)
     expect(m[0]).toHaveProperty('codigo_dane')
   })
-  test('lista necesidades y NUNCA expone contacto', async () => {
+  test('lista necesidades devuelve filas con forma esperada', async () => {
+    // Nota: el contacto ahora SÍ se expone en necesidades (decisión de producto,
+    // migración 0013 — como en mascotas); por eso ya no se verifica su ausencia.
     const n = await listarNecesidades()
     for (const fila of n) {
-      expect(fila).not.toHaveProperty('contacto_telefono')
-      expect(fila).not.toHaveProperty('contacto_nombre')
+      expect(fila).toHaveProperty('categoria')
+      expect(fila).toHaveProperty('descripcion')
     }
   })
   test('filtra necesidades por municipio sin error', async () => {
@@ -40,13 +42,12 @@ describe('lecturas públicas', () => {
     const r = await obtenerMascota('00000000-0000-4000-8000-000000000000')
     expect(r).toBeNull()
   })
-  test('obtenerNecesidad NUNCA expone contacto', async () => {
+  test('obtenerNecesidad devuelve la fila por id (o null)', async () => {
     const lista = await listarNecesidades()
     if (lista.length === 0) return
     const uno = await obtenerNecesidad(lista[0].id)
-    if (!uno) return // BD compartida: la fila más reciente pudo borrarse entre la lista y la consulta por id
-    expect(uno).not.toHaveProperty('contacto_telefono')
-    expect(uno).not.toHaveProperty('contacto_nombre')
+    if (!uno) return // BD compartida: la fila pudo borrarse entre la lista y la consulta por id
+    expect(uno.id).toBe(lista[0].id)
   })
   test('obtenerDesaparecido NUNCA expone contacto', async () => {
     const lista = await listarDesaparecidos()
