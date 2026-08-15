@@ -150,6 +150,7 @@
     "sinAsignadas": "Tu organización no tiene solicitudes en atención.",
     "misAcopios": "Nuestros centros de acopio",
     "nuevoAcopio": "Registrar centro de acopio",
+    "acopioSoloOrgs": "Los centros de acopio los registran las organizaciones (requiere iniciar sesión).",
     "recibe": "Qué recibe",
     "noNecesita": "Qué ya NO necesita",
     "guardarAcopio": "Guardar acopio",
