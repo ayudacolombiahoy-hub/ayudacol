@@ -14,6 +14,14 @@ export async function listarDesaparecidos(f: FiltrosDesaparecidos = {}) {
   return data ?? []
 }
 
+// La foto es opcional y no forma parte de esquemaDesaparecido (para no acoplar
+// la validación del reporte a la subida de imágenes): se lee de la entrada
+// cruda y se guarda aparte en la columna `foto_url`.
+function fotoUrlDe(entrada: unknown): string | undefined {
+  const v = (entrada as { foto_url?: unknown } | null)?.foto_url
+  return typeof v === 'string' && v.trim() ? v.trim() : undefined
+}
+
 // Reporte público: cualquiera puede insertar; la RLS exige estado='buscando'.
 export async function reportarDesaparecido(entrada: unknown) {
   const p = esquemaDesaparecido.safeParse(entrada)
@@ -23,6 +31,7 @@ export async function reportarDesaparecido(entrada: unknown) {
     ...p.data,
     municipio_id: p.data.municipio_id || null,
     ultima_ubicacion: p.data.ultima_ubicacion || null,
+    foto_url: fotoUrlDe(entrada) ?? null,
     estado: 'buscando',
   })
   if (error) return { ok: false as const, errores: { _: [error.message] } }
