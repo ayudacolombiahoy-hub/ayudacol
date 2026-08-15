@@ -6,6 +6,7 @@
     "cambiarIdioma": "Español"
   },
   "nav": {
+    "mapa": "Map",
     "necesidades": "Needs",
     "acopios": "Donation centers",
     "voluntariado": "Volunteering",
@@ -164,5 +165,10 @@
     "elige": "Tap a hotspot to see the region",
     "verDetalle": "View on the map",
     "mapaCredito": "Map"
+  },
+  "mapa": {
+    "titulo": "Map of needs and donation centers",
+    "leyenda": "🔴 urgent · 🟠 medium · 🟢 center",
+    "sinCoords": "Some reports without exact location are placed at their municipality center."
   }
 }

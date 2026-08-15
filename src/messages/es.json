@@ -6,6 +6,7 @@
     "cambiarIdioma": "English"
   },
   "nav": {
+    "mapa": "Mapa",
     "necesidades": "Necesidades",
     "acopios": "Centros de acopio",
     "voluntariado": "Voluntariado",
@@ -164,5 +165,10 @@
     "elige": "Toca un foco para ver la región",
     "verDetalle": "Ver en el mapa",
     "mapaCredito": "Mapa"
+  },
+  "mapa": {
+    "titulo": "Mapa de necesidades y acopios",
+    "leyenda": "🔴 urgente · 🟠 media · 🟢 acopio",
+    "sinCoords": "Algunos reportes sin ubicación exacta se ubican en el centro de su municipio."
   }
 }

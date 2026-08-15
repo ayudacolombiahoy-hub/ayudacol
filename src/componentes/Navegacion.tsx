@@ -9,6 +9,7 @@ export default async function Navegacion() {
   const tRoot = await getTranslations()
   const perfil = await obtenerPerfil()
   const enlaces: [string, string][] = [
+    ['/mapa', t('mapa')],
     ['/necesidades', t('necesidades')],
     ['/acopios', t('acopios')],
     ['/voluntarios', t('voluntariado')],
