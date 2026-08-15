@@ -10,7 +10,7 @@ const RANGOS: [number, Intl.RelativeTimeFormatUnit][] = [
   [Infinity, 'year'],
 ]
 
-const DIVISOR: Record<Intl.RelativeTimeFormatUnit, number> = {
+const DIVISOR: Record<string, number> = {
   second: 1, minute: 60, hour: 3600, day: 86400,
   week: 604800, month: 2629800, quarter: 7889400, year: 31557600,
 }
