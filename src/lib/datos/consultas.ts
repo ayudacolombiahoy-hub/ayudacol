@@ -79,3 +79,21 @@ export async function listarServicios(f: FiltrosSimple = {}) {
   if (error) throw new Error(error.message)
   return data ?? []
 }
+
+// Lectura pública de UNA oferta de servicio por id, desde la vista pública (sin contacto).
+export async function obtenerServicio(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('ofertas_servicios_publicas').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
+}
+
+// Lectura pública de UN voluntario por id, desde la vista pública (sin contacto).
+export async function obtenerVoluntario(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('voluntarios_publicos').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
+}
