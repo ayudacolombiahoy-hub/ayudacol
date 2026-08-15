@@ -56,3 +56,34 @@ describe('mapeo — texto', () => {
     expect(inferirUrgencia('cuando puedan, gracias')).toBe('media')
   })
 })
+
+import {
+  mapearMunicipio, sectorDe, parsearFechaEs, dentroDeVentana,
+} from '../../scripts/importar-solicitudes/mapeo.mjs'
+
+describe('mapeo — ubicación y fecha', () => {
+  it('mapearMunicipio resuelve municipios, alias y villa maría', () => {
+    expect(mapearMunicipio('Manizales y alrededores').municipio_id).toBe('17001')
+    expect(mapearMunicipio('Pueblo Rico, Neira').municipio_id).toBe('17486')
+    expect(mapearMunicipio('Fátima').municipio_id).toBe('17001')
+    expect(mapearMunicipio('Villa María, Calle 9A').municipio_id).toBe('17873')
+    expect(mapearMunicipio('Bogotá')).toBeNull()
+  })
+
+  it('sectorDe elimina dirección exacta y cae al inicio del texto', () => {
+    expect(sectorDe('Villa María, Calle 9A # 7-16 apto 401 Edificio Temia')).toBe('Villa María')
+    expect(sectorDe('Centro de Manizales')).toBe('Centro de Manizales')
+  })
+
+  it('parsearFechaEs entiende el formato del sitio', () => {
+    expect(parsearFechaEs('15 de agosto de 2026 a las 1:47 p. m.')).toBe('2026-08-15T18:47:00.000Z')
+    expect(parsearFechaEs('texto basura')).toBeNull()
+  })
+
+  it('dentroDeVentana respeta el corte de días (con ahora inyectado)', () => {
+    const ahora = '2026-08-15T18:00:00.000Z'
+    expect(dentroDeVentana('2026-08-14T18:00:00.000Z', 14, ahora)).toBe(true)
+    expect(dentroDeVentana('2026-07-01T00:00:00.000Z', 14, ahora)).toBe(false)
+    expect(dentroDeVentana(null, 14, ahora)).toBe(false)
+  })
+})
