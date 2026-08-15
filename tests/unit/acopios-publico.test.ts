@@ -21,8 +21,7 @@ describe('esquemaAcopioPublico', () => {
   })
 
   test('rechaza sin contacto_publico (requerido en propuestas públicas)', () => {
-    const { contacto_publico, ...sinContacto } = base
-    expect(esquemaAcopioPublico.safeParse(sinContacto).success).toBe(false)
+    expect(esquemaAcopioPublico.safeParse({ ...base, contacto_publico: '' }).success).toBe(false)
   })
 
   test('rechaza dirección faltante', () => {
