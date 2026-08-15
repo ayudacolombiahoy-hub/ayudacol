@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { aCSV, deCSV } from '../../scripts/importar-solicitudes/csv.mjs'
+import {
+  esNecesidad, limpiarTelefonos, mapearCategoria, inferirUrgencia,
+  mapearMunicipio, sectorDe, parsearFechaEs, dentroDeVentana,
+  filaParaRevisar, validarFilaCarga, COLUMNAS_CSV, CAMPOS_CARGA,
+} from '../../scripts/importar-solicitudes/mapeo.mjs'
 
 describe('csv', () => {
   const columnas = ['a', 'b']
@@ -22,10 +27,6 @@ describe('csv', () => {
   })
 })
 
-import {
-  esNecesidad, limpiarTelefonos, mapearCategoria, inferirUrgencia,
-} from '../../scripts/importar-solicitudes/mapeo.mjs'
-
 describe('mapeo — texto', () => {
   it('esNecesidad filtra por tipo', () => {
     expect(esNecesidad({ tipo: 'necesita' })).toBe(true)
@@ -38,6 +39,8 @@ describe('mapeo — texto', () => {
     expect(limpiarTelefonos('llamar +57 300 123 4567 hoy')).toBe('llamar hoy')
     expect(limpiarTelefonos('mi cel 3001234567')).toBe('mi cel')
     expect(limpiarTelefonos('familia con 3 habitaciones talla M')).toBe('familia con 3 habitaciones talla M')
+    expect(limpiarTelefonos('llamar al fijo 6068871234 porfa')).toBe('llamar al fijo porfa')
+    expect(limpiarTelefonos('fijo 606 887 1234')).toBe('fijo')
   })
 
   it('mapearCategoria usa palabras clave y cae en otro', () => {
@@ -57,10 +60,6 @@ describe('mapeo — texto', () => {
   })
 })
 
-import {
-  mapearMunicipio, sectorDe, parsearFechaEs, dentroDeVentana,
-} from '../../scripts/importar-solicitudes/mapeo.mjs'
-
 describe('mapeo — ubicación y fecha', () => {
   it('mapearMunicipio resuelve municipios, alias y villa maría', () => {
     expect(mapearMunicipio('Manizales y alrededores').municipio_id).toBe('17001')
@@ -70,9 +69,18 @@ describe('mapeo — ubicación y fecha', () => {
     expect(mapearMunicipio('Bogotá')).toBeNull()
   })
 
+  it('mapearMunicipio devuelve el nombre para mostrar con tildes', () => {
+    expect(mapearMunicipio('Villa María, Calle 9A').nombre).toBe('Villa María')
+    expect(mapearMunicipio('Chinchiná centro').nombre).toBe('Chinchiná')
+  })
+
   it('sectorDe elimina dirección exacta y cae al inicio del texto', () => {
     expect(sectorDe('Villa María, Calle 9A # 7-16 apto 401 Edificio Temia')).toBe('Villa María')
     expect(sectorDe('Centro de Manizales')).toBe('Centro de Manizales')
+  })
+
+  it('sectorDe conserva dígitos cuando no hay dirección detallada', () => {
+    expect(sectorDe('Barrio 20 de Julio, Manizales')).toBe('Barrio 20 de Julio Manizales')
   })
 
   it('parsearFechaEs entiende el formato del sitio', () => {
@@ -87,10 +95,6 @@ describe('mapeo — ubicación y fecha', () => {
     expect(dentroDeVentana(null, 14, ahora)).toBe(false)
   })
 })
-
-import {
-  filaParaRevisar, validarFilaCarga, COLUMNAS_CSV, CAMPOS_CARGA,
-} from '../../scripts/importar-solicitudes/mapeo.mjs'
 
 describe('mapeo — filas', () => {
   const ahoraISO = '2026-08-15T18:00:00.000Z'
@@ -139,6 +143,12 @@ describe('mapeo — filas', () => {
     expect(validarFilaCarga({ ...buena, descripcion: 'corta' }).ok).toBe(false)
     expect(validarFilaCarga({ ...buena, municipio_id: '' }).ok).toBe(false)
     expect(validarFilaCarga({ ...buena, categoria: 'inexistente' }).ok).toBe(false)
+  })
+
+  it('validarFilaCarga rechaza teléfono demasiado corto y personas fuera de rango', () => {
+    const base = { categoria: 'salud', urgencia: 'alta', municipio_id: '17001', descripcion: 'Pañales para adulto mayor talla M', contacto_nombre: 'Ana', contacto_telefono: '573001112233', personas_afectadas: '' }
+    expect(validarFilaCarga({ ...base, contacto_telefono: '123' }).ok).toBe(false)
+    expect(validarFilaCarga({ ...base, personas_afectadas: '9999999' }).ok).toBe(false)
   })
 
   it('CAMPOS_CARGA son un subconjunto de COLUMNAS_CSV', () => {
