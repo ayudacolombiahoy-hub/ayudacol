@@ -1,6 +1,7 @@
 import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaDesaparecido, erroresPorCampo, ESTADOS_PERSONA } from '@/lib/validacion/esquemas'
+import { esUuid } from '@/lib/formato'
 
 export type FiltrosDesaparecidos = { municipio?: string }
 
@@ -12,6 +13,15 @@ export async function listarDesaparecidos(f: FiltrosDesaparecidos = {}) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   return data ?? []
+}
+
+// Lectura pública de UNA persona desaparecida por id, desde la vista SIN contacto.
+export async function obtenerDesaparecido(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('personas_desaparecidas_publicas').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
 }
 
 // La foto es opcional y no forma parte de esquemaDesaparecido (para no acoplar
