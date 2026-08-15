@@ -354,5 +354,17 @@
     "estado_activo": "Activo",
     "estado_reunida": "Reunida",
     "estado_cerrado": "Cerrado"
+  },
+  "acopiosPublico": {
+    "proponerTitulo": "Proponer un centro de acopio",
+    "intro": "Registra un punto donde la gente pueda dejar donaciones. Tu propuesta será revisada por el equipo antes de publicarse.",
+    "gracias": "¡Gracias! Tu propuesta quedó registrada. El equipo la revisará antes de publicarla.",
+    "gestionar": "Moderar acopios",
+    "sinCola": "No hay propuestas de acopio pendientes.",
+    "aprobar": "Aprobar y publicar",
+    "rechazar": "Rechazar",
+    "nombreCentro": "Nombre del centro de acopio",
+    "horarios": "Horarios (ej. 8am–6pm)",
+    "contacto": "Contacto público (teléfono)"
   }
 }

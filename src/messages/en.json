@@ -354,5 +354,17 @@
     "estado_activo": "Active",
     "estado_reunida": "Reunited",
     "estado_cerrado": "Closed"
+  },
+  "acopiosPublico": {
+    "proponerTitulo": "Propose a collection center",
+    "intro": "Register a place where people can drop off donations. Your proposal will be reviewed by the team before it goes public.",
+    "gracias": "Thank you! Your proposal was submitted. The team will review it before publishing.",
+    "gestionar": "Moderate centers",
+    "sinCola": "No pending collection center proposals.",
+    "aprobar": "Approve & publish",
+    "rechazar": "Reject",
+    "nombreCentro": "Collection center name",
+    "horarios": "Hours (e.g. 8am–6pm)",
+    "contacto": "Public contact (phone)"
   }
 }
