@@ -7,6 +7,7 @@ import { obtenerPerfil, ROLES_PANEL } from '@/lib/auth/sesion'
 import { Link } from '@/i18n/navegacion'
 import BarraFiltros from '@/componentes/listas/BarraFiltros'
 import Vacio from '@/componentes/listas/Vacio'
+import BotonesMaps from '@/componentes/BotonesMaps'
 
 const COLOR_ESTADO: Record<string, string> = {
   abierto: 'bg-green-100 text-green-800',
@@ -21,6 +22,7 @@ export default async function Pagina({
   setRequestLocale(locale)
   const f = await searchParams
   const t = await getTranslations('albergues')
+  const tMaps = await getTranslations('maps')
   const [albergues, municipios, perfil] = await Promise.all([
     listarAlbergues(f),
     listarMunicipios(),
@@ -61,6 +63,14 @@ export default async function Pagina({
                   <p className="mt-1 text-sm font-semibold text-gray-700">{t('cupos', { libres, total: a.capacidad })}</p>
                 )}
                 {a.contacto_publico && <p className="mt-1 text-sm text-gray-600">☎️ {a.contacto_publico}</p>}
+                <BotonesMaps
+                  direccion={a.direccion}
+                  municipioTexto={mapaMuni.get(a.municipio_id)}
+                  lat={a.lat}
+                  lng={a.lng}
+                  textoVer={tMaps('verUbicacion')}
+                  textoComoLlegar={tMaps('comoLlegar')}
+                />
               </article>
             )
           })}
