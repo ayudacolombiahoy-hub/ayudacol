@@ -38,5 +38,74 @@
     "rechazada": "Rechazada",
     "duplicada": "Duplicada",
     "por_reconfirmar": "Por reconfirmar"
+  },
+  "acciones": {
+    "reportarNecesidad": "Reportar una necesidad",
+    "ofrecerVoluntariado": "Ofrecerme como voluntario",
+    "ofrecerServicio": "Ofrecer un servicio",
+    "enviar": "Enviar",
+    "enviando": "Enviando…",
+    "verNecesidades": "Ver necesidades",
+    "verAcopios": "Ver centros de acopio",
+    "verVoluntarios": "Ver voluntarios",
+    "verServicios": "Ver servicios"
+  },
+  "campos": {
+    "categoria": "Categoría",
+    "descripcion": "Descripción",
+    "personasAfectadas": "Personas afectadas",
+    "urgencia": "Urgencia",
+    "municipio": "Municipio",
+    "detalleUbicacion": "Detalle de la ubicación",
+    "contactoNombre": "Tu nombre",
+    "contactoTelefono": "Teléfono de contacto",
+    "telefonoPrivado": "Tu teléfono no se muestra al público; solo lo ven los moderadores para verificar.",
+    "nombre": "Nombre",
+    "habilidades": "Habilidades",
+    "disponibilidad": "Disponibilidad",
+    "tipoServicio": "Tipo de servicio",
+    "capacidad": "Capacidad",
+    "obligatorio": "obligatorio",
+    "opcional": "opcional"
+  },
+  "habilidades": {
+    "medico": "Médico",
+    "psicologo": "Psicólogo",
+    "remocion_escombros": "Remoción de escombros",
+    "logistica": "Logística",
+    "transporte": "Transporte",
+    "construccion": "Construcción",
+    "otro": "Otro"
+  },
+  "tiposServicio": {
+    "alojamiento": "Alojamiento",
+    "transporte": "Transporte",
+    "maquinaria": "Maquinaria",
+    "bodega": "Bodega",
+    "otro": "Otro"
+  },
+  "urgencias": {
+    "alta": "Alta",
+    "media": "Media",
+    "baja": "Baja"
+  },
+  "listas": {
+    "tituloNecesidades": "Necesidades reportadas",
+    "tituloAcopios": "Centros de acopio",
+    "tituloVoluntarios": "Voluntarios disponibles",
+    "tituloServicios": "Servicios ofrecidos",
+    "filtroTodos": "Todos",
+    "filtroMunicipio": "Ciudad / municipio",
+    "filtroCategoria": "Categoría",
+    "filtroEstado": "Estado",
+    "vacio": "No hay resultados con estos filtros todavía.",
+    "personas": "{n} personas",
+    "recibe": "Recibe",
+    "noNecesita": "Ya no necesita"
+  },
+  "formulario": {
+    "gracias": "¡Gracias! Tu reporte quedó registrado como \"sin verificar\". Un moderador lo revisará pronto.",
+    "error": "No se pudo enviar. Revisa los campos e intenta de nuevo.",
+    "elige": "Elige una opción"
   }
 }

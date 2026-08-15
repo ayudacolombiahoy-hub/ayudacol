@@ -38,5 +38,74 @@
     "rechazada": "Rejected",
     "duplicada": "Duplicate",
     "por_reconfirmar": "Pending reconfirmation"
+  },
+  "acciones": {
+    "reportarNecesidad": "Report a need",
+    "ofrecerVoluntariado": "Volunteer",
+    "ofrecerServicio": "Offer a service",
+    "enviar": "Submit",
+    "enviando": "Submitting…",
+    "verNecesidades": "View needs",
+    "verAcopios": "View donation centers",
+    "verVoluntarios": "View volunteers",
+    "verServicios": "View services"
+  },
+  "campos": {
+    "categoria": "Category",
+    "descripcion": "Description",
+    "personasAfectadas": "People affected",
+    "urgencia": "Urgency",
+    "municipio": "Municipality",
+    "detalleUbicacion": "Location details",
+    "contactoNombre": "Your name",
+    "contactoTelefono": "Contact phone",
+    "telefonoPrivado": "Your phone is never shown publicly; only moderators see it to verify.",
+    "nombre": "Name",
+    "habilidades": "Skills",
+    "disponibilidad": "Availability",
+    "tipoServicio": "Service type",
+    "capacidad": "Capacity",
+    "obligatorio": "required",
+    "opcional": "optional"
+  },
+  "habilidades": {
+    "medico": "Doctor",
+    "psicologo": "Psychologist",
+    "remocion_escombros": "Debris removal",
+    "logistica": "Logistics",
+    "transporte": "Transport",
+    "construccion": "Construction",
+    "otro": "Other"
+  },
+  "tiposServicio": {
+    "alojamiento": "Lodging",
+    "transporte": "Transport",
+    "maquinaria": "Machinery",
+    "bodega": "Warehouse",
+    "otro": "Other"
+  },
+  "urgencias": {
+    "alta": "High",
+    "media": "Medium",
+    "baja": "Low"
+  },
+  "listas": {
+    "tituloNecesidades": "Reported needs",
+    "tituloAcopios": "Donation centers",
+    "tituloVoluntarios": "Available volunteers",
+    "tituloServicios": "Offered services",
+    "filtroTodos": "All",
+    "filtroMunicipio": "City / municipality",
+    "filtroCategoria": "Category",
+    "filtroEstado": "Status",
+    "vacio": "No results with these filters yet.",
+    "personas": "{n} people",
+    "recibe": "Accepts",
+    "noNecesita": "No longer needs"
+  },
+  "formulario": {
+    "gracias": "Thank you! Your report was recorded as \"unverified\". A moderator will review it soon.",
+    "error": "Could not submit. Please check the fields and try again.",
+    "elige": "Choose an option"
   }
 }
