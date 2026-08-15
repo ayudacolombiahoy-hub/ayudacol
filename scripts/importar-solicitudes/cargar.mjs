@@ -9,6 +9,14 @@ import { deCSV } from './csv.mjs'
 
 config({ path: '.env.local' })
 
+// Guarda de privacidad: el insert lista columnas a mano; si CAMPOS_CARGA cambia
+// (p. ej. alguien agrega un campo privado), abortamos antes de tocar la base.
+const CAMPOS_ESPERADOS = ['categoria', 'urgencia', 'municipio_id', 'descripcion', 'detalle_ubicacion', 'personas_afectadas', 'contacto_nombre', 'contacto_telefono']
+if (JSON.stringify(CAMPOS_CARGA) !== JSON.stringify(CAMPOS_ESPERADOS)) {
+  console.error('❌ CAMPOS_CARGA cambió sin actualizar el insert de cargar.mjs')
+  process.exit(1)
+}
+
 const args = process.argv.slice(2)
 const dryRun = args.includes('--dry-run')
 const entrada = args.find((a) => !a.startsWith('--'))
@@ -32,7 +40,12 @@ const url = process.env.SUPABASE_DB_URL
 if (!url) { console.error('❌ Falta SUPABASE_DB_URL en .env.local'); process.exit(1) }
 
 const client = new pg.Client({ connectionString: url })
-await client.connect()
+try {
+  await client.connect()
+} catch (e) {
+  console.error('❌ No se pudo conectar a la base:', e.message)
+  process.exit(1)
+}
 let insertadas = 0, duplicadas = 0
 try {
   for (const fila of validas) {
@@ -59,5 +72,3 @@ try {
   await client.end()
 }
 console.log(`✅ insertadas: ${insertadas} | duplicadas omitidas: ${duplicadas} | inválidas: ${invalidas}`)
-// CAMPOS_CARGA documenta el contrato de columnas; el insert las lista explícitamente.
-void CAMPOS_CARGA
