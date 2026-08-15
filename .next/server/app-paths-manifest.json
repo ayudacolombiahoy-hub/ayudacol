@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/auth/callback/route": "app/auth/callback/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
+  "/[locale]/entrar/page": "app/[locale]/entrar/page.js",
+  "/[locale]/acopios/page": "app/[locale]/acopios/page.js",
+  "/[locale]/admin/organizaciones/page": "app/[locale]/admin/organizaciones/page.js",
+  "/[locale]/admin/campanas/page": "app/[locale]/admin/campanas/page.js",
+  "/[locale]/donar/page": "app/[locale]/donar/page.js",
+  "/[locale]/org/page": "app/[locale]/org/page.js",
+  "/[locale]/mapa/page": "app/[locale]/mapa/page.js",
+  "/[locale]/necesidades/page": "app/[locale]/necesidades/page.js",
+  "/[locale]/org/acopios/page": "app/[locale]/org/acopios/page.js",
+  "/[locale]/reportar/servicio/page": "app/[locale]/reportar/servicio/page.js",
+  "/[locale]/reportar/necesidad/page": "app/[locale]/reportar/necesidad/page.js",
+  "/[locale]/panel/page": "app/[locale]/panel/page.js",
+  "/[locale]/reportar/voluntario/page": "app/[locale]/reportar/voluntario/page.js",
+  "/[locale]/page": "app/[locale]/page.js",
+  "/[locale]/servicios/page": "app/[locale]/servicios/page.js",
+  "/[locale]/voluntarios/page": "app/[locale]/voluntarios/page.js"
+}

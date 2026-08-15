@@ -1,0 +1,1 @@
+globalThis.__RSC_MANIFEST=(globalThis.__RSC_MANIFEST||{});globalThis.__RSC_MANIFEST["/auth/callback/route"]={"moduleLoading":{"prefix":"/_next/"},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"clientModules":{},"entryCSSFiles":{"/Volumes/Datadriven/02_PROYECTOS/ayuda humanitaria/src/app/auth/callback/route":[]},"rscModuleMapping":{},"edgeRscModuleMapping":{}};

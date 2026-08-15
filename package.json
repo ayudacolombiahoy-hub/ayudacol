@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "echo 'Deploy: se usa el .next precompilado del repo. Para regenerarlo: npm run build:local'",
+    "build:local": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",

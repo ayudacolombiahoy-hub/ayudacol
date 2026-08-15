@@ -1,0 +1,23 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/_global-error/page": "/_global-error",
+  "/auth/callback/route": "/auth/callback",
+  "/favicon.ico/route": "/favicon.ico",
+  "/icon.svg/route": "/icon.svg",
+  "/[locale]/entrar/page": "/[locale]/entrar",
+  "/[locale]/acopios/page": "/[locale]/acopios",
+  "/[locale]/admin/organizaciones/page": "/[locale]/admin/organizaciones",
+  "/[locale]/admin/campanas/page": "/[locale]/admin/campanas",
+  "/[locale]/donar/page": "/[locale]/donar",
+  "/[locale]/org/page": "/[locale]/org",
+  "/[locale]/mapa/page": "/[locale]/mapa",
+  "/[locale]/necesidades/page": "/[locale]/necesidades",
+  "/[locale]/org/acopios/page": "/[locale]/org/acopios",
+  "/[locale]/reportar/servicio/page": "/[locale]/reportar/servicio",
+  "/[locale]/reportar/necesidad/page": "/[locale]/reportar/necesidad",
+  "/[locale]/panel/page": "/[locale]/panel",
+  "/[locale]/reportar/voluntario/page": "/[locale]/reportar/voluntario",
+  "/[locale]/page": "/[locale]",
+  "/[locale]/servicios/page": "/[locale]/servicios",
+  "/[locale]/voluntarios/page": "/[locale]/voluntarios"
+}
