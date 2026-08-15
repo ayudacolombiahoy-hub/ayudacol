@@ -16,19 +16,19 @@ export default async function Navegacion() {
     ['/servicios', t('servicios')],
   ]
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="border-b border-gray-200 bg-white shadow-sm">
       <nav className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 p-3">
-        <Link href="/" className="font-extrabold">🇨🇴 AyudaCol</Link>
+        <Link href="/" className="text-lg font-extrabold text-gray-900">🇨🇴 AyudaCol</Link>
         <div className="flex flex-wrap items-center gap-4 text-sm">
           {enlaces.map(([href, txt]) => (
-            <Link key={href} href={href} className="text-gray-700 hover:text-blue-700">{txt}</Link>
+            <Link key={href} href={href} className="font-medium text-gray-800 hover:text-blue-700">{txt}</Link>
           ))}
-          {!perfil && <Link href="/entrar" className="text-gray-700 hover:text-blue-700">{tAuth('entrar')}</Link>}
+          {!perfil && <Link href="/entrar" className="font-medium text-gray-800 hover:text-blue-700">{tAuth('entrar')}</Link>}
           {perfil && (perfil.rol === 'moderador' || perfil.rol === 'admin') && (
             <Link href="/panel" className="font-semibold text-blue-700">{tAuth('panel')}</Link>
           )}
           {perfil?.rol === 'admin' && (
-            <Link href="/admin/organizaciones" className="text-gray-700 hover:text-blue-700">{tRoot('admin.titulo')}</Link>
+            <Link href="/admin/organizaciones" className="font-medium text-gray-800 hover:text-blue-700">{tRoot('admin.titulo')}</Link>
           )}
           {perfil?.rol === 'org' && (
             <Link href="/org" className="font-semibold text-blue-700">{tRoot('org.titulo')}</Link>
