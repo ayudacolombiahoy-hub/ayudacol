@@ -15,6 +15,18 @@ export default function VisorFoto({
 }) {
   const [i, setI] = useState(0)
   const [ampliada, setAmpliada] = useState(false)
+  // Si el padre reutiliza la instancia al navegar entre publicaciones hermanas
+  // (misma ruta, distinto id vía soft-navigation), fotos cambia sin desmontar el
+  // componente. Reseteamos índice y lightbox ajustando el estado durante el render
+  // (patrón recomendado por React para "resetear estado cuando cambia una prop"),
+  // en vez de un useEffect que dispararía un setState síncrono extra.
+  const clave = fotos.join('|')
+  const [claveAnterior, setClaveAnterior] = useState(clave)
+  if (clave !== claveAnterior) {
+    setClaveAnterior(clave)
+    setI(0)
+    setAmpliada(false)
+  }
   if (!fotos.length) return null
   const hayVarias = fotos.length > 1
   const anterior = () => setI((p) => (p - 1 + fotos.length) % fotos.length)
@@ -22,14 +34,15 @@ export default function VisorFoto({
 
   return (
     <div className="relative">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={fotos[i]}
-        alt={alt}
-        title={etiquetaAmpliar}
-        onClick={() => setAmpliada(true)}
-        className="max-h-[60vh] w-full cursor-zoom-in rounded-lg bg-gray-50 object-contain"
-      />
+      <button type="button" onClick={() => setAmpliada(true)} className="block w-full">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={fotos[i]}
+          alt={alt}
+          title={etiquetaAmpliar}
+          className="max-h-[60vh] w-full cursor-zoom-in rounded-lg bg-gray-50 object-contain"
+        />
+      </button>
       {hayVarias && (
         <>
           <button onClick={anterior} aria-label={etiquetaAnterior} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-black/50 px-3 py-1 text-white hover:bg-black/70">‹</button>

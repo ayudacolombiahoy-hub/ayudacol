@@ -19,6 +19,9 @@ describe('esUuid', () => {
   test('acepta un UUID v4 válido', () => {
     expect(esUuid('3f4b2c1a-1111-4222-8333-444455556666')).toBe(true)
   })
+  test('acepta UUID en mayúsculas (insensible a mayúsculas)', () => {
+    expect(esUuid('3F4B2C1A-1111-4222-8333-444455556666')).toBe(true)
+  })
   test('rechaza cadenas que no son UUID', () => {
     expect(esUuid('123')).toBe(false)
     expect(esUuid('')).toBe(false)
