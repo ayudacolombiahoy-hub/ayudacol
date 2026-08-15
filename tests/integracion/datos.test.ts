@@ -1,9 +1,14 @@
 import { describe, test, expect, afterAll } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
-import { listarMunicipios, listarNecesidades, obtenerNecesidad } from '../../src/lib/datos/consultas'
+import {
+  listarMunicipios, listarNecesidades, obtenerNecesidad,
+  listarServicios, obtenerServicio, listarVoluntarios, obtenerVoluntario,
+  listarAcopios, obtenerAcopio,
+} from '../../src/lib/datos/consultas'
 import { crearNecesidad, crearVoluntario } from '../../src/lib/datos/reportar'
 import { listarMascotas, obtenerMascota } from '../../src/lib/datos/mascotas'
 import { listarDesaparecidos, obtenerDesaparecido } from '../../src/lib/datos/desaparecidos'
+import { listarAlbergues, obtenerAlbergue } from '../../src/lib/datos/albergues'
 
 const MARCA = 'PRUEBA INTEGRACION —'
 
@@ -50,6 +55,36 @@ describe('lecturas públicas', () => {
     if (!uno) return // BD compartida: la fila más reciente pudo borrarse entre la lista y la consulta por id
     expect(uno).not.toHaveProperty('contacto_telefono')
     expect(uno).not.toHaveProperty('contacto_nombre')
+  })
+  test('obtenerServicio NUNCA expone contacto', async () => {
+    const lista = await listarServicios()
+    if (lista.length === 0) return
+    const uno = await obtenerServicio(lista[0].id)
+    if (!uno) return // BD compartida: la fila pudo borrarse entre la lista y la consulta por id
+    expect(uno).not.toHaveProperty('contacto_telefono')
+    expect(uno).not.toHaveProperty('contacto_nombre')
+  })
+  test('obtenerVoluntario NUNCA expone contacto', async () => {
+    const lista = await listarVoluntarios()
+    if (lista.length === 0) return
+    const uno = await obtenerVoluntario(lista[0].id)
+    if (!uno) return // BD compartida: la fila pudo borrarse entre la lista y la consulta por id
+    expect(uno).not.toHaveProperty('contacto_telefono')
+    expect(uno).not.toHaveProperty('contacto_nombre')
+  })
+  test('obtenerAcopio devuelve la fila por id (o null)', async () => {
+    const lista = await listarAcopios()
+    if (lista.length === 0) return
+    const uno = await obtenerAcopio(lista[0].id)
+    if (!uno) return // BD compartida: la fila pudo borrarse entre la lista y la consulta por id
+    expect(uno.id).toBe(lista[0].id)
+  })
+  test('obtenerAlbergue devuelve la fila por id (o null)', async () => {
+    const lista = await listarAlbergues()
+    if (lista.length === 0) return
+    const uno = await obtenerAlbergue(lista[0].id)
+    if (!uno) return // BD compartida: la fila pudo borrarse entre la lista y la consulta por id
+    expect(uno.id).toBe(lista[0].id)
   })
 })
 
