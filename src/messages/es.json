@@ -10,6 +10,7 @@
     "mapa": "Mapa",
     "novedades": "Novedades",
     "necesidades": "Necesidades",
+    "desaparecidos": "Desaparecidos",
     "acopios": "Centros de acopio",
     "albergues": "Albergues",
     "voluntariado": "Voluntariado",
@@ -255,5 +256,24 @@
     "capacidad": "Capacidad",
     "ocupacion": "Ocupación",
     "actualizar": "Actualizar"
+  },
+  "desaparecidos": {
+    "titulo": "Personas desaparecidas",
+    "intro": "Personas reportadas como desaparecidas durante la emergencia, con su estado de búsqueda.",
+    "reportar": "Reportar persona desaparecida",
+    "buscando": "Buscando",
+    "encontrada": "Encontrada",
+    "edad": "Edad",
+    "aniosAbrev": "{n} años",
+    "ultimaUbicacion": "Última ubicación",
+    "sin": "Aún no hay personas reportadas como desaparecidas.",
+    "contacto": "Contacto",
+    "marcarEncontrada": "Marcar encontrada",
+    "cerrar": "Cerrar caso",
+    "formTitulo": "Reportar una persona desaparecida",
+    "gracias": "¡Gracias! El reporte quedó registrado. Nuestro equipo lo revisará pronto.",
+    "nombrePersona": "Nombre de la persona desaparecida",
+    "gestionar": "Gestionar personas desaparecidas",
+    "sinCola": "No hay casos pendientes en la cola."
   }
 }

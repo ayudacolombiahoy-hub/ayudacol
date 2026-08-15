@@ -10,6 +10,7 @@
     "mapa": "Map",
     "novedades": "Updates",
     "necesidades": "Needs",
+    "desaparecidos": "Missing persons",
     "acopios": "Donation centers",
     "albergues": "Shelters",
     "voluntariado": "Volunteering",
@@ -255,5 +256,24 @@
     "capacidad": "Capacity",
     "ocupacion": "Occupancy",
     "actualizar": "Update"
+  },
+  "desaparecidos": {
+    "titulo": "Missing persons",
+    "intro": "People reported missing during the emergency, along with their search status.",
+    "reportar": "Report a missing person",
+    "buscando": "Missing",
+    "encontrada": "Found",
+    "edad": "Age",
+    "aniosAbrev": "{n} years old",
+    "ultimaUbicacion": "Last known location",
+    "sin": "No missing persons reported yet.",
+    "contacto": "Contact",
+    "marcarEncontrada": "Mark as found",
+    "cerrar": "Close case",
+    "formTitulo": "Report a missing person",
+    "gracias": "Thank you! The report was recorded. Our team will review it soon.",
+    "nombrePersona": "Missing person's name",
+    "gestionar": "Manage missing persons",
+    "sinCola": "No pending cases in the queue."
   }
 }

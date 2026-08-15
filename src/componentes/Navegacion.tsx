@@ -13,6 +13,7 @@ export default async function Navegacion() {
     ['/mapa', t('mapa')],
     ['/novedades', t('novedades')],
     ['/necesidades', t('necesidades')],
+    ['/desaparecidos', t('desaparecidos')],
     ['/acopios', t('acopios')],
     ['/albergues', t('albergues')],
     ['/voluntarios', t('voluntariado')],
