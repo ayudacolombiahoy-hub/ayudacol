@@ -47,12 +47,36 @@
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/admin/campanas(?:/)?$"
     },
     {
+      "page": "/[locale]/admin/novedades",
+      "regex": "^/([^/]+?)/admin/novedades(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/admin/novedades(?:/)?$"
+    },
+    {
       "page": "/[locale]/admin/organizaciones",
       "regex": "^/([^/]+?)/admin/organizaciones(?:/)?$",
       "routeKeys": {
         "nxtPlocale": "nxtPlocale"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/admin/organizaciones(?:/)?$"
+    },
+    {
+      "page": "/[locale]/albergues",
+      "regex": "^/([^/]+?)/albergues(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/albergues(?:/)?$"
+    },
+    {
+      "page": "/[locale]/desaparecidos",
+      "regex": "^/([^/]+?)/desaparecidos(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/desaparecidos(?:/)?$"
     },
     {
       "page": "/[locale]/donar",
@@ -63,12 +87,36 @@
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/donar(?:/)?$"
     },
     {
+      "page": "/[locale]/donar/exterior",
+      "regex": "^/([^/]+?)/donar/exterior(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/donar/exterior(?:/)?$"
+    },
+    {
+      "page": "/[locale]/emergencia",
+      "regex": "^/([^/]+?)/emergencia(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/emergencia(?:/)?$"
+    },
+    {
       "page": "/[locale]/entrar",
       "regex": "^/([^/]+?)/entrar(?:/)?$",
       "routeKeys": {
         "nxtPlocale": "nxtPlocale"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/entrar(?:/)?$"
+    },
+    {
+      "page": "/[locale]/estadisticas",
+      "regex": "^/([^/]+?)/estadisticas(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/estadisticas(?:/)?$"
     },
     {
       "page": "/[locale]/mapa",
@@ -85,6 +133,14 @@
         "nxtPlocale": "nxtPlocale"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/necesidades(?:/)?$"
+    },
+    {
+      "page": "/[locale]/novedades",
+      "regex": "^/([^/]+?)/novedades(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/novedades(?:/)?$"
     },
     {
       "page": "/[locale]/org",
@@ -109,6 +165,30 @@
         "nxtPlocale": "nxtPlocale"
       },
       "namedRegex": "^/(?<nxtPlocale>[^/]+?)/panel(?:/)?$"
+    },
+    {
+      "page": "/[locale]/panel/albergues",
+      "regex": "^/([^/]+?)/panel/albergues(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/panel/albergues(?:/)?$"
+    },
+    {
+      "page": "/[locale]/panel/desaparecidos",
+      "regex": "^/([^/]+?)/panel/desaparecidos(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/panel/desaparecidos(?:/)?$"
+    },
+    {
+      "page": "/[locale]/reportar/desaparecido",
+      "regex": "^/([^/]+?)/reportar/desaparecido(?:/)?$",
+      "routeKeys": {
+        "nxtPlocale": "nxtPlocale"
+      },
+      "namedRegex": "^/(?<nxtPlocale>[^/]+?)/reportar/desaparecido(?:/)?$"
     },
     {
       "page": "/[locale]/reportar/necesidad",
