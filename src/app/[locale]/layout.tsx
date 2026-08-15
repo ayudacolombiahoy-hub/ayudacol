@@ -1,6 +1,7 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import Navegacion from '@/componentes/Navegacion'
 import '../globals.css'
 
 export function generateStaticParams() {
@@ -19,7 +20,10 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <Navegacion />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )
