@@ -8,7 +8,11 @@ export type Punto = {
   tipo: 'necesidad' | 'acopio'
   titulo: string
   urgencia?: string
+  mapsVer?: string
+  mapsDir?: string
 }
+
+export type EtiquetasMaps = { ver: string; comoLlegar: string }
 
 const ESTILO = {
   version: 8 as const,
@@ -23,9 +27,14 @@ const ESTILO = {
   layers: [{ id: 'osm', type: 'raster' as const, source: 'osm' }],
 }
 
-export default function MapaOperativo({ puntos }: { puntos: Punto[] }) {
+export default function MapaOperativo({
+  puntos,
+  etiquetas = { ver: 'Ver ubicación', comoLlegar: 'Cómo llegar' },
+}: { puntos: Punto[]; etiquetas?: EtiquetasMaps }) {
   const cont = useRef<HTMLDivElement>(null)
   const mapa = useRef<maplibregl.Map | null>(null)
+  const etiq = useRef(etiquetas)
+  etiq.current = etiquetas
 
   useEffect(() => {
     if (!cont.current || mapa.current) return
@@ -48,7 +57,10 @@ export default function MapaOperativo({ puntos }: { puntos: Punto[] }) {
       features: puntos.map((p) => ({
         type: 'Feature' as const,
         geometry: { type: 'Point' as const, coordinates: [p.lng, p.lat] },
-        properties: { tipo: p.tipo, titulo: p.titulo, urgencia: p.urgencia ?? '' },
+        properties: {
+          tipo: p.tipo, titulo: p.titulo, urgencia: p.urgencia ?? '',
+          mapsVer: p.mapsVer ?? '', mapsDir: p.mapsDir ?? '',
+        },
       })),
     }
     function pintar() {
@@ -70,8 +82,16 @@ export default function MapaOperativo({ puntos }: { puntos: Punto[] }) {
       m!.on('click', 'punto', (e) => {
         const f = e.features?.[0]; if (!f) return
         const g = f.geometry as GeoJSON.Point
+        const pr = f.properties!
+        let html = `<strong>${pr.titulo}</strong>`
+        if (pr.mapsVer) {
+          html += `<div style="margin-top:6px;display:flex;gap:10px;font-size:12px">` +
+            `<a href="${pr.mapsVer}" target="_blank" rel="noopener noreferrer">📍 ${etiq.current.ver}</a>` +
+            `<a href="${pr.mapsDir}" target="_blank" rel="noopener noreferrer">🧭 ${etiq.current.comoLlegar}</a>` +
+            `</div>`
+        }
         new maplibregl.Popup().setLngLat([g.coordinates[0], g.coordinates[1]])
-          .setHTML(`<strong>${f.properties!.titulo}</strong>`).addTo(m!)
+          .setHTML(html).addTo(m!)
       })
       m!.on('click', 'clusters', (e) => {
         const f = m!.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0]
