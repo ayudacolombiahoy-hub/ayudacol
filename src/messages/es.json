@@ -396,5 +396,15 @@
     "nombreCentro": "Nombre del centro de acopio",
     "horarios": "Horarios (ej. 8am–6pm)",
     "contacto": "Contacto público (teléfono)"
+  },
+  "detalle": {
+    "volver": "← Volver al listado",
+    "cerrar": "Cerrar",
+    "cerrarModal": "Cerrar ventana",
+    "verFoto": "Ampliar foto",
+    "fotoAnterior": "Foto anterior",
+    "fotoSiguiente": "Foto siguiente",
+    "cupos": "Cupos: {libres} libres de {total}",
+    "personasAfectadas": "{n} personas afectadas"
   }
 }

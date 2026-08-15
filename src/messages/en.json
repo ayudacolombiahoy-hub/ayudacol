@@ -396,5 +396,15 @@
     "nombreCentro": "Collection center name",
     "horarios": "Hours (e.g. 8am–6pm)",
     "contacto": "Public contact (phone)"
+  },
+  "detalle": {
+    "volver": "← Back to list",
+    "cerrar": "Close",
+    "cerrarModal": "Close dialog",
+    "verFoto": "Enlarge photo",
+    "fotoAnterior": "Previous photo",
+    "fotoSiguiente": "Next photo",
+    "cupos": "Spots: {libres} free of {total}",
+    "personasAfectadas": "{n} people affected"
   }
 }
