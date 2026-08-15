@@ -153,5 +153,16 @@
     "noNecesita": "No longer needs",
     "guardarAcopio": "Save center",
     "estadoAcopio": "Status"
+  },
+  "viz": {
+    "enVivo": "Live data",
+    "titulo": "Where help is needed",
+    "activas": "active needs",
+    "urgentes": "Urgent",
+    "acopios": "Donation centers",
+    "resueltas": "Resolved",
+    "elige": "Tap a hotspot to see the region",
+    "verDetalle": "View on the map",
+    "mapaCredito": "Map"
   }
 }

@@ -153,5 +153,16 @@
     "noNecesita": "Qué ya NO necesita",
     "guardarAcopio": "Guardar acopio",
     "estadoAcopio": "Estado"
+  },
+  "viz": {
+    "enVivo": "Datos en vivo",
+    "titulo": "Dónde se necesita ayuda",
+    "activas": "necesidades activas",
+    "urgentes": "Urgentes",
+    "acopios": "Centros de acopio",
+    "resueltas": "Resueltas",
+    "elige": "Toca un foco para ver la región",
+    "verDetalle": "Ver en el mapa",
+    "mapaCredito": "Mapa"
   }
 }
