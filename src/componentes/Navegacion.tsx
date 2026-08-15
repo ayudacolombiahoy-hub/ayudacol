@@ -14,6 +14,7 @@ export default async function Navegacion() {
     ['/novedades', t('novedades')],
     ['/necesidades', t('necesidades')],
     ['/desaparecidos', t('desaparecidos')],
+    ['/mascotas', t('mascotas')],
     ['/acopios', t('acopios')],
     ['/albergues', t('albergues')],
     ['/voluntarios', t('voluntariado')],
