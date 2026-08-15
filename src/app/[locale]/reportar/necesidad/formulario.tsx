@@ -6,6 +6,7 @@ import Campo from '@/componentes/formularios/Campo'
 import SelectCatalogo, { type Opcion } from '@/componentes/formularios/SelectCatalogo'
 import Honeypot from '@/componentes/formularios/Honeypot'
 import BotonEnviar from '@/componentes/formularios/BotonEnviar'
+import SubirFoto from '@/componentes/formularios/SubirFoto'
 import { CATEGORIAS, URGENCIAS } from '@/lib/validacion/esquemas'
 
 const inicial: EstadoFormulario = { enviado: false }
@@ -46,6 +47,7 @@ export default function FormularioNecesidad({ municipios }: { municipios: Opcion
         <input id="detalle_ubicacion" name="detalle_ubicacion" type="text"
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
       </Campo>
+      <SubirFoto name="foto" />
       <Campo etiqueta={t('campos.contactoNombre')} htmlFor="contacto_nombre" requerido errores={e.contacto_nombre}>
         <input id="contacto_nombre" name="contacto_nombre" type="text" required
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />

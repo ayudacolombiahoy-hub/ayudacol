@@ -20,6 +20,7 @@ export async function accionReportarNecesidad(
     detalle_ubicacion: (formData.get('detalle_ubicacion') as string) || undefined,
     contacto_nombre: formData.get('contacto_nombre'),
     contacto_telefono: formData.get('contacto_telefono'),
+    foto: (formData.get('foto') as string) || undefined,
   }
   const res = await crearNecesidad(entrada)
   if (!res.ok) return { enviado: false, errores: res.errores }

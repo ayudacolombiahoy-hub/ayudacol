@@ -7,11 +7,24 @@ export type Resultado =
   | { ok: true }
   | { ok: false; errores: Record<string, string[]> }
 
+// La foto es opcional y no forma parte de esquemaNecesidad (para no acoplar la
+// validación del reporte a la subida de imágenes): se lee directamente de la
+// entrada cruda y se guarda aparte en la columna `fotos` (arreglo).
+function fotoDe(entrada: unknown): string | undefined {
+  const v = (entrada as { foto?: unknown } | null)?.foto
+  return typeof v === 'string' && v.trim() ? v.trim() : undefined
+}
+
 export async function crearNecesidad(entrada: unknown): Promise<Resultado> {
   const p = esquemaNecesidad.safeParse(entrada)
   if (!p.success) return { ok: false, errores: erroresPorCampo(p.error) }
+  const foto = fotoDe(entrada)
   const sb = crearClienteAnonimo()
-  const { error } = await sb.from('solicitudes_ayuda').insert({ ...p.data, estado: 'sin_verificar' })
+  const { error } = await sb.from('solicitudes_ayuda').insert({
+    ...p.data,
+    estado: 'sin_verificar',
+    fotos: foto ? [foto] : [],
+  })
   if (error) return { ok: false, errores: { _: [error.message] } }
   return { ok: true }
 }
