@@ -13,6 +13,7 @@ const dryRun = process.argv.includes('--dry-run')
 let items
 try {
   const r = await fetch(API, { headers: { Accept: 'application/json' } })
+  if (!r.ok) throw new Error('HTTP ' + r.status)
   const j = await r.json()
   items = j.items || []
 } catch (e) {
@@ -23,6 +24,9 @@ if (!items.length) { console.error('❌ El API no devolvió casos; no se toca la
 
 const filas = items.map(mapearCaso).filter((f) => f.case_id)
 console.log(`ℹ️  ${filas.length} casos recibidos del API`)
+// Guarda: si ningún item trae case_id, abortar. Si no, el "marcar ausentes" con
+// lista vacía marcaría TODA la tabla como AUSENTE y vaciaría la página.
+if (!filas.length) { console.error('❌ Ningún item tenía case_id válido; no se toca la base.'); process.exit(1) }
 if (dryRun) { console.log('🧪 dry-run: no se escribió nada'); process.exit(0) }
 
 const url = process.env.SUPABASE_DB_URL
