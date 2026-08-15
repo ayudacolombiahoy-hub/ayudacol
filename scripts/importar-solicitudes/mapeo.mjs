@@ -52,8 +52,20 @@ export const MUNICIPIOS_CALDAS = {
 // Barrios/veredas conocidos y variantes de escritura → municipio contenedor.
 const ALIAS = {
   'villa maria': 'villamaria',
+  // Barrios / sectores / veredas conocidos de Manizales.
   fatima: 'manizales', 'las americas': 'manizales', 'la enea': 'manizales',
   'la sultana': 'manizales', chipre: 'manizales', palogrande: 'manizales',
+  milan: 'manizales', morrogacho: 'manizales', 'bellas artes': 'manizales',
+  'la palma': 'manizales', arrayanes: 'manizales', nogales: 'manizales',
+  arboleda: 'manizales', 'el bosque': 'manizales', 'el caribe': 'manizales',
+  saez: 'manizales', uribe: 'manizales', 'la estrella': 'manizales',
+  villakempis: 'manizales', 'bosques del norte': 'manizales', 'santa sofia': 'manizales',
+  '20 de julio': 'manizales', 'el carmen': 'manizales', 'del carmen': 'manizales',
+  tablazo: 'manizales', samaria: 'manizales', 'la carola': 'manizales',
+  'bajo andes': 'manizales', 'alta suiza': 'manizales', galan: 'manizales',
+  'parque medico': 'manizales', 'avenida centro': 'manizales', cable: 'manizales',
+  'av santander': 'manizales', 'avenida santander': 'manizales', 'ondas del otun': 'manizales',
+  // Otros municipios de Caldas.
   'pueblo rico': 'neira',
 }
 

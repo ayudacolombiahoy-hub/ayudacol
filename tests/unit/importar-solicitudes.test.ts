@@ -69,6 +69,12 @@ describe('mapeo — ubicación y fecha', () => {
     expect(mapearMunicipio('Bogotá')).toBeNull()
   })
 
+  it('mapearMunicipio resuelve barrios de Manizales por alias', () => {
+    expect(mapearMunicipio('Barrio 20 de julio carrera 29').municipio_id).toBe('17001')
+    expect(mapearMunicipio('Chipre').municipio_id).toBe('17001')
+    expect(mapearMunicipio('Bellas artes').municipio_id).toBe('17001')
+  })
+
   it('mapearMunicipio devuelve el nombre para mostrar con tildes', () => {
     expect(mapearMunicipio('Villa María, Calle 9A').nombre).toBe('Villa María')
     expect(mapearMunicipio('Chinchiná centro').nombre).toBe('Chinchiná')
