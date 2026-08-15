@@ -141,3 +141,20 @@ export const esquemaDesaparecido = z.object({
 })
 
 export type DatosDesaparecido = z.infer<typeof esquemaDesaparecido>
+
+export const TIPOS_REPORTE_MASCOTA = ['perdida', 'encontrada'] as const
+export const ESPECIES_MASCOTA = ['perro', 'gato', 'ave', 'otro'] as const
+export const ESTADOS_MASCOTA = ['activo', 'reunida', 'cerrado'] as const
+
+export const esquemaMascota = z.object({
+  tipo_reporte: z.enum(TIPOS_REPORTE_MASCOTA),
+  especie: z.enum(ESPECIES_MASCOTA),
+  nombre: opcionalTexto(120),
+  descripcion: z.string().trim().min(5).max(2000),
+  municipio_id: z.string().trim().max(20).optional().or(z.literal('')),
+  ultima_ubicacion: opcionalTexto(500),
+  contacto_nombre: nombre,
+  contacto_telefono: telefono,
+})
+
+export type DatosMascota = z.infer<typeof esquemaMascota>
