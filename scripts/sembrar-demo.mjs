@@ -33,7 +33,12 @@ const DESC = {
 
 async function limpiar() {
   const { data: orgsDemo } = await db.from('organizaciones').select('id').or('descripcion.like.DEMO%,nombre.like.%[DEMO]%')
-  if (orgsDemo?.length) await db.from('centros_acopio').delete().in('organizacion_id', orgsDemo.map((o) => o.id))
+  if (orgsDemo?.length) {
+    const ids = orgsDemo.map((o) => o.id)
+    await db.from('centros_acopio').delete().in('organizacion_id', ids)
+    await db.from('albergues').delete().in('organizacion_id', ids)
+    await db.from('refugios_animales').delete().in('organizacion_id', ids)
+  }
   await db.from('centros_acopio').delete().like('nombre', '%[DEMO]%')
   await db.from('organizaciones').delete().like('descripcion', 'DEMO%')
   await db.from('organizaciones').delete().like('nombre', '%[DEMO]%')
