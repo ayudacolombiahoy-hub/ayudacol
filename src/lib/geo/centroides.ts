@@ -19,6 +19,16 @@ export const CENTROIDES: Record<string, [number, number]> = {
   '27205': [-76.65, 5.09], '27075': [-77.40, 6.22], '27050': [-76.63, 5.53],
 }
 
+// Capital de cada departamento afectado: respaldo cuando no hay centroide exacto,
+// para que cualquier municipio de esos departamentos aparezca en el mapa.
+const CAPITAL_DEPTO: Record<string, [number, number]> = {
+  '17': [-75.52, 5.07], // Caldas → Manizales
+  '66': [-75.69, 4.81], // Risaralda → Pereira
+  '63': [-75.68, 4.53], // Quindío → Armenia
+  '76': [-76.53, 3.44], // Valle del Cauca → Cali
+  '27': [-76.66, 5.69], // Chocó → Quibdó
+}
+
 export function coordenada(municipioId: string): [number, number] | null {
-  return CENTROIDES[municipioId] ?? null
+  return CENTROIDES[municipioId] ?? CAPITAL_DEPTO[municipioId.slice(0, 2)] ?? null
 }

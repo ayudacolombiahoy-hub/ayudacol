@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* La interfaz está diseñada para fondo claro (tarjetas blancas, texto oscuro).
+   Fijamos tema claro siempre para evitar que el modo oscuro del sistema
+   invierta los colores y los títulos se pierdan. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -10,13 +13,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
