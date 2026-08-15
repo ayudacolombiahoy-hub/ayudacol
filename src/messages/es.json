@@ -107,5 +107,27 @@
     "gracias": "¡Gracias! Tu reporte quedó registrado como \"sin verificar\". Un moderador lo revisará pronto.",
     "error": "No se pudo enviar. Revisa los campos e intenta de nuevo.",
     "elige": "Elige una opción"
+  },
+  "auth": {
+    "entrar": "Entrar",
+    "salir": "Salir",
+    "panel": "Panel",
+    "email": "Correo electrónico",
+    "enviarEnlace": "Enviarme un enlace",
+    "revisaCorreo": "Te enviamos un enlace de acceso. Revisa tu correo.",
+    "errorAcceso": "No pudimos iniciar sesión. Solicita un enlace nuevo.",
+    "soloEquipo": "Acceso solo para el equipo autorizado."
+  },
+  "panel": {
+    "titulo": "Cola de moderación",
+    "sinPendientes": "No hay reportes pendientes de verificación. 🎉",
+    "verificar": "Verificar",
+    "rechazar": "Rechazar",
+    "duplicar": "Duplicado",
+    "contacto": "Contacto",
+    "origen": "Origen",
+    "noAutorizado": "Tu cuenta no tiene permiso para el panel.",
+    "transcribir": "Transcribir reporte de WhatsApp",
+    "guardarTranscripcion": "Guardar reporte"
   }
 }

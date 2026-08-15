@@ -107,5 +107,27 @@
     "gracias": "Thank you! Your report was recorded as \"unverified\". A moderator will review it soon.",
     "error": "Could not submit. Please check the fields and try again.",
     "elige": "Choose an option"
+  },
+  "auth": {
+    "entrar": "Sign in",
+    "salir": "Sign out",
+    "panel": "Panel",
+    "email": "Email",
+    "enviarEnlace": "Send me a link",
+    "revisaCorreo": "We sent you a sign-in link. Check your email.",
+    "errorAcceso": "We couldn't sign you in. Request a new link.",
+    "soloEquipo": "Access restricted to the authorized team."
+  },
+  "panel": {
+    "titulo": "Moderation queue",
+    "sinPendientes": "No reports pending verification. 🎉",
+    "verificar": "Verify",
+    "rechazar": "Reject",
+    "duplicar": "Duplicate",
+    "contacto": "Contact",
+    "origen": "Source",
+    "noAutorizado": "Your account is not allowed in the panel.",
+    "transcribir": "Transcribe WhatsApp report",
+    "guardarTranscripcion": "Save report"
   }
 }
