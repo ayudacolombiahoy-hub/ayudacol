@@ -25,6 +25,10 @@ export async function middleware(request: NextRequest) {
     },
   )
   await supabase.auth.getUser()
+  // Mismo bug que en el callback: supabase-js >= 2.91.0 difiere el evento que escribe
+  // las cookies (SIGNED_IN/TOKEN_REFRESHED). Este flush deja que corra antes de responder,
+  // evitando que un refresco de token pierda la sesión.
+  await new Promise((r) => setTimeout(r, 0))
 
   return response
 }

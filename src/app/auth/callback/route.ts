@@ -23,7 +23,14 @@ export async function GET(request: NextRequest) {
       },
     )
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-    if (!error) return response
+    if (!error) {
+      // supabase-js >= 2.91.0 difiere el evento SIGNED_IN con setTimeout(0), y ese
+      // evento es el que escribe las cookies de sesión vía el adaptador de @supabase/ssr.
+      // Sin este flush, el handler devuelve la respuesta ANTES de que se escriban las
+      // cookies → sesión creada en el servidor pero sin cookie en el navegador → rebote a /entrar.
+      await new Promise((r) => setTimeout(r, 0))
+      return response
+    }
   }
   return NextResponse.redirect(`${origin}/es/entrar?error=auth`)
 }
