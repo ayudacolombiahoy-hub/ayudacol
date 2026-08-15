@@ -1,6 +1,6 @@
 import { describe, test, expect, afterAll } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
-import { listarMunicipios, listarNecesidades } from '../../src/lib/datos/consultas'
+import { listarMunicipios, listarNecesidades, obtenerNecesidad } from '../../src/lib/datos/consultas'
 import { crearNecesidad, crearVoluntario } from '../../src/lib/datos/reportar'
 import { listarMascotas, obtenerMascota } from '../../src/lib/datos/mascotas'
 import { listarDesaparecidos, obtenerDesaparecido } from '../../src/lib/datos/desaparecidos'
@@ -34,6 +34,14 @@ describe('lecturas públicas', () => {
   test('obtenerMascota con id inexistente devuelve null', async () => {
     const r = await obtenerMascota('00000000-0000-4000-8000-000000000000')
     expect(r).toBeNull()
+  })
+  test('obtenerNecesidad NUNCA expone contacto', async () => {
+    const lista = await listarNecesidades()
+    if (lista.length === 0) return
+    const uno = await obtenerNecesidad(lista[0].id)
+    expect(uno).not.toBeNull()
+    expect(uno).not.toHaveProperty('contacto_telefono')
+    expect(uno).not.toHaveProperty('contacto_nombre')
   })
   test('obtenerDesaparecido NUNCA expone contacto', async () => {
     const lista = await listarDesaparecidos()

@@ -1,4 +1,5 @@
 import { crearClienteAnonimo } from '@/lib/supabase/cliente'
+import { esUuid } from '@/lib/formato'
 
 export type FiltrosNecesidades = { municipio?: string; categoria?: string; estado?: string }
 export type FiltrosSimple = { municipio?: string }
@@ -31,6 +32,16 @@ export async function listarNecesidades(f: FiltrosNecesidades = {}) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   return data ?? []
+}
+
+// Lectura pública de UNA necesidad por id, desde la vista sin contacto (privacidad).
+// Devuelve null si el id no es UUID o no existe/no es público.
+export async function obtenerNecesidad(id: string) {
+  if (!esUuid(id)) return null
+  const sb = crearClienteAnonimo()
+  const { data, error } = await sb.from('solicitudes_publicas').select('*').eq('id', id).maybeSingle()
+  if (error) throw new Error(error.message)
+  return data
 }
 
 export async function listarAcopios(f: FiltrosSimple = {}) {
