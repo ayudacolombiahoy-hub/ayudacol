@@ -129,5 +129,29 @@
     "noAutorizado": "Your account is not allowed in the panel.",
     "transcribir": "Transcribe WhatsApp report",
     "guardarTranscripcion": "Save report"
+  },
+  "admin": {
+    "titulo": "Organizations",
+    "pendientes": "Pending approval",
+    "aprobadas": "Approved",
+    "aprobar": "Approve",
+    "aprobada": "Approved",
+    "sinOrgs": "No organizations registered."
+  },
+  "org": {
+    "titulo": "Organization panel",
+    "paraTomar": "Verified requests",
+    "misAsignadas": "What we're handling",
+    "tomar": "Take",
+    "resolver": "Mark resolved",
+    "liberar": "Release",
+    "sinVerificadas": "No verified requests to handle right now.",
+    "sinAsignadas": "Your organization has no requests in progress.",
+    "misAcopios": "Our donation centers",
+    "nuevoAcopio": "Register a donation center",
+    "recibe": "Accepts",
+    "noNecesita": "No longer needs",
+    "guardarAcopio": "Save center",
+    "estadoAcopio": "Status"
   }
 }

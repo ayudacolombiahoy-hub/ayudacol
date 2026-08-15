@@ -129,5 +129,29 @@
     "noAutorizado": "Tu cuenta no tiene permiso para el panel.",
     "transcribir": "Transcribir reporte de WhatsApp",
     "guardarTranscripcion": "Guardar reporte"
+  },
+  "admin": {
+    "titulo": "Organizaciones",
+    "pendientes": "Pendientes de aprobación",
+    "aprobadas": "Aprobadas",
+    "aprobar": "Aprobar",
+    "aprobada": "Aprobada",
+    "sinOrgs": "No hay organizaciones registradas."
+  },
+  "org": {
+    "titulo": "Panel de organización",
+    "paraTomar": "Solicitudes verificadas",
+    "misAsignadas": "Las que atendemos",
+    "tomar": "Tomar",
+    "resolver": "Marcar resuelta",
+    "liberar": "Liberar",
+    "sinVerificadas": "No hay solicitudes verificadas por atender ahora.",
+    "sinAsignadas": "Tu organización no tiene solicitudes en atención.",
+    "misAcopios": "Nuestros centros de acopio",
+    "nuevoAcopio": "Registrar centro de acopio",
+    "recibe": "Qué recibe",
+    "noNecesita": "Qué ya NO necesita",
+    "guardarAcopio": "Guardar acopio",
+    "estadoAcopio": "Estado"
   }
 }
