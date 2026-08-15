@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "echo 'Deploy: se usa el .next precompilado del repo. Para regenerarlo: npm run build:local'",
     "build:local": "next build --webpack",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest"
