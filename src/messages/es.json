@@ -1,4 +1,28 @@
 {
+  "capturas": {
+    "titulo": "Cargar por captura",
+    "enlacePanel": "Cargar necesidades desde capturas de redes",
+    "volverPanel": "← Volver al panel",
+    "ayuda": "Sube capturas de necesidades publicadas en redes (IG, Facebook, WhatsApp). La IA leerá cada una y llenará las tarjetas; revísalas antes de guardar. Las imágenes no se guardan.",
+    "extraer": "Extraer",
+    "extrayendo": "Leyendo capturas…",
+    "sinResultados": "No se detectaron necesidades en las capturas.",
+    "incluir": "Incluir",
+    "guardar": "Guardar lote",
+    "guardando": "Guardando…",
+    "municipioSinMapear": "elige municipio",
+    "confianzaBaja": "revisar categoría",
+    "resumen": "{insertadas} insertadas, {duplicadas} duplicadas, {errores} con error.",
+    "error": {
+      "no_autorizado": "No tienes permiso para esta acción.",
+      "sin_imagenes": "Selecciona al menos una captura.",
+      "demasiadas": "Máximo 20 capturas por tanda.",
+      "tipo_invalido": "Solo se aceptan imágenes PNG, JPG, WEBP o GIF.",
+      "error_ia": "No se pudo leer las capturas. Intenta de nuevo.",
+      "lote_vacio": "No hay tarjetas seleccionadas.",
+      "sin_sesion": "Tu sesión expiró. Vuelve a entrar."
+    }
+  },
   "comun": {
     "nombrePlataforma": "AyudaCol",
     "enVivo": "Datos en vivo",

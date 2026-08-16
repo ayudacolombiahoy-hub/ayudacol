@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import { setRequestLocale, getTranslations } from 'next-intl/server'
-import { redirect } from '@/i18n/navegacion'
+import { redirect, Link } from '@/i18n/navegacion'
 import { obtenerPerfil, ROLES_PANEL } from '@/lib/auth/sesion'
 import { listarCola } from '@/lib/datos/moderacion'
 import { listarMunicipios } from '@/lib/datos/consultas'
@@ -30,6 +30,9 @@ export default async function Panel({ params }: { params: Promise<{ locale: stri
         <BotonSalir />
       </div>
       <FormularioTranscripcion municipios={municipios} />
+      <Link href="/panel/capturas" className="mb-6 block rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm font-bold text-blue-800 hover:bg-blue-100">
+        🖼️ {t('capturas.enlacePanel')}
+      </Link>
       {cola.length === 0 ? (
         <p className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">{t('panel.sinPendientes')}</p>
       ) : (
