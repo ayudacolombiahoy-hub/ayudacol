@@ -39,7 +39,7 @@ export default function FormularioNovedad() {
       </Campo>
       <SubirFotos name="fotos" label={t('imagenes')} max={8} />
       <Campo etiqueta={t('enlace')} htmlFor="enlace" errores={e.enlace}>
-        <input id="enlace" name="enlace" type="url" placeholder="https://…"
+        <input id="enlace" name="enlace" type="url" placeholder="https://…" maxLength={500}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
       </Campo>
       <Campo etiqueta={t('enlaceTextoEs')} htmlFor="enlace_texto_es" errores={e.enlace_texto_es}>

@@ -31,6 +31,10 @@ describe('esquemaNovedad', () => {
   test('rechaza texto de botón demasiado largo (>60)', () => {
     expect(esquemaNovedad.safeParse({ ...base, enlace_texto_es: 'x'.repeat(61) }).success).toBe(false)
   })
+
+  test('rechaza un enlace con esquema peligroso (javascript:)', () => {
+    expect(esquemaNovedad.safeParse({ ...base, enlace: 'javascript:alert(1)' }).success).toBe(false)
+  })
 })
 
 describe('fotosDe', () => {

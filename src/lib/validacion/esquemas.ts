@@ -107,7 +107,7 @@ export const esquemaNovedad = z.object({
   titulo_en: z.string().trim().min(3).max(200),
   contenido_es: z.string().trim().min(10).max(5000),
   contenido_en: z.string().trim().min(10).max(5000),
-  enlace: z.string().trim().url().max(500).optional().or(z.literal('')),
+  enlace: z.string().trim().url().max(500).refine((u) => /^https?:\/\//i.test(u), 'El enlace debe empezar con http:// o https://').optional().or(z.literal('')),
   enlace_texto_es: z.string().trim().max(60).optional().or(z.literal('')),
   enlace_texto_en: z.string().trim().max(60).optional().or(z.literal('')),
 })
