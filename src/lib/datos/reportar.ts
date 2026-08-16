@@ -7,13 +7,13 @@ export type Resultado =
   | { ok: true }
   | { ok: false; errores: Record<string, string[]> }
 
-// La foto es opcional y no forma parte de esquemaNecesidad (para no acoplar la
-// validación del reporte a la subida de imágenes): se lee directamente de la
-// entrada cruda y se guarda aparte en la columna `fotos` (arreglo).
-function fotoDe(entrada: unknown): string | undefined {
-  const v = (entrada as { foto?: unknown } | null)?.foto
-  const s = typeof v === 'string' ? v.trim() : ''
-  return /^https?:\/\//.test(s) ? s : undefined
+// Las fotos son opcionales y no forman parte de esquemaNecesidad (para no acoplar la
+// validación a la subida de imágenes): se leen de la entrada cruda y se guardan en la
+// columna `fotos` (arreglo). Acepta un arreglo de URLs o una sola.
+function fotosDe(entrada: unknown): string[] {
+  const v = (entrada as { fotos?: unknown } | null)?.fotos
+  const arr = Array.isArray(v) ? v : v ? [v] : []
+  return arr.map((x) => (typeof x === 'string' ? x.trim() : '')).filter((s) => /^https?:\/\//.test(s))
 }
 
 // Igual que fotoDe pero lee el campo `foto_url` (columna única foto_url, no arreglo).
@@ -26,12 +26,11 @@ function fotoUrlDe(entrada: unknown): string | undefined {
 export async function crearNecesidad(entrada: unknown): Promise<Resultado> {
   const p = esquemaNecesidad.safeParse(entrada)
   if (!p.success) return { ok: false, errores: erroresPorCampo(p.error) }
-  const foto = fotoDe(entrada)
   const sb = crearClienteAnonimo()
   const { error } = await sb.from('solicitudes_ayuda').insert({
     ...p.data,
     estado: 'sin_verificar',
-    fotos: foto ? [foto] : [],
+    fotos: fotosDe(entrada),
   })
   if (error) return { ok: false, errores: { _: [error.message] } }
   return { ok: true }
