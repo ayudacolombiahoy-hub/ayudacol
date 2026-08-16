@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache'
 import { obtenerPerfil, ROLES_PANEL } from '@/lib/auth/sesion'
 import { extraerCapturas, type MediaType } from '@/lib/ia/extraer'
 import { normalizarBorradores } from '@/lib/ia/borrador'
-import { guardarLoteNecesidades, type ResumenGuardado } from '@/lib/datos/capturas'
+import { guardarLote, type ResumenGuardado } from '@/lib/datos/capturas'
 import type { Borrador } from '@/lib/ia/borrador'
 import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { randomUUID } from 'node:crypto'
@@ -61,7 +61,7 @@ export type ResultadoGuardado =
 export async function accionGuardarLote(borradores: Borrador[]): Promise<ResultadoGuardado> {
   if (!(await esModerador())) return { ok: false, motivo: 'no_autorizado' }
   if (!Array.isArray(borradores) || borradores.length === 0) return { ok: false, motivo: 'lote_vacio' }
-  const resumen = await guardarLoteNecesidades(borradores)
+  const resumen = await guardarLote(borradores)
   revalidatePath('/[locale]/panel', 'page')
   return { ok: true, resumen }
 }
