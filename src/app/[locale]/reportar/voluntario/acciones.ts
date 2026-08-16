@@ -13,7 +13,7 @@ export async function accionReportarVoluntario(
     disponibilidad: (formData.get('disponibilidad') as string) || undefined,
     municipio_id: formData.get('municipio_id'),
     contacto_telefono: formData.get('contacto_telefono'),
-    foto_url: (formData.get('foto_url') as string) || undefined,
+    fotos: formData.getAll('fotos') as string[],
   }
   const res = await crearVoluntario(entrada)
   return res.ok ? { enviado: true } : { enviado: false, errores: res.errores }

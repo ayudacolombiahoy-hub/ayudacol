@@ -1,20 +1,21 @@
 import { useTranslations } from 'next-intl'
+import VisorFoto from './VisorFoto'
 
 type Voluntario = {
   id: string; habilidades: string[] | null; descripcion?: string | null; disponibilidad: string | null; municipio_id: string
-  contacto_telefono?: string | null; foto_url?: string | null
+  contacto_telefono?: string | null; fotos?: string[] | null
 }
 
 export default function DetalleVoluntario({ item, municipio }: { item: Voluntario; municipio?: string }) {
   const t = useTranslations()
+  const td = useTranslations('detalle')
   const habilidades = (item.habilidades ?? []).map((h) => t(`habilidades.${h}`)).join(', ')
   const tel = item.contacto_telefono ?? ''
   return (
     <div className="p-5 sm:p-6">
-      {item.foto_url && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.foto_url} alt="" className="mb-3 h-44 w-full rounded-lg object-cover" />
-      )}
+      {item.fotos?.length ? (
+        <VisorFoto fotos={item.fotos} alt={habilidades} etiquetaAnterior={td('fotoAnterior')} etiquetaSiguiente={td('fotoSiguiente')} etiquetaAmpliar={td('verFoto')} etiquetaCerrar={td('cerrar')} />
+      ) : null}
       <h1 className="mb-2 pr-8 text-xl font-bold">🛠️ {habilidades}</h1>
       {item.descripcion && <p className="mb-2 whitespace-pre-line text-gray-800">{item.descripcion}</p>}
       {item.disponibilidad && <p className="text-sm text-gray-600">🕓 {item.disponibilidad}</p>}

@@ -6,7 +6,7 @@ import Campo from '@/componentes/formularios/Campo'
 import SelectCatalogo, { type Opcion } from '@/componentes/formularios/SelectCatalogo'
 import Honeypot from '@/componentes/formularios/Honeypot'
 import BotonEnviar from '@/componentes/formularios/BotonEnviar'
-import SubirFoto from '@/componentes/formularios/SubirFoto'
+import SubirFotos from '@/componentes/formularios/SubirFotos'
 import { HABILIDADES } from '@/lib/validacion/esquemas'
 
 const inicial: EstadoFormulario = { enviado: false }
@@ -46,7 +46,7 @@ export default function FormularioVoluntario({ municipios }: { municipios: Opcio
       <Campo etiqueta={t('campos.municipio')} htmlFor="municipio_id" requerido errores={e.municipio_id}>
         <SelectCatalogo id="municipio_id" name="municipio_id" opciones={municipios} placeholder={t('formulario.elige')} requerido />
       </Campo>
-      <SubirFoto name="foto_url" />
+      <SubirFotos name="fotos" />
       <Campo etiqueta={t('campos.contactoTelefono')} htmlFor="contacto_telefono" requerido
         ayuda={t('campos.telefonoPublico')} errores={e.contacto_telefono}>
         <input id="contacto_telefono" name="contacto_telefono" type="tel" required
