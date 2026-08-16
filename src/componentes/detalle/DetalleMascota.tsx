@@ -5,7 +5,7 @@ import VisorFoto from './VisorFoto'
 type Mascota = {
   id: string; tipo_reporte: string; especie: string; nombre: string | null
   descripcion: string; municipio_id: string | null; ultima_ubicacion: string | null
-  foto_url: string | null; estado: string
+  fotos: string[] | null; estado: string
   contacto_nombre: string; contacto_telefono: string; creada_en: string
 }
 
@@ -28,16 +28,16 @@ export default function DetalleMascota({ item, municipio }: { item: Mascota; mun
           <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-800">{t('estado_reunida')}</span>
         )}
       </div>
-      {item.foto_url && (
+      {item.fotos?.length ? (
         <VisorFoto
-          fotos={[item.foto_url]}
+          fotos={item.fotos}
           alt={titulo}
           etiquetaAnterior={td('fotoAnterior')}
           etiquetaSiguiente={td('fotoSiguiente')}
           etiquetaAmpliar={td('verFoto')}
           etiquetaCerrar={td('cerrar')}
         />
-      )}
+      ) : null}
       <p className="mt-3 whitespace-pre-line text-gray-800">{item.descripcion}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
         {ubicacion && <span>📍 {ubicacion}</span>}

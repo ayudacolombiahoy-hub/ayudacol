@@ -28,10 +28,12 @@ export async function obtenerMascota(id: string) {
 }
 
 // La foto es opcional y no forma parte de esquemaMascota: se lee cruda y se guarda aparte.
-function fotoUrlDe(entrada: unknown): string | undefined {
-  const v = (entrada as { foto_url?: unknown } | null)?.foto_url
-  const s = typeof v === 'string' ? v.trim() : ''
-  return /^https?:\/\//.test(s) ? s : undefined
+// Lee las imágenes de la entrada cruda: acepta `fotos` (arreglo del formulario múltiple)
+// o `foto_url` (una sola, como la manda capturas) → arreglo de URLs válidas.
+function fotosDe(entrada: unknown): string[] {
+  const e = entrada as { fotos?: unknown; foto_url?: unknown } | null
+  const raw = Array.isArray(e?.fotos) ? e!.fotos : e?.fotos ? [e!.fotos] : (e?.foto_url ? [e!.foto_url] : [])
+  return raw.map((x) => (typeof x === 'string' ? x.trim() : '')).filter((s) => /^https?:\/\//.test(s))
 }
 
 // Reporte público: cualquiera inserta; la RLS exige estado='activo'.
@@ -44,7 +46,7 @@ export async function reportarMascota(entrada: unknown) {
     nombre: p.data.nombre || null,
     municipio_id: p.data.municipio_id || null,
     ultima_ubicacion: p.data.ultima_ubicacion || null,
-    foto_url: fotoUrlDe(entrada) ?? null,
+    fotos: fotosDe(entrada),
     estado: 'activo',
   })
   if (error) return { ok: false as const, errores: { _: [error.message] } }

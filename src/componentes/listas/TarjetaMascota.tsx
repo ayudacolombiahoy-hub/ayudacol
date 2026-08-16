@@ -5,7 +5,7 @@ import { Link } from '@/i18n/navegacion'
 type Mascota = {
   id: string; tipo_reporte: string; especie: string; nombre: string | null
   descripcion: string; municipio_id: string | null; ultima_ubicacion: string | null
-  foto_url: string | null; estado: string
+  fotos: string[] | null; estado: string
   contacto_nombre: string; contacto_telefono: string; creada_en: string
 }
 
@@ -37,9 +37,9 @@ export default function TarjetaMascota({ m, municipio }: { m: Mascota; municipio
           )}
         </div>
       </div>
-      {m.foto_url && (
+      {m.fotos?.[0] && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={m.foto_url} alt={titulo} className="mb-2 h-40 w-full rounded-lg object-cover" />
+        <img src={m.fotos[0]} alt={titulo} className="mb-2 h-40 w-full rounded-lg object-cover" />
       )}
       <p className="text-sm text-gray-700">{m.descripcion}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
