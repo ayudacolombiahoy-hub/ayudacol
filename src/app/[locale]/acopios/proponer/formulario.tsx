@@ -6,6 +6,7 @@ import Campo from '@/componentes/formularios/Campo'
 import SelectCatalogo, { type Opcion } from '@/componentes/formularios/SelectCatalogo'
 import Honeypot from '@/componentes/formularios/Honeypot'
 import BotonEnviar from '@/componentes/formularios/BotonEnviar'
+import SubirFotos from '@/componentes/formularios/SubirFotos'
 
 const inicial: EstadoFormulario = { enviado: false }
 
@@ -48,6 +49,7 @@ export default function FormularioProponerAcopio({ municipios }: { municipios: O
         <input id="no_necesita" name="no_necesita" placeholder="ropa usada"
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
       </Campo>
+      <SubirFotos name="fotos" />
       {e._ && <p className="mb-3 text-sm text-red-600">{t('formulario.error')}</p>}
       <BotonEnviar texto={t('acciones.enviar')} textoEnviando={t('acciones.enviando')} />
     </form>

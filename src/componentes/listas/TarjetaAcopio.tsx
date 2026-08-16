@@ -4,7 +4,7 @@ import BotonesMaps from '@/componentes/BotonesMaps'
 type Acopio = {
   id: string; nombre: string; municipio_id: string; direccion: string
   horarios: string | null; recibe: string[]; no_necesita: string[]
-  lat: number | null; lng: number | null; foto_url?: string | null
+  lat: number | null; lng: number | null; fotos?: string[] | null
 }
 
 export default function TarjetaAcopio({
@@ -16,9 +16,9 @@ export default function TarjetaAcopio({
   return (
     <article className="relative rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:shadow-md">
       <Link href={`/acopios/${a.id}`} aria-label={a.nombre} className="absolute inset-0 z-[1] rounded-lg" />
-      {a.foto_url && (
+      {a.fotos?.[0] && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={a.foto_url} alt="" className="mb-2 h-32 w-full rounded-lg object-cover" />
+        <img src={a.fotos[0]} alt="" className="mb-2 h-32 w-full rounded-lg object-cover" />
       )}
       <h2 className="font-bold">{a.nombre}</h2>
       <p className="text-sm text-gray-600">📍 {municipioTexto ?? a.municipio_id} · {a.direccion}</p>

@@ -2,12 +2,14 @@ import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaAcopioPublico, erroresPorCampo } from '@/lib/validacion/esquemas'
 
-// La foto es opcional y no forma parte de esquemaAcopioPublico: se lee de la entrada
-// cruda (capturas la envía como foto_url) y se guarda en la columna foto_url.
-function fotoUrlDe(entrada: unknown): string | undefined {
-  const v = (entrada as { foto_url?: unknown } | null)?.foto_url
-  const s = typeof v === 'string' ? v.trim() : ''
-  return /^https?:\/\//.test(s) ? s : undefined
+// Las fotos son opcionales y no forman parte de esquemaAcopioPublico: se leen de la
+// entrada cruda y se guardan en la columna `fotos` (arreglo). Acepta un arreglo de URLs
+// (formulario público) o una sola (capturas, que la envía como foto_url).
+function fotosDe(entrada: unknown): string[] {
+  const e = entrada as { fotos?: unknown; foto_url?: unknown } | null
+  const v = e?.fotos ?? e?.foto_url
+  const arr = Array.isArray(v) ? v : v ? [v] : []
+  return arr.map((x) => (typeof x === 'string' ? x.trim() : '')).filter((s) => /^https?:\/\//.test(s))
 }
 
 // Propuesta pública: cualquiera inserta; la RLS exige organizacion_id null y verificado=false.
@@ -20,7 +22,7 @@ export async function proponerAcopio(entrada: unknown) {
     organizacion_id: null,
     verificado: false,
     estado: 'activo',
-    foto_url: fotoUrlDe(entrada) ?? null,
+    fotos: fotosDe(entrada),
   })
   if (error) return { ok: false as const, errores: { _: [error.message] } }
   return { ok: true as const }

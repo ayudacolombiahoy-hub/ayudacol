@@ -10,7 +10,7 @@ import { metadatosDe } from '@/componentes/detalle/metadatos'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; id: string }> }): Promise<Metadata> {
   const { id } = await params
   const item = await obtenerNecesidad(id)
-  return metadatosDe(item ? { ...item, foto_url: item.fotos?.[0] ?? null } : null)
+  return metadatosDe(item)
 }
 
 export default async function Pagina({ params }: { params: Promise<{ locale: string; id: string }> }) {

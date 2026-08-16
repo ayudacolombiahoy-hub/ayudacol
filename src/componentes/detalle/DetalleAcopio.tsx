@@ -1,21 +1,22 @@
 import { useTranslations } from 'next-intl'
 import BotonesMaps from '@/componentes/BotonesMaps'
+import VisorFoto from './VisorFoto'
 
 type Acopio = {
   id: string; nombre: string; municipio_id: string; direccion: string
   horarios: string | null; contacto_publico: string | null
-  recibe: string[]; no_necesita: string[]; lat: number | null; lng: number | null; foto_url?: string | null
+  recibe: string[]; no_necesita: string[]; lat: number | null; lng: number | null; fotos?: string[] | null
 }
 
 export default function DetalleAcopio({ item, municipio }: { item: Acopio; municipio?: string }) {
   const t = useTranslations('listas')
   const tMaps = useTranslations('maps')
+  const td = useTranslations('detalle')
   return (
     <div className="p-5 sm:p-6">
-      {item.foto_url && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.foto_url} alt="" className="mb-3 h-44 w-full rounded-lg object-cover" />
-      )}
+      {item.fotos?.length ? (
+        <VisorFoto fotos={item.fotos} alt={item.nombre} etiquetaAnterior={td('fotoAnterior')} etiquetaSiguiente={td('fotoSiguiente')} etiquetaAmpliar={td('verFoto')} etiquetaCerrar={td('cerrar')} />
+      ) : null}
       <h1 className="mb-2 pr-8 text-xl font-bold">{item.nombre}</h1>
       <p className="text-sm text-gray-600">📍 {[municipio, item.direccion].filter(Boolean).join(' · ')}</p>
       {item.horarios && <p className="mt-1 text-sm text-gray-600">🕓 {item.horarios}</p>}

@@ -19,6 +19,7 @@ export async function accionProponerAcopio(
     contacto_publico: formData.get('contacto_publico'),
     recibe: (formData.get('recibe') as string) || '',
     no_necesita: (formData.get('no_necesita') as string) || '',
+    fotos: formData.getAll('fotos') as string[],
   }
   const res = await proponerAcopio(entrada)
   if (!res.ok) return { enviado: false, errores: res.errores }
