@@ -1,6 +1,6 @@
 import { Link } from '@/i18n/navegacion'
 
-type Voluntario = { id: string; habilidades: string[] | null; disponibilidad: string | null; municipio_id: string; foto_url?: string | null }
+type Voluntario = { id: string; habilidades: string[] | null; descripcion?: string | null; disponibilidad: string | null; municipio_id: string; foto_url?: string | null }
 
 export default function TarjetaVoluntario({ v, habilidadesTexto, municipioTexto }: { v: Voluntario; habilidadesTexto: string; municipioTexto?: string }) {
   return (
@@ -11,6 +11,7 @@ export default function TarjetaVoluntario({ v, habilidadesTexto, municipioTexto 
         <img src={v.foto_url} alt="" className="mb-2 h-32 w-full rounded-lg object-cover" />
       )}
       <p className="text-sm">🛠️ {habilidadesTexto}</p>
+      {v.descripcion && <p className="mt-1 line-clamp-2 text-sm text-gray-700">{v.descripcion}</p>}
       <p className="mt-1 text-xs text-gray-500">📍 {municipioTexto ?? v.municipio_id}{v.disponibilidad ? ` · ${v.disponibilidad}` : ''}</p>
     </article>
   )

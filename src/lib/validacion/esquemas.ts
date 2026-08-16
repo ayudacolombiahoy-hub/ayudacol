@@ -32,6 +32,7 @@ export const esquemaNecesidad = z.object({
 export const esquemaVoluntario = z.object({
   nombre: nombre,
   habilidades: z.array(z.enum(HABILIDADES)).min(1),
+  descripcion: opcionalTexto(1000),
   disponibilidad: opcionalTexto(300),
   municipio_id: z.string().trim().min(1),
   contacto_telefono: telefono,

@@ -9,6 +9,7 @@ export async function accionReportarVoluntario(
   const entrada = {
     nombre: formData.get('nombre'),
     habilidades: formData.getAll('habilidades'),
+    descripcion: (formData.get('descripcion') as string) || undefined,
     disponibilidad: (formData.get('disponibilidad') as string) || undefined,
     municipio_id: formData.get('municipio_id'),
     contacto_telefono: formData.get('contacto_telefono'),

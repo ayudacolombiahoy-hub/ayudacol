@@ -34,6 +34,11 @@ export default function FormularioVoluntario({ municipios }: { municipios: Opcio
           ))}
         </div>
       </Campo>
+      <Campo etiqueta={t('campos.descripcion')} htmlFor="descripcion" errores={e.descripcion}>
+        <textarea id="descripcion" name="descripcion" rows={3}
+          placeholder="¿Qué ofreces o cómo puedes ayudar?"
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
+      </Campo>
       <Campo etiqueta={t('campos.disponibilidad')} htmlFor="disponibilidad" errores={e.disponibilidad}>
         <input id="disponibilidad" name="disponibilidad" type="text"
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />

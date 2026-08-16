@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 type Voluntario = {
-  id: string; habilidades: string[] | null; disponibilidad: string | null; municipio_id: string
+  id: string; habilidades: string[] | null; descripcion?: string | null; disponibilidad: string | null; municipio_id: string
   contacto_telefono?: string | null; foto_url?: string | null
 }
 
@@ -16,7 +16,8 @@ export default function DetalleVoluntario({ item, municipio }: { item: Voluntari
         <img src={item.foto_url} alt="" className="mb-3 h-44 w-full rounded-lg object-cover" />
       )}
       <h1 className="mb-2 pr-8 text-xl font-bold">🛠️ {habilidades}</h1>
-      {item.disponibilidad && <p className="text-gray-800">{item.disponibilidad}</p>}
+      {item.descripcion && <p className="mb-2 whitespace-pre-line text-gray-800">{item.descripcion}</p>}
+      {item.disponibilidad && <p className="text-sm text-gray-600">🕓 {item.disponibilidad}</p>}
       <p className="mt-3 text-sm text-gray-500">📍 {municipio ?? item.municipio_id}</p>
       {tel && (
         <div className="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-4">
