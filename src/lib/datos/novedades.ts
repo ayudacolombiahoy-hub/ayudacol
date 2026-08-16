@@ -1,6 +1,7 @@
 import { crearClienteAnonimo } from '@/lib/supabase/cliente'
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaNovedad, erroresPorCampo } from '@/lib/validacion/esquemas'
+import { fotosDe } from './fotos'
 
 export async function listarNovedades() {
   const sb = crearClienteAnonimo()
@@ -13,7 +14,13 @@ export async function crearNovedad(entrada: unknown) {
   const p = esquemaNovedad.safeParse(entrada)
   if (!p.success) return { ok: false as const, errores: erroresPorCampo(p.error) }
   const sb = await crearClienteServidor()
-  const { error } = await sb.from('novedades').insert(p.data)
+  const { error } = await sb.from('novedades').insert({
+    ...p.data,
+    enlace: p.data.enlace || null,
+    enlace_texto_es: p.data.enlace_texto_es || null,
+    enlace_texto_en: p.data.enlace_texto_en || null,
+    fotos: fotosDe(entrada),
+  })
   if (error) return { ok: false as const, errores: { _: [error.message] } }
   return { ok: true as const }
 }

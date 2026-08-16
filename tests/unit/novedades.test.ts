@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest'
 import { esquemaNovedad } from '../../src/lib/validacion/esquemas'
+import { fotosDe } from '../../src/lib/datos/fotos'
 
 const base = {
   titulo_es: 'Subsidio de arrendamiento',
@@ -29,5 +30,26 @@ describe('esquemaNovedad', () => {
 
   test('rechaza texto de botón demasiado largo (>60)', () => {
     expect(esquemaNovedad.safeParse({ ...base, enlace_texto_es: 'x'.repeat(61) }).success).toBe(false)
+  })
+})
+
+describe('fotosDe', () => {
+  test('devuelve el arreglo de URLs http(s) válidas', () => {
+    expect(fotosDe({ fotos: ['https://x.co/a.jpg', 'http://x.co/b.png'] })).toEqual([
+      'https://x.co/a.jpg', 'http://x.co/b.png',
+    ])
+  })
+
+  test('acepta un valor suelto (no arreglo)', () => {
+    expect(fotosDe({ fotos: 'https://x.co/a.jpg' })).toEqual(['https://x.co/a.jpg'])
+  })
+
+  test('descarta cadenas que no son URL http(s)', () => {
+    expect(fotosDe({ fotos: ['no-url', '', 'https://x.co/ok.jpg'] })).toEqual(['https://x.co/ok.jpg'])
+  })
+
+  test('devuelve [] cuando no hay fotos', () => {
+    expect(fotosDe({})).toEqual([])
+    expect(fotosDe(null)).toEqual([])
   })
 })
