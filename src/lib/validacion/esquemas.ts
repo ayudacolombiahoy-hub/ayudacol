@@ -12,6 +12,9 @@ export const HABILIDADES = [
 export const TIPOS_SERVICIO = ['alojamiento', 'transporte', 'maquinaria', 'bodega', 'otro'] as const
 
 const telefono = z.string().trim().min(7).max(30)
+// Contacto genérico de una necesidad: teléfono, @usuario de red social o URL.
+// Se guarda tal cual; el render decide cómo mostrarlo. El moderador revisa.
+const contacto = z.string().trim().min(3).max(200)
 const nombre = z.string().trim().min(2).max(120)
 const opcionalTexto = (max: number) => z.string().trim().max(max).optional().or(z.literal(''))
 
@@ -23,7 +26,7 @@ export const esquemaNecesidad = z.object({
   municipio_id: z.string().trim().min(1),
   detalle_ubicacion: opcionalTexto(500),
   contacto_nombre: nombre,
-  contacto_telefono: telefono,
+  contacto_telefono: contacto,
 })
 
 export const esquemaVoluntario = z.object({

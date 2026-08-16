@@ -36,7 +36,7 @@ export async function guardarLoteNecesidades(borradores: Borrador[]): Promise<Re
 
     const { error } = await sb
       .from('solicitudes_ayuda')
-      .insert({ ...p.data, estado: 'sin_verificar', origen: 'whatsapp' })
+      .insert({ ...p.data, estado: 'sin_verificar', origen: 'whatsapp', fotos: b.foto_url ? [b.foto_url] : [] })
     if (error) resumen.errores++
     else resumen.insertadas++
   }

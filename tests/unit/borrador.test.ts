@@ -5,7 +5,7 @@ const base: BorradorCrudo = {
   tipo: 'necesidad', categoria: 'materiales_construccion', urgencia: 'alta',
   personas_afectadas: 4, descripcion: 'Necesito cemento y arena 📞 300 123 4567',
   ubicacion_texto: 'La Enea, Calle 9 # 7-16', contacto_nombre: 'Ana',
-  contacto_telefono: '3001234567', confianza: 'alta',
+  contacto: '3001234567', confianza: 'alta',
 }
 
 describe('normalizarBorradores', () => {
@@ -40,8 +40,14 @@ describe('normalizarBorradores', () => {
     expect(borradores[0].urgencia).toBe('media')
   })
 
-  it('deja solo dígitos en el teléfono de contacto', () => {
-    const { borradores } = normalizarBorradores([{ ...base, contacto_telefono: '+57 300-123-4567' }])
+  it('deja solo dígitos cuando el contacto es teléfono', () => {
+    const { borradores } = normalizarBorradores([{ ...base, contacto: '+57 300-123-4567' }])
     expect(borradores[0].contacto_telefono).toBe('573001234567')
+  })
+
+  it('conserva un @ de Instagram como contacto (no lo destroza)', () => {
+    const { borradores } = normalizarBorradores([{ ...base, contacto: '@ayuda_manizales' }])
+    expect(borradores[0].contacto_telefono).toBe('@ayuda_manizales')
+    expect(borradores[0].banderas).not.toContain('sin_contacto')
   })
 })
