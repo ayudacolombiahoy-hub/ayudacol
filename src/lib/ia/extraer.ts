@@ -9,6 +9,8 @@ const PROMPT_SISTEMA = [
   'Eres un asistente que lee capturas de publicaciones de ayuda humanitaria en redes (IG/FB/WhatsApp), en español de Colombia.',
   'Una captura puede tener varias publicaciones: devuelve una por cada una.',
   'Clasifica cada publicación en "tipo": "necesidad" (alguien PIDE ayuda), "mascota" (perdida/encontrada), "desaparecido" (persona), "acopio" (centro que recibe donaciones), "albergue" (refugio de personas), o "desconocido" si no encaja.',
+  'Un post que pide a la comunidad DONAR un artículo (carpa, colchón, mercado, medicinas, materiales…) para una persona o familia afectada es "necesidad", aunque diga "¿quién puede donar…?" u ofrezca ir a recogerlo. "acopio" es SOLO un centro o punto físico que recibe donaciones de forma permanente.',
+  'Ante la duda entre necesidad y otro tipo, prefiere "necesidad" antes que "desconocido".',
   'Extrae SOLO los campos del tipo que corresponda y deja el resto en null. NO inventes datos.',
   'necesidad: categoria, urgencia, personas_afectadas, contacto (teléfono/@IG/enlace), contacto_nombre.',
   'mascota: especie (perro/gato/ave/otro), tipo_reporte (perdida/encontrada), nombre_mascota, contacto, contacto_nombre.',

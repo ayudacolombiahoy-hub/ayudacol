@@ -19,10 +19,12 @@ const base: BorradorCrudo = crudo({
 })
 
 describe('normalizarBorradores', () => {
-  it('descarta los que no son necesidad y cuenta cuántos', () => {
-    const r = normalizarBorradores([base, { ...base, tipo: 'desconocido' }])
-    expect(r.borradores).toHaveLength(1)
-    expect(r.descartados).toBe(1)
+  it('el desconocido con contenido se conserva como necesidad (tipo_incierto), no se descarta', () => {
+    const r = normalizarBorradores([base, { ...base, tipo: 'desconocido' as never }])
+    expect(r.borradores).toHaveLength(2)
+    expect(r.descartados).toBe(0)
+    expect(r.borradores[1].tipo).toBe('necesidad')
+    expect(r.borradores[1].banderas).toContain('tipo_incierto')
   })
 
   it('limpia el teléfono del texto de descripción', () => {
@@ -103,8 +105,16 @@ describe('normalizarBorradores — tipos Fase 2', () => {
     expect(borradores[0].recibe).toBe('agua, comida')
   })
 
-  it('descarta desconocido', () => {
+  it('desconocido con contenido → tarjeta necesidad editable con bandera tipo_incierto', () => {
     const r = normalizarBorradores([crudo({ tipo: 'desconocido' as never })])
+    expect(r.borradores).toHaveLength(1)
+    expect(r.borradores[0].tipo).toBe('necesidad')
+    expect(r.borradores[0].banderas).toContain('tipo_incierto')
+    expect(r.descartados).toBe(0)
+  })
+
+  it('descarta solo lo verdaderamente vacío (sin descripción ni nombre)', () => {
+    const r = normalizarBorradores([crudo({ tipo: 'desconocido' as never, descripcion: '' })])
     expect(r.borradores).toHaveLength(0)
     expect(r.descartados).toBe(1)
   })

@@ -32,6 +32,7 @@ export type BorradorCrudo = {
 export type Bandera =
   | 'categoria_incierta' | 'municipio_sin_mapear' | 'descripcion_corta'
   | 'sin_contacto' | 'sin_nombre' | 'falta_especie' | 'falta_nombre' | 'falta_direccion'
+  | 'tipo_incierto'
 
 export type Borrador = {
   tipo: TipoEntidad
@@ -71,8 +72,10 @@ export function normalizarBorradores(crudos: BorradorCrudo[]): { borradores: Bor
   const TIPOS: TipoEntidad[] = ['necesidad', 'mascota', 'desaparecido', 'acopio', 'albergue']
 
   for (const c of crudos) {
-    if (!TIPOS.includes(c.tipo as TipoEntidad)) { descartados++; continue }
-    const tipo = c.tipo as TipoEntidad
+    // Si la IA no reconoce el tipo, NO se descarta: se muestra como necesidad
+    // editable con la bandera `tipo_incierto` para que el moderador lo corrija.
+    const tipoIncierto = !TIPOS.includes(c.tipo as TipoEntidad)
+    const tipo: TipoEntidad = tipoIncierto ? 'necesidad' : (c.tipo as TipoEntidad)
 
     const descripcion = limpiarTelefonos(s(c.descripcion))
     const muni = mapearMunicipio(s(c.ubicacion_texto))
@@ -88,7 +91,11 @@ export function normalizarBorradores(crudos: BorradorCrudo[]): { borradores: Bor
     const nombre = s(c.nombre_mascota) || s(c.nombre_persona) || s(c.nombre_lugar)
     const direccion = s(c.direccion) || s(c.ubicacion_texto)
 
+    // Descarta solo lo verdaderamente vacío (sin descripción ni nombre).
+    if (!descripcion && !nombre) { descartados++; continue }
+
     const banderas: Bandera[] = []
+    if (tipoIncierto) banderas.push('tipo_incierto')
     if (c.confianza === 'baja') banderas.push('categoria_incierta')
     if (!muni) banderas.push('municipio_sin_mapear')
     if (descripcion.length < 10) banderas.push('descripcion_corta')
