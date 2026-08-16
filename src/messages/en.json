@@ -1,4 +1,28 @@
 {
+  "capturas": {
+    "titulo": "Upload from screenshot",
+    "enlacePanel": "Load needs from social media screenshots",
+    "volverPanel": "← Back to panel",
+    "ayuda": "Upload screenshots of needs posted on social media (IG, Facebook, WhatsApp). The AI reads each one and fills the cards; review them before saving. Images are not stored.",
+    "extraer": "Extract",
+    "extrayendo": "Reading screenshots…",
+    "sinResultados": "No needs detected in the screenshots.",
+    "incluir": "Include",
+    "guardar": "Save batch",
+    "guardando": "Saving…",
+    "municipioSinMapear": "pick a municipality",
+    "confianzaBaja": "check category",
+    "resumen": "{insertadas} inserted, {duplicadas} duplicates, {errores} with errors.",
+    "error": {
+      "no_autorizado": "You don't have permission for this action.",
+      "sin_imagenes": "Select at least one screenshot.",
+      "demasiadas": "Maximum 20 screenshots per batch.",
+      "tipo_invalido": "Only PNG, JPG, WEBP or GIF images are accepted.",
+      "error_ia": "Couldn't read the screenshots. Try again.",
+      "lote_vacio": "No cards selected.",
+      "sin_sesion": "Your session expired. Please sign in again."
+    }
+  },
   "comun": {
     "nombrePlataforma": "AyudaCol",
     "enVivo": "Live data",
