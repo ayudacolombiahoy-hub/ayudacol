@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { tiempoRelativo } from '@/lib/formato'
 import { Link } from '@/i18n/navegacion'
 import Sello from './Sello'
+import { clasificarContacto, hrefContacto } from '@/lib/contacto'
 
 type Necesidad = {
   id: string; categoria: string; descripcion: string; urgencia: string
@@ -33,8 +34,19 @@ export default function TarjetaNecesidad({ n, municipio }: { n: Necesidad; munic
       </div>
       {n.contacto_telefono && (
         <div className="relative z-10 mt-3 flex flex-wrap items-center gap-2 border-t border-gray-100 pt-3">
-          <a href={`https://wa.me/${n.contacto_telefono.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-xs font-bold text-white hover:brightness-95">💬 {t('detalle.whatsapp')}</a>
-          <a href={`tel:${n.contacto_telefono}`} className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50">📞 {t('detalle.llamar')}</a>
+          {(() => {
+            const v = n.contacto_telefono!
+            const tipo = clasificarContacto(v)
+            if (tipo === 'telefono') return (
+              <>
+                <a href={`https://wa.me/${v.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg bg-[#25D366] px-3 py-1.5 text-xs font-bold text-white hover:brightness-95">💬 {t('detalle.whatsapp')}</a>
+                <a href={`tel:${v}`} className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50">📞 {t('detalle.llamar')}</a>
+              </>
+            )
+            const etiqueta = tipo === 'instagram' ? 'Instagram' : tipo === 'facebook' ? 'Facebook' : t('detalle.verContacto')
+            const icono = tipo === 'instagram' ? '📷' : tipo === 'facebook' ? '📘' : '🔗'
+            return <a href={hrefContacto(v)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50">{icono} {etiqueta}</a>
+          })()}
         </div>
       )}
     </article>

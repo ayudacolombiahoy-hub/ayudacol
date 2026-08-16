@@ -432,6 +432,7 @@
     "personasAfectadas": "{n} people affected",
     "contacto": "Contact",
     "whatsapp": "WhatsApp",
-    "llamar": "Call"
+    "llamar": "Call",
+    "verContacto": "View contact"
   }
 }
