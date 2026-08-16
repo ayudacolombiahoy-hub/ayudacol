@@ -80,7 +80,7 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
       {aviso && <p className="mt-3 rounded bg-yellow-100 p-3 text-sm text-yellow-900">{aviso}</p>}
       {resumen && (
         <p className="mt-3 rounded bg-green-100 p-3 text-sm text-green-900">
-          {t('capturas.resumen', { insertadas: resumen.insertadas, duplicadas: resumen.duplicadas, errores: resumen.errores })}
+          {t('capturas.resumen', { insertadas: resumen.insertadas, actualizadas: resumen.actualizadas, duplicadas: resumen.duplicadas, errores: resumen.errores })}
         </p>
       )}
 

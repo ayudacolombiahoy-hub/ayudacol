@@ -12,7 +12,7 @@
     "guardando": "Guardando…",
     "municipioSinMapear": "elige municipio",
     "confianzaBaja": "revisar categoría",
-    "resumen": "{insertadas} insertadas, {duplicadas} duplicadas, {errores} con error.",
+    "resumen": "{insertadas} nuevas, {actualizadas} con imagen agregada, {duplicadas} duplicadas, {errores} con error.",
     "error": {
       "no_autorizado": "No tienes permiso para esta acción.",
       "sin_imagenes": "Selecciona al menos una captura.",

@@ -2,14 +2,14 @@ import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaNecesidad } from '@/lib/validacion/esquemas'
 import type { Borrador } from '@/lib/ia/borrador'
 
-export type ResumenGuardado = { insertadas: number; duplicadas: number; errores: number }
+export type ResumenGuardado = { insertadas: number; actualizadas: number; duplicadas: number; errores: number }
 
 // Inserta un lote de borradores de necesidad como sin_verificar/whatsapp.
 // Usa el cliente autenticado (moderador): la RLS permite el insert del equipo.
 // Anti-duplicado por (contacto_telefono, descripcion), igual que el import CLI.
 export async function guardarLoteNecesidades(borradores: Borrador[]): Promise<ResumenGuardado> {
   const sb = await crearClienteServidor()
-  const resumen: ResumenGuardado = { insertadas: 0, duplicadas: 0, errores: 0 }
+  const resumen: ResumenGuardado = { insertadas: 0, actualizadas: 0, duplicadas: 0, errores: 0 }
 
   for (const b of borradores) {
     const entrada = {
@@ -27,12 +27,24 @@ export async function guardarLoteNecesidades(borradores: Borrador[]): Promise<Re
 
     const { data: dup } = await sb
       .from('solicitudes_ayuda')
-      .select('id')
+      .select('id, fotos')
       .eq('contacto_telefono', p.data.contacto_telefono)
       .eq('descripcion', p.data.descripcion)
       .limit(1)
       .maybeSingle()
-    if (dup) { resumen.duplicadas++; continue }
+    if (dup) {
+      // Ya existe. Si la captura trae imagen y la necesidad aún no tiene, se la agregamos
+      // (así toda imagen subida queda en la publicación, aunque el reporte ya existiera).
+      const sinFoto = !Array.isArray(dup.fotos) || dup.fotos.length === 0
+      if (b.foto_url && sinFoto) {
+        const { error: eUp } = await sb.from('solicitudes_ayuda').update({ fotos: [b.foto_url] }).eq('id', dup.id)
+        if (eUp) resumen.errores++
+        else resumen.actualizadas++
+      } else {
+        resumen.duplicadas++
+      }
+      continue
+    }
 
     const { error } = await sb
       .from('solicitudes_ayuda')
