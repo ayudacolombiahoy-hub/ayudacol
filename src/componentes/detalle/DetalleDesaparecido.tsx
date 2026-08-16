@@ -5,7 +5,7 @@ import VisorFoto from './VisorFoto'
 type Desaparecido = {
   id: string; nombre: string; edad: number | null; descripcion: string
   municipio_id: string | null; ultima_ubicacion: string | null
-  foto_url: string | null; estado: string; creada_en: string
+  fotos: string[] | null; estado: string; creada_en: string
 }
 
 const COLOR_ESTADO: Record<string, string> = {
@@ -28,9 +28,9 @@ export default function DetalleDesaparecido({ item, municipio }: { item: Desapar
           {t(`desaparecidos.${item.estado}`)}
         </span>
       </div>
-      {item.foto_url && (
-        <VisorFoto fotos={[item.foto_url]} alt={item.nombre} etiquetaAnterior={td('fotoAnterior')} etiquetaSiguiente={td('fotoSiguiente')} etiquetaAmpliar={td('verFoto')} etiquetaCerrar={td('cerrar')} />
-      )}
+      {item.fotos?.length ? (
+        <VisorFoto fotos={item.fotos} alt={item.nombre} etiquetaAnterior={td('fotoAnterior')} etiquetaSiguiente={td('fotoSiguiente')} etiquetaAmpliar={td('verFoto')} etiquetaCerrar={td('cerrar')} />
+      ) : null}
       <p className="mt-3 whitespace-pre-line text-gray-800">{item.descripcion}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500">
         {ubicacion && <span>📍 {ubicacion}</span>}

@@ -19,7 +19,7 @@ export async function accionReportarDesaparecido(
     descripcion: formData.get('descripcion'),
     contacto_nombre: formData.get('contacto_nombre'),
     contacto_telefono: formData.get('contacto_telefono'),
-    foto_url: (formData.get('foto_url') as string) || undefined,
+    fotos: formData.getAll('fotos') as string[],
   }
   const res = await reportarDesaparecido(entrada)
   if (!res.ok) return { enviado: false, errores: res.errores }

@@ -5,7 +5,7 @@ import { Link } from '@/i18n/navegacion'
 type Desaparecido = {
   id: string; nombre: string; edad: number | null; descripcion: string
   municipio_id: string | null; ultima_ubicacion: string | null
-  foto_url: string | null; estado: string; creada_en: string
+  fotos: string[] | null; estado: string; creada_en: string
 }
 
 const COLOR_ESTADO: Record<string, string> = {
@@ -30,9 +30,9 @@ export default function TarjetaDesaparecido({ d, municipio }: { d: Desaparecido;
           {t(`desaparecidos.${d.estado}`)}
         </span>
       </div>
-      {d.foto_url && (
+      {d.fotos?.[0] && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={d.foto_url} alt={d.nombre} className="mb-2 h-40 w-full rounded-lg object-cover" />
+        <img src={d.fotos[0]} alt={d.nombre} className="mb-2 h-40 w-full rounded-lg object-cover" />
       )}
       <p className="text-sm text-gray-700">{d.descripcion}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
