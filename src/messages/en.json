@@ -309,7 +309,12 @@
     "tituloEs": "Title (Spanish)",
     "tituloEn": "Title (English)",
     "contenidoEs": "Content (Spanish)",
-    "contenidoEn": "Content (English)"
+    "contenidoEn": "Content (English)",
+    "imagenes": "Images (flyer, optional)",
+    "enlace": "Button link (optional)",
+    "enlaceTextoEs": "Button text (Spanish)",
+    "enlaceTextoEn": "Button text (English)",
+    "verMas": "Learn more"
   },
   "alertas": {
     "titulo": "Get email alerts",

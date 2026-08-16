@@ -309,7 +309,12 @@
     "tituloEs": "Título (español)",
     "tituloEn": "Título (inglés)",
     "contenidoEs": "Contenido (español)",
-    "contenidoEn": "Contenido (inglés)"
+    "contenidoEn": "Contenido (inglés)",
+    "imagenes": "Imágenes (afiche, opcional)",
+    "enlace": "Enlace del botón (opcional)",
+    "enlaceTextoEs": "Texto del botón (español)",
+    "enlaceTextoEn": "Texto del botón (inglés)",
+    "verMas": "Ver más"
   },
   "alertas": {
     "titulo": "Recibe alertas por correo",
