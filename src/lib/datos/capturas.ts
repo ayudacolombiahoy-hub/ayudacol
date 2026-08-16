@@ -1,56 +1,49 @@
 import { crearClienteServidor } from '@/lib/supabase/servidor'
 import { esquemaNecesidad } from '@/lib/validacion/esquemas'
 import type { Borrador } from '@/lib/ia/borrador'
+import { armarEntrada } from '@/lib/ia/enrutar'
+import { reportarMascota } from '@/lib/datos/mascotas'
+import { reportarDesaparecido } from '@/lib/datos/desaparecidos'
+import { proponerAcopio } from '@/lib/datos/acopios-publico'
+import { crearAlbergue } from '@/lib/datos/albergues'
 
 export type ResumenGuardado = { insertadas: number; actualizadas: number; duplicadas: number; errores: number }
 
-// Inserta un lote de borradores de necesidad como sin_verificar/whatsapp.
-// Usa el cliente autenticado (moderador): la RLS permite el insert del equipo.
-// Anti-duplicado por (contacto_telefono, descripcion), igual que el import CLI.
-export async function guardarLoteNecesidades(borradores: Borrador[]): Promise<ResumenGuardado> {
+// Guarda un lote de borradores (superset) enrutando cada uno a su entidad.
+// Necesidad: dedup por (contacto_telefono, descripcion) + agrega imagen a la existente.
+// Otros tipos: su helper público/autenticado (con su propia validación y estado inicial).
+export async function guardarLote(borradores: Borrador[]): Promise<ResumenGuardado> {
   const sb = await crearClienteServidor()
-  const resumen: ResumenGuardado = { insertadas: 0, actualizadas: 0, duplicadas: 0, errores: 0 }
+  const r: ResumenGuardado = { insertadas: 0, actualizadas: 0, duplicadas: 0, errores: 0 }
 
   for (const b of borradores) {
-    const entrada = {
-      categoria: b.categoria,
-      descripcion: b.descripcion,
-      personas_afectadas: b.personas_afectadas && b.personas_afectadas > 0 ? b.personas_afectadas : undefined,
-      urgencia: b.urgencia,
-      municipio_id: b.municipio_id,
-      detalle_ubicacion: b.detalle_ubicacion,
-      contacto_nombre: b.contacto_nombre,
-      contacto_telefono: b.contacto_telefono,
-    }
-    const p = esquemaNecesidad.safeParse(entrada)
-    if (!p.success) { resumen.errores++; continue }
-
-    const { data: dup } = await sb
-      .from('solicitudes_ayuda')
-      .select('id, fotos')
-      .eq('contacto_telefono', p.data.contacto_telefono)
-      .eq('descripcion', p.data.descripcion)
-      .limit(1)
-      .maybeSingle()
-    if (dup) {
-      // Ya existe. Si la captura trae imagen y la necesidad aún no tiene, se la agregamos
-      // (así toda imagen subida queda en la publicación, aunque el reporte ya existiera).
-      const sinFoto = !Array.isArray(dup.fotos) || dup.fotos.length === 0
-      if (b.foto_url && sinFoto) {
-        const { error: eUp } = await sb.from('solicitudes_ayuda').update({ fotos: [b.foto_url] }).eq('id', dup.id)
-        if (eUp) resumen.errores++
-        else resumen.actualizadas++
-      } else {
-        resumen.duplicadas++
+    if (b.tipo === 'necesidad') {
+      const p = esquemaNecesidad.safeParse(armarEntrada(b))
+      if (!p.success) { r.errores++; continue }
+      const { data: dup } = await sb.from('solicitudes_ayuda').select('id, fotos')
+        .eq('contacto_telefono', p.data.contacto_telefono).eq('descripcion', p.data.descripcion).limit(1).maybeSingle()
+      if (dup) {
+        const sinFoto = !Array.isArray(dup.fotos) || dup.fotos.length === 0
+        if (b.foto_url && sinFoto) {
+          const { error } = await sb.from('solicitudes_ayuda').update({ fotos: [b.foto_url] }).eq('id', dup.id)
+          if (error) r.errores++; else r.actualizadas++
+        } else r.duplicadas++
+        continue
       }
+      const { error } = await sb.from('solicitudes_ayuda')
+        .insert({ ...p.data, estado: 'sin_verificar', origen: 'whatsapp', fotos: b.foto_url ? [b.foto_url] : [] })
+      if (error) r.errores++; else r.insertadas++
       continue
     }
 
-    const { error } = await sb
-      .from('solicitudes_ayuda')
-      .insert({ ...p.data, estado: 'sin_verificar', origen: 'whatsapp', fotos: b.foto_url ? [b.foto_url] : [] })
-    if (error) resumen.errores++
-    else resumen.insertadas++
+    const entrada = armarEntrada(b)
+    const res =
+      b.tipo === 'mascota' ? await reportarMascota(entrada)
+      : b.tipo === 'desaparecido' ? await reportarDesaparecido(entrada)
+      : b.tipo === 'acopio' ? await proponerAcopio(entrada)
+      : b.tipo === 'albergue' ? await crearAlbergue(entrada)
+      : { ok: false as const }
+    if (res.ok) r.insertadas++; else r.errores++
   }
-  return resumen
+  return r
 }

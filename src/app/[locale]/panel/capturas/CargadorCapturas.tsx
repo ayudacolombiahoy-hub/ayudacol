@@ -2,11 +2,131 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import type { Opcion } from '@/componentes/formularios/SelectCatalogo'
-import { CATEGORIAS, URGENCIAS } from '@/lib/validacion/esquemas'
-import type { Borrador } from '@/lib/ia/borrador'
+import { CATEGORIAS, URGENCIAS, ESPECIES_MASCOTA, TIPOS_REPORTE_MASCOTA } from '@/lib/validacion/esquemas'
+import type { Bandera, Borrador } from '@/lib/ia/borrador'
 import { accionExtraerCapturas, accionGuardarLote, type ResumenGuardado } from './acciones'
 
 type Fila = Borrador & { incluir: boolean }
+type Editar = (i: number, campo: keyof Borrador, valor: string | number | boolean | null) => void
+
+const TIPOS_ENTIDAD = ['necesidad', 'mascota', 'desaparecido', 'acopio', 'albergue'] as const
+const BANDERAS_ROJAS = new Set<Bandera>(['municipio_sin_mapear'])
+const inputCls = 'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm'
+
+function TarjetaBorrador({ f, i, editar, municipios }: { f: Fila; i: number; editar: Editar; municipios: Opcion[] }) {
+  const t = useTranslations()
+  const cats: Opcion[] = CATEGORIAS.map((c) => ({ valor: c, texto: t(`categorias.${c}`) }))
+  const urgs: Opcion[] = URGENCIAS.map((u) => ({ valor: u, texto: t(`urgencias.${u}`) }))
+  const especies: Opcion[] = ESPECIES_MASCOTA.map((e) => ({ valor: e, texto: t(`capturas.especie.${e}`) }))
+  const tiposReporte: Opcion[] = TIPOS_REPORTE_MASCOTA.map((v) => ({ valor: v, texto: t(`capturas.tipoReporte.${v}`) }))
+
+  const municipioSelect = (
+    <select
+      value={f.municipio_id} onChange={(e) => editar(i, 'municipio_id', e.target.value)}
+      className={`${inputCls} sm:col-span-2 ${f.municipio_id ? '' : 'border-red-400'}`}
+    >
+      <option value="">{t('formulario.elige')}</option>
+      {municipios.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
+    </select>
+  )
+
+  return (
+    <div className={`rounded-lg border p-3 ${f.incluir ? 'border-gray-300' : 'border-gray-200 opacity-50'}`}>
+      <label className="mb-2 flex items-center gap-2 text-sm font-semibold">
+        <input type="checkbox" checked={f.incluir} onChange={(e) => editar(i, 'incluir' as keyof Borrador, e.target.checked)} />
+        {t('capturas.incluir')}
+        <span className="ml-auto flex flex-wrap gap-2">
+          {f.banderas.map((b) => (
+            <span key={b} className={`text-xs font-bold ${BANDERAS_ROJAS.has(b) ? 'text-red-600' : 'text-amber-600'}`}>
+              ⚠️ {t(`capturas.banderas.${b}`)}
+            </span>
+          ))}
+        </span>
+      </label>
+
+      <select value={f.tipo} onChange={(e) => editar(i, 'tipo', e.target.value)} className={`${inputCls} mb-2`}>
+        {TIPOS_ENTIDAD.map((tp) => <option key={tp} value={tp}>{t(`capturas.tipos.${tp}`)}</option>)}
+      </select>
+
+      <div className="grid gap-2 sm:grid-cols-2">
+        {f.tipo === 'necesidad' && (
+          <>
+            <select value={f.categoria} onChange={(e) => editar(i, 'categoria', e.target.value)} className={inputCls}>
+              {cats.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
+            </select>
+            <select value={f.urgencia} onChange={(e) => editar(i, 'urgencia', e.target.value)} className={inputCls}>
+              {urgs.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
+            </select>
+            {municipioSelect}
+            <textarea value={f.descripcion} onChange={(e) => editar(i, 'descripcion', e.target.value)} rows={2} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.detalle_ubicacion} onChange={(e) => editar(i, 'detalle_ubicacion', e.target.value)} placeholder={t('campos.detalleUbicacion')} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.contacto_nombre} onChange={(e) => editar(i, 'contacto_nombre', e.target.value)} placeholder={t('campos.contactoNombre')} className={inputCls} />
+            <input value={f.contacto_telefono} onChange={(e) => editar(i, 'contacto_telefono', e.target.value)} placeholder={t('campos.contactoTelefono')} className={inputCls} />
+          </>
+        )}
+
+        {f.tipo === 'mascota' && (
+          <>
+            <select value={f.tipo_reporte} onChange={(e) => editar(i, 'tipo_reporte', e.target.value)} className={inputCls}>
+              {tiposReporte.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
+            </select>
+            <select value={f.especie} onChange={(e) => editar(i, 'especie', e.target.value)} className={inputCls}>
+              {especies.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
+            </select>
+            <input value={f.nombre} onChange={(e) => editar(i, 'nombre', e.target.value)} placeholder={t('capturas.nombre')} className={`${inputCls} sm:col-span-2`} />
+            {municipioSelect}
+            <textarea value={f.descripcion} onChange={(e) => editar(i, 'descripcion', e.target.value)} rows={2} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.detalle_ubicacion} onChange={(e) => editar(i, 'detalle_ubicacion', e.target.value)} placeholder={t('campos.detalleUbicacion')} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.contacto_nombre} onChange={(e) => editar(i, 'contacto_nombre', e.target.value)} placeholder={t('campos.contactoNombre')} className={inputCls} />
+            <input value={f.contacto_telefono} onChange={(e) => editar(i, 'contacto_telefono', e.target.value)} placeholder={t('campos.contactoTelefono')} className={inputCls} />
+          </>
+        )}
+
+        {f.tipo === 'desaparecido' && (
+          <>
+            <input value={f.nombre} onChange={(e) => editar(i, 'nombre', e.target.value)} placeholder={t('capturas.nombre')} className={inputCls} />
+            <input
+              type="number" value={f.edad ?? ''}
+              onChange={(e) => editar(i, 'edad', e.target.value === '' ? null : Number(e.target.value))}
+              placeholder={t('capturas.edad')} className={inputCls}
+            />
+            {municipioSelect}
+            <textarea value={f.descripcion} onChange={(e) => editar(i, 'descripcion', e.target.value)} rows={2} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.detalle_ubicacion} onChange={(e) => editar(i, 'detalle_ubicacion', e.target.value)} placeholder={t('campos.detalleUbicacion')} className={`${inputCls} sm:col-span-2`} />
+            <input value={f.contacto_nombre} onChange={(e) => editar(i, 'contacto_nombre', e.target.value)} placeholder={t('campos.contactoNombre')} className={inputCls} />
+            <input value={f.contacto_telefono} onChange={(e) => editar(i, 'contacto_telefono', e.target.value)} placeholder={t('campos.contactoTelefono')} className={inputCls} />
+          </>
+        )}
+
+        {f.tipo === 'acopio' && (
+          <>
+            <input value={f.nombre} onChange={(e) => editar(i, 'nombre', e.target.value)} placeholder={t('capturas.nombre')} className={inputCls} />
+            <input value={f.direccion} onChange={(e) => editar(i, 'direccion', e.target.value)} placeholder={t('capturas.direccion')} className={inputCls} />
+            {municipioSelect}
+            <input value={f.recibe} onChange={(e) => editar(i, 'recibe', e.target.value)} placeholder={t('capturas.recibe')} className={inputCls} />
+            <input value={f.no_necesita} onChange={(e) => editar(i, 'no_necesita', e.target.value)} placeholder={t('capturas.noNecesita')} className={inputCls} />
+            <input value={f.horarios} onChange={(e) => editar(i, 'horarios', e.target.value)} placeholder={t('capturas.horarios')} className={inputCls} />
+            <input value={f.contacto_publico} onChange={(e) => editar(i, 'contacto_publico', e.target.value)} placeholder={t('capturas.contactoPublico')} className={inputCls} />
+          </>
+        )}
+
+        {f.tipo === 'albergue' && (
+          <>
+            <input value={f.nombre} onChange={(e) => editar(i, 'nombre', e.target.value)} placeholder={t('capturas.nombre')} className={inputCls} />
+            <input value={f.direccion} onChange={(e) => editar(i, 'direccion', e.target.value)} placeholder={t('capturas.direccion')} className={inputCls} />
+            {municipioSelect}
+            <input
+              type="number" value={f.capacidad ?? ''}
+              onChange={(e) => editar(i, 'capacidad', e.target.value === '' ? null : Number(e.target.value))}
+              placeholder={t('capturas.capacidad')} className={inputCls}
+            />
+            <input value={f.contacto_publico} onChange={(e) => editar(i, 'contacto_publico', e.target.value)} placeholder={t('capturas.contactoPublico')} className={inputCls} />
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export default function CargadorCapturas({ municipios }: { municipios: Opcion[] }) {
   const t = useTranslations()
@@ -16,9 +136,6 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
   const [guardando, setGuardando] = useState(false)
   const [aviso, setAviso] = useState<string | null>(null)
   const [resumen, setResumen] = useState<ResumenGuardado | null>(null)
-
-  const cats: Opcion[] = CATEGORIAS.map((c) => ({ valor: c, texto: t(`categorias.${c}`) }))
-  const urgs: Opcion[] = URGENCIAS.map((u) => ({ valor: u, texto: t(`urgencias.${u}`) }))
 
   async function extraer() {
     if (archivos.length === 0) return
@@ -37,7 +154,7 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
     }
   }
 
-  function editar(i: number, campo: keyof Borrador, valor: string | boolean) {
+  const editar: Editar = (i, campo, valor) => {
     setFilas((prev) => prev.map((f, j) => (j === i ? { ...f, [campo]: valor } : f)))
   }
 
@@ -57,8 +174,6 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
       setGuardando(false)
     }
   }
-
-  const inputCls = 'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm'
 
   return (
     <section className="mb-6 rounded-lg border border-gray-200 bg-white p-4">
@@ -87,33 +202,7 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
       {filas.length > 0 && (
         <div className="mt-4 grid gap-4">
           {filas.map((f, i) => (
-            <div key={i} className={`rounded-lg border p-3 ${f.incluir ? 'border-gray-300' : 'border-gray-200 opacity-50'}`}>
-              <label className="mb-2 flex items-center gap-2 text-sm font-semibold">
-                <input type="checkbox" checked={f.incluir} onChange={(e) => editar(i, 'incluir' as keyof Borrador, e.target.checked)} />
-                {t('capturas.incluir')}
-                {f.banderas.includes('municipio_sin_mapear') && <span className="ml-auto text-xs font-bold text-red-600">⚠️ {t('capturas.municipioSinMapear')}</span>}
-                {f.banderas.includes('categoria_incierta') && <span className="text-xs font-bold text-amber-600">⚠️ {t('capturas.confianzaBaja')}</span>}
-              </label>
-              <div className="grid gap-2 sm:grid-cols-2">
-                <select value={f.categoria} onChange={(e) => editar(i, 'categoria', e.target.value)} className={inputCls}>
-                  {cats.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
-                </select>
-                <select value={f.urgencia} onChange={(e) => editar(i, 'urgencia', e.target.value)} className={inputCls}>
-                  {urgs.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
-                </select>
-                <select
-                  value={f.municipio_id} onChange={(e) => editar(i, 'municipio_id', e.target.value)}
-                  className={`${inputCls} sm:col-span-2 ${f.municipio_id ? '' : 'border-red-400'}`}
-                >
-                  <option value="">{t('formulario.elige')}</option>
-                  {municipios.map((o) => <option key={o.valor} value={o.valor}>{o.texto}</option>)}
-                </select>
-                <textarea value={f.descripcion} onChange={(e) => editar(i, 'descripcion', e.target.value)} rows={2} className={`${inputCls} sm:col-span-2`} />
-                <input value={f.detalle_ubicacion} onChange={(e) => editar(i, 'detalle_ubicacion', e.target.value)} placeholder={t('campos.detalleUbicacion')} className={`${inputCls} sm:col-span-2`} />
-                <input value={f.contacto_nombre} onChange={(e) => editar(i, 'contacto_nombre', e.target.value)} placeholder={t('campos.contactoNombre')} className={inputCls} />
-                <input value={f.contacto_telefono} onChange={(e) => editar(i, 'contacto_telefono', e.target.value)} placeholder={t('campos.contactoTelefono')} className={inputCls} />
-              </div>
-            </div>
+            <TarjetaBorrador key={i} f={f} i={i} editar={editar} municipios={municipios} />
           ))}
           <button
             onClick={guardar} disabled={guardando}
