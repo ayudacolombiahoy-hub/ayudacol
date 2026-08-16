@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { accionCrearNovedad, type EstadoNovedad } from './acciones'
 import Campo from '@/componentes/formularios/Campo'
 import BotonEnviar from '@/componentes/formularios/BotonEnviar'
+import SubirFotos from '@/componentes/formularios/SubirFotos'
 
 const inicial: EstadoNovedad = { enviado: false }
 
@@ -34,6 +35,19 @@ export default function FormularioNovedad() {
       </Campo>
       <Campo etiqueta={t('contenidoEn')} htmlFor="contenido_en" requerido errores={e.contenido_en}>
         <textarea id="contenido_en" name="contenido_en" rows={4} required
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
+      </Campo>
+      <SubirFotos name="fotos" label={t('imagenes')} max={8} />
+      <Campo etiqueta={t('enlace')} htmlFor="enlace" errores={e.enlace}>
+        <input id="enlace" name="enlace" type="url" placeholder="https://…"
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
+      </Campo>
+      <Campo etiqueta={t('enlaceTextoEs')} htmlFor="enlace_texto_es" errores={e.enlace_texto_es}>
+        <input id="enlace_texto_es" name="enlace_texto_es" type="text" maxLength={60}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
+      </Campo>
+      <Campo etiqueta={t('enlaceTextoEn')} htmlFor="enlace_texto_en" errores={e.enlace_texto_en}>
+        <input id="enlace_texto_en" name="enlace_texto_en" type="text" maxLength={60}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm" />
       </Campo>
       {e._ && <p className="mb-3 text-sm text-red-600">{tf('error')}</p>}
