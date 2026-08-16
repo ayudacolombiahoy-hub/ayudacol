@@ -34,5 +34,7 @@ export function armarEntrada(b: Borrador): Record<string, unknown> {
         nombre: b.nombre, direccion: b.direccion, municipio_id: b.municipio_id,
         capacidad: b.capacidad ?? undefined, contacto_publico: b.contacto_publico,
       }
+    default:
+      return {}
   }
 }

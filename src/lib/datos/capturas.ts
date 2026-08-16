@@ -41,7 +41,8 @@ export async function guardarLote(borradores: Borrador[]): Promise<ResumenGuarda
       b.tipo === 'mascota' ? await reportarMascota(entrada)
       : b.tipo === 'desaparecido' ? await reportarDesaparecido(entrada)
       : b.tipo === 'acopio' ? await proponerAcopio(entrada)
-      : await crearAlbergue(entrada)
+      : b.tipo === 'albergue' ? await crearAlbergue(entrada)
+      : { ok: false as const }
     if (res.ok) r.insertadas++; else r.errores++
   }
   return r

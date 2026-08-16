@@ -91,7 +91,9 @@ export function normalizarBorradores(crudos: BorradorCrudo[]): { borradores: Bor
     const banderas: Bandera[] = []
     if (c.confianza === 'baja') banderas.push('categoria_incierta')
     if (!muni) banderas.push('municipio_sin_mapear')
+    if (descripcion.length < 10) banderas.push('descripcion_corta')
     if ((tipo === 'necesidad' || tipo === 'mascota' || tipo === 'desaparecido') && !contacto_telefono) banderas.push('sin_contacto')
+    if ((tipo === 'necesidad' || tipo === 'mascota' || tipo === 'desaparecido') && !contacto_nombre) banderas.push('sin_nombre')
     if ((tipo === 'acopio' || tipo === 'albergue') && !contacto_publico) banderas.push('sin_contacto')
     if (tipo === 'mascota' && !s(c.especie)) banderas.push('falta_especie')
     if ((tipo === 'desaparecido' || tipo === 'acopio' || tipo === 'albergue') && !nombre) banderas.push('falta_nombre')

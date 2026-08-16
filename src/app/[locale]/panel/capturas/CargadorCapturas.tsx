@@ -120,7 +120,6 @@ function TarjetaBorrador({ f, i, editar, municipios }: { f: Fila; i: number; edi
               onChange={(e) => editar(i, 'capacidad', e.target.value === '' ? null : Number(e.target.value))}
               placeholder={t('capturas.capacidad')} className={inputCls}
             />
-            <input value={f.horarios} onChange={(e) => editar(i, 'horarios', e.target.value)} placeholder={t('capturas.horarios')} className={inputCls} />
             <input value={f.contacto_publico} onChange={(e) => editar(i, 'contacto_publico', e.target.value)} placeholder={t('capturas.contactoPublico')} className={inputCls} />
           </>
         )}
