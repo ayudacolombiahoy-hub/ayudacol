@@ -11,6 +11,7 @@ export type BorradorCrudo = {
   contacto_nombre: string | null
   contacto_telefono: string | null
   confianza: 'alta' | 'media' | 'baja'
+  foto_url?: string
 }
 
 export type Bandera =
@@ -30,6 +31,7 @@ export type Borrador = {
   contacto_telefono: string
   confianza: 'alta' | 'media' | 'baja'
   banderas: Bandera[]
+  foto_url?: string
 }
 
 const enCatalogo = <T extends readonly string[]>(v: string, lista: T, fallback: T[number]): T[number] =>
@@ -67,6 +69,7 @@ export function normalizarBorradores(crudos: BorradorCrudo[]): { borradores: Bor
       contacto_telefono,
       confianza: c.confianza,
       banderas,
+      foto_url: c.foto_url,
     })
   }
   return { borradores, descartados }

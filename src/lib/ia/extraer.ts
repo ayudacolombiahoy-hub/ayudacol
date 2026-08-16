@@ -46,7 +46,7 @@ const ESQUEMA_SALIDA = {
   required: ['borradores'],
 } as const
 
-type Captura = { base64: string; mediaType: MediaType }
+type Captura = { base64: string; mediaType: MediaType; foto_url?: string }
 
 // Extrae los borradores de UNA captura. Lanza si la API falla; el llamador decide qué hacer.
 async function extraerDeUna(client: Anthropic, captura: Captura): Promise<BorradorCrudo[]> {
@@ -69,7 +69,9 @@ async function extraerDeUna(client: Anthropic, captura: Captura): Promise<Borrad
 
   const texto = msg.content.find((b): b is Anthropic.TextBlock => b.type === 'text')?.text ?? '{}'
   const parsed = JSON.parse(texto) as { borradores?: BorradorCrudo[] }
-  return Array.isArray(parsed.borradores) ? parsed.borradores : []
+  const borradores = Array.isArray(parsed.borradores) ? parsed.borradores : []
+  // Estampa la URL pública de la captura en cada borrador que salió de ella.
+  return borradores.map((b) => ({ ...b, foto_url: captura.foto_url }))
 }
 
 // Extrae de N capturas en paralelo. Devuelve los crudos de todas juntas.

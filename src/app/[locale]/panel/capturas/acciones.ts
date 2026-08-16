@@ -5,11 +5,14 @@ import { extraerCapturas, type MediaType } from '@/lib/ia/extraer'
 import { normalizarBorradores } from '@/lib/ia/borrador'
 import { guardarLoteNecesidades, type ResumenGuardado } from '@/lib/datos/capturas'
 import type { Borrador } from '@/lib/ia/borrador'
+import { crearClienteAnonimo } from '@/lib/supabase/cliente'
+import { randomUUID } from 'node:crypto'
 
 export type { ResumenGuardado }
 
 const MAX_IMAGENES = 20
 const TIPOS_OK: MediaType[] = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+const EXT: Record<MediaType, string> = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif', 'image/webp': 'webp' }
 
 async function esModerador(): Promise<boolean> {
   const perfil = await obtenerPerfil()
@@ -27,11 +30,19 @@ export async function accionExtraerCapturas(formData: FormData): Promise<Resulta
   if (archivos.length === 0) return { ok: false, motivo: 'sin_imagenes' }
   if (archivos.length > MAX_IMAGENES) return { ok: false, motivo: 'demasiadas' }
 
+  const sb = crearClienteAnonimo()
   const capturas = []
   for (const f of archivos) {
     if (!TIPOS_OK.includes(f.type as MediaType)) return { ok: false, motivo: 'tipo_invalido' }
-    const base64 = Buffer.from(await f.arrayBuffer()).toString('base64')
-    capturas.push({ base64, mediaType: f.type as MediaType })
+    const mediaType = f.type as MediaType
+    const buf = Buffer.from(await f.arrayBuffer())
+    // Sube la captura al bucket público `fotos` para mostrarla en la publicación.
+    // Si la subida falla, se sigue sin imagen (no rompe la extracción).
+    let foto_url: string | undefined
+    const ruta = `capturas/${randomUUID()}.${EXT[mediaType]}`
+    const { error: errSubida } = await sb.storage.from('fotos').upload(ruta, buf, { contentType: mediaType })
+    if (!errSubida) foto_url = sb.storage.from('fotos').getPublicUrl(ruta).data.publicUrl
+    capturas.push({ base64: buf.toString('base64'), mediaType, foto_url })
   }
 
   try {
