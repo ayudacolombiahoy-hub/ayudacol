@@ -20,7 +20,7 @@ async function esModerador(): Promise<boolean> {
 }
 
 export type ResultadoExtraccion =
-  | { ok: true; borradores: Borrador[]; descartados: number; fallidas: number }
+  | { ok: true; borradores: Borrador[]; descartados: number; fallidas: number; error?: string }
   | { ok: false; motivo: string }
 
 export async function accionExtraerCapturas(formData: FormData): Promise<ResultadoExtraccion> {
@@ -46,9 +46,9 @@ export async function accionExtraerCapturas(formData: FormData): Promise<Resulta
   }
 
   try {
-    const { crudos, fallidas } = await extraerCapturas(capturas)
+    const { crudos, fallidas, error } = await extraerCapturas(capturas)
     const { borradores, descartados } = normalizarBorradores(crudos)
-    return { ok: true, borradores, descartados, fallidas }
+    return { ok: true, borradores, descartados, fallidas, error }
   } catch {
     return { ok: false, motivo: 'error_ia' }
   }
