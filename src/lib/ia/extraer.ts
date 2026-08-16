@@ -68,25 +68,44 @@ type Captura = { base64: string; mediaType: MediaType; foto_url?: string }
 
 // Extrae los borradores de UNA captura. Lanza si la API falla; el llamador decide qué hacer.
 async function extraerDeUna(client: Anthropic, captura: Captura): Promise<BorradorCrudo[]> {
-  const msg = await client.messages.create({
-    model: 'claude-sonnet-5',
+  const base = {
+    model: 'claude-sonnet-5' as const,
     max_tokens: 4000,
-    system: PROMPT_SISTEMA,
-    // Extracción: prioriza latencia, no razonamiento profundo.
-    output_config: { effort: 'low', format: { type: 'json_schema', schema: ESQUEMA_SALIDA } },
     messages: [
       {
-        role: 'user',
+        role: 'user' as const,
         content: [
-          { type: 'image', source: { type: 'base64', media_type: captura.mediaType, data: captura.base64 } },
-          { type: 'text', text: 'Extrae las publicaciones de ayuda de esta captura.' },
+          { type: 'image' as const, source: { type: 'base64' as const, media_type: captura.mediaType, data: captura.base64 } },
+          { type: 'text' as const, text: 'Extrae las publicaciones de ayuda de esta captura.' },
         ],
       },
     ],
-  } as Anthropic.MessageCreateParamsNonStreaming)
+  }
+
+  let msg: Anthropic.Message
+  try {
+    // Salida estructurada (prioriza latencia, no razonamiento profundo).
+    msg = await client.messages.create({
+      ...base, system: PROMPT_SISTEMA,
+      output_config: { effort: 'low', format: { type: 'json_schema', schema: ESQUEMA_SALIDA } },
+    } as Anthropic.MessageCreateParamsNonStreaming)
+  } catch (e) {
+    const status = (e as { status?: number } | null)?.status
+    console.error(`[capturas] salida estructurada falló (status ${status}):`, e instanceof Error ? e.message : String(e))
+    // Solo reintentamos sin esquema si fue un 400 (problema del esquema); otros errores se propagan.
+    if (status !== 400) throw e
+    msg = await client.messages.create({
+      ...base,
+      system: PROMPT_SISTEMA + ' Responde ÚNICAMENTE con un objeto JSON de la forma {"borradores":[{...}]} y nada más.',
+    } as Anthropic.MessageCreateParamsNonStreaming)
+  }
 
   const texto = msg.content.find((b): b is Anthropic.TextBlock => b.type === 'text')?.text ?? '{}'
-  const parsed = JSON.parse(texto) as { borradores?: BorradorCrudo[] }
+  // Parse tolerante: recorta al primer { … } por si el modelo agrega texto alrededor.
+  const ini = texto.indexOf('{')
+  const fin = texto.lastIndexOf('}')
+  const json = ini >= 0 && fin > ini ? texto.slice(ini, fin + 1) : '{}'
+  const parsed = JSON.parse(json) as { borradores?: BorradorCrudo[] }
   const borradores = Array.isArray(parsed.borradores) ? parsed.borradores : []
   // Estampa la URL pública de la captura en cada borrador que salió de ella.
   return borradores.map((b) => ({ ...b, foto_url: captura.foto_url }))
@@ -96,7 +115,7 @@ async function extraerDeUna(client: Anthropic, captura: Captura): Promise<Borrad
 // Si una captura falla, se omite y se cuenta en `fallidas` (no rompe el lote).
 export async function extraerCapturas(
   capturas: Captura[],
-): Promise<{ crudos: BorradorCrudo[]; fallidas: number }> {
+): Promise<{ crudos: BorradorCrudo[]; fallidas: number; error?: string }> {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) throw new Error('Falta ANTHROPIC_API_KEY')
   const client = new Anthropic({ apiKey })
@@ -104,9 +123,15 @@ export async function extraerCapturas(
   const resultados = await Promise.allSettled(capturas.map((c) => extraerDeUna(client, c)))
   const crudos: BorradorCrudo[] = []
   let fallidas = 0
+  let error: string | undefined
   for (const r of resultados) {
     if (r.status === 'fulfilled') crudos.push(...r.value)
-    else fallidas++
+    else {
+      fallidas++
+      const msg = r.reason instanceof Error ? r.reason.message : String(r.reason)
+      console.error('[capturas] extracción falló:', msg) // visible en logs de Vercel
+      if (!error) error = msg.slice(0, 300)
+    }
   }
-  return { crudos, fallidas }
+  return { crudos, fallidas, error }
 }
