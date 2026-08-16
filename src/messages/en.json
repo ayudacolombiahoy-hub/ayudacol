@@ -12,7 +12,7 @@
     "guardando": "Saving…",
     "municipioSinMapear": "pick a municipality",
     "confianzaBaja": "check category",
-    "resumen": "{insertadas} inserted, {duplicadas} duplicates, {errores} with errors.",
+    "resumen": "{insertadas} new, {actualizadas} image added, {duplicadas} duplicates, {errores} with errors.",
     "error": {
       "no_autorizado": "You don't have permission for this action.",
       "sin_imagenes": "Select at least one screenshot.",
