@@ -8,6 +8,10 @@ export async function accionCrearNovedad(_prev: EstadoNovedad, formData: FormDat
   const entrada = {
     titulo_es: formData.get('titulo_es'), titulo_en: formData.get('titulo_en'),
     contenido_es: formData.get('contenido_es'), contenido_en: formData.get('contenido_en'),
+    enlace: formData.get('enlace'),
+    enlace_texto_es: formData.get('enlace_texto_es'),
+    enlace_texto_en: formData.get('enlace_texto_en'),
+    fotos: formData.getAll('fotos') as string[],
   }
   const r = await crearNovedad(entrada)
   if (!r.ok) return { enviado: false, errores: r.errores }
