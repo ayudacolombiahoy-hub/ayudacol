@@ -3,7 +3,7 @@
     "titulo": "Cargar por captura",
     "enlacePanel": "Cargar necesidades desde capturas de redes",
     "volverPanel": "← Volver al panel",
-    "ayuda": "Sube capturas de necesidades publicadas en redes (IG, Facebook, WhatsApp). La IA leerá cada una y llenará las tarjetas; revísalas antes de guardar. Las imágenes no se guardan.",
+    "ayuda": "Sube capturas de necesidades publicadas en redes (IG, Facebook, WhatsApp). La IA leerá cada una y llenará las tarjetas; revísalas antes de guardar. La imagen se guarda y se muestra en la publicación.",
     "extraer": "Extraer",
     "extrayendo": "Leyendo capturas…",
     "sinResultados": "No se detectaron necesidades en las capturas.",

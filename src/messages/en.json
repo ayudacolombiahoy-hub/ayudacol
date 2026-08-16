@@ -3,7 +3,7 @@
     "titulo": "Upload from screenshot",
     "enlacePanel": "Load needs from social media screenshots",
     "volverPanel": "← Back to panel",
-    "ayuda": "Upload screenshots of needs posted on social media (IG, Facebook, WhatsApp). The AI reads each one and fills the cards; review them before saving. Images are not stored.",
+    "ayuda": "Upload screenshots of needs posted on social media (IG, Facebook, WhatsApp). The AI reads each one and fills the cards; review them before saving. The image is saved and shown in the publication.",
     "extraer": "Extract",
     "extrayendo": "Reading screenshots…",
     "sinResultados": "No needs detected in the screenshots.",
