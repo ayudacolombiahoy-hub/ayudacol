@@ -28,6 +28,7 @@ export function armarEntrada(b: Borrador): Record<string, unknown> {
       return {
         nombre: b.nombre, direccion: b.direccion, municipio_id: b.municipio_id,
         horarios: b.horarios, contacto_publico: b.contacto_publico, recibe: b.recibe, no_necesita: b.no_necesita,
+        foto_url: b.foto_url,
       }
     case 'albergue':
       return {
