@@ -122,6 +122,7 @@
     "contactoNombre": "Tu nombre",
     "contactoTelefono": "Teléfono de contacto",
     "telefonoPrivado": "Tu teléfono no se muestra al público; solo lo ven los moderadores para verificar.",
+    "telefonoPublico": "Tu teléfono será visible para que puedan contactarte directamente.",
     "nombre": "Nombre",
     "habilidades": "Habilidades",
     "disponibilidad": "Disponibilidad",

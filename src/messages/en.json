@@ -122,6 +122,7 @@
     "contactoNombre": "Your name",
     "contactoTelefono": "Contact phone",
     "telefonoPrivado": "Your phone is never shown publicly; only moderators see it to verify.",
+    "telefonoPublico": "Your phone will be visible so people can reach you directly.",
     "nombre": "Name",
     "habilidades": "Skills",
     "disponibilidad": "Availability",

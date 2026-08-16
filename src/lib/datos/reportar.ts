@@ -16,6 +16,13 @@ function fotoDe(entrada: unknown): string | undefined {
   return /^https?:\/\//.test(s) ? s : undefined
 }
 
+// Igual que fotoDe pero lee el campo `foto_url` (columna única foto_url, no arreglo).
+function fotoUrlDe(entrada: unknown): string | undefined {
+  const v = (entrada as { foto_url?: unknown } | null)?.foto_url
+  const s = typeof v === 'string' ? v.trim() : ''
+  return /^https?:\/\//.test(s) ? s : undefined
+}
+
 export async function crearNecesidad(entrada: unknown): Promise<Resultado> {
   const p = esquemaNecesidad.safeParse(entrada)
   if (!p.success) return { ok: false, errores: erroresPorCampo(p.error) }
@@ -34,7 +41,7 @@ export async function crearVoluntario(entrada: unknown): Promise<Resultado> {
   const p = esquemaVoluntario.safeParse(entrada)
   if (!p.success) return { ok: false, errores: erroresPorCampo(p.error) }
   const sb = crearClienteAnonimo()
-  const { error } = await sb.from('voluntarios').insert({ ...p.data, estado: 'disponible' })
+  const { error } = await sb.from('voluntarios').insert({ ...p.data, foto_url: fotoUrlDe(entrada) ?? null, estado: 'disponible' })
   if (error) return { ok: false, errores: { _: [error.message] } }
   return { ok: true }
 }
