@@ -146,7 +146,7 @@ export default function CargadorCapturas({ municipios }: { municipios: Opcion[] 
       const r = await accionExtraerCapturas(fd)
       if (!r.ok) { setAviso(t(`capturas.error.${r.motivo}`)); return }
       setFilas(r.borradores.map((b) => ({ ...b, incluir: true })))
-      if (r.borradores.length === 0) setAviso(t('capturas.sinResultados'))
+      if (r.borradores.length === 0) setAviso(r.fallidas > 0 ? t('capturas.noSeLeyeron', { n: r.fallidas }) : t('capturas.sinResultados'))
     } catch {
       setAviso(t('capturas.error.error_ia'))
     } finally {
